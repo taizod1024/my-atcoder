@@ -1,0 +1,15 @@
+3 0
+xox
+--------
+0
+--------
+20 199999
+oooooooooxoooooooooo
+--------
+200017
+--------
+20 10
+xxxxxxxxxxxxxxxxxxxx
+--------
+0
+--------
