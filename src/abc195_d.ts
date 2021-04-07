@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { setMaxListeners } from 'superagent';
 // main
 function main(input: string[]) {
     // param
