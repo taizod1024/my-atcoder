@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 // main
 var n: number = 0;
 var m: number = 0;

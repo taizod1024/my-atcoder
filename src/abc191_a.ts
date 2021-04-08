@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 // main
 function main(input: string[]) {
     // param
