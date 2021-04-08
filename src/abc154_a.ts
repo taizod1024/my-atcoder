@@ -1,3 +1,4 @@
+export {};
 // main
 function main(input: string[]) {
     // param

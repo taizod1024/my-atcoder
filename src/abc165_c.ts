@@ -1,3 +1,4 @@
+export {};
 // main
 var n: number = 0;
 var m: number = 0;
