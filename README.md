@@ -1,6 +1,8 @@
 # ac-ts-task
 
-AtCoder提出用ソースコードリポジトリ
+AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)
+
+- どこまで回答しているかは[AtCoder Problems](https://kenkoooo.com/atcoder/#/table/taizod1024)で確認
 
 ## 問題解決の方針
 
