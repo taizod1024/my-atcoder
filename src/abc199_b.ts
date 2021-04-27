@@ -10,8 +10,7 @@ function main(input: string[]) {
     an = input.shift().split(" ").map(x => Number(x));
     bn = input.shift().split(" ").map(x => Number(x));
     // solve
-    ans = Math.min(...bn) - Math.max(...an) + 1;
-    if (ans < 0) ans = 0;
+    ans = Math.max(0, Math.min(...bn) - Math.max(...an) + 1);
     // answer
     return ans;
 }
