@@ -1,4 +1,4 @@
-# ac-ts-task
+# atcoder
 
 AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)
 
