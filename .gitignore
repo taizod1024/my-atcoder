@@ -1,1 +1,2 @@
-/test/*.tmp
+# project temporary
+node_modules

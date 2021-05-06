@@ -1,0 +1,25 @@
+{
+  "name": "atcoder",
+  "version": "1.0.0",
+  "description": "AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taizod1024/atcoder.git"
+  },
+  "author": "YAMAMOTO Taizo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taizod1024/atcoder/issues"
+  },
+  "homepage": "https://github.com/taizod1024/atcoder#readme",
+  "devDependencies": {
+    "@types/node": "^15.0.2"
+  },
+  "dependencies": {
+    "ts-node": "^9.1.1"
+  }
+}
