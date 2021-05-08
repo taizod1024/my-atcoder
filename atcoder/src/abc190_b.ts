@@ -2,8 +2,6 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    // ----
-    // let ans: bigint; 
     let ans;
     let n, s, d;
     let xn, yn;
