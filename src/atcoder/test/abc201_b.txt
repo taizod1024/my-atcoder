@@ -1,0 +1,23 @@
+3
+Everest 8849
+K2 8611
+Kangchenjunga 8586
+--------
+K2
+--------
+4
+Kita 3193
+Aino 3189
+Fuji 3776
+Okuhotaka 3190
+--------
+Kita
+--------
+4
+QCFium 2846
+chokudai 2992
+kyoprofriends 2432
+penguinman 2390
+--------
+QCFium
+--------

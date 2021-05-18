@@ -4,6 +4,10 @@ AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)
 
 - どこまで回答しているかは[AtCoder Problems](https://kenkoooo.com/atcoder/#/table/taizod1024)で確認
 
+## 記述の方針
+
+- varは関数スコープなので使わない。ブロックスコープのletを必ず使う。
+
 ## 問題解決の方針
 
 - コーナーケースを考える
