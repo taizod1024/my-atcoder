@@ -6,7 +6,7 @@ function main(input: string[]): string {
     let n: number;
     let stn: { s: string, t: number }[];
     n = Number(input.shift());
-    stn = input.map(x => { let st = x.split(" "); return { s: st[0], t: Number(st[1]) } });
+    stn = input.map(x => x.split(" ")).map(st => { return { s: st[0], t: Number(st[1]) }; });
     // solve
     stn.sort((a, b) => { return b.t - a.t; });
     ans = stn[1].s;
