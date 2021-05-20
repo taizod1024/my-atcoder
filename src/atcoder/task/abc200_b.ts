@@ -13,7 +13,6 @@ function main(input: string[]): number {
         } else {
             ans = ans * 1000 + 200;
         }
-
     }
     // answer
     return ans;

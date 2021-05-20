@@ -1,106 +1,42 @@
 export { };
 // main
-function main(input: string[]): number {
+function main(input: string[]): string {
     // param
-    let ans: number;
-
-    // 入力処理サンプル
-
-    // ＜例＞文字列
-    //       S
-    // let s: string;
-    // s = input.shift();
-
-    // ＜例＞数値
-    //       N
-    // let n: number;
-    // n = Number(input.shift());
-
-    // ＜例＞数値ペア
-    //       N K
-    // let n: number, k: number;
-    // [n, k] = input.shift().split(" ").map(x => Number(x));
-
-    // ＜例＞一次元数値配列（横）
-    //       N
-    //       A1 A2 ... An
-    // let n: number;
-    // let an: number[];
-    // n = Number(input.shift());
-    // an = input.shift().split(" ").map(x => Number(x));
- 
-    // ＜例＞一次元数値配列（縦）
-    //       N
-    //       A1
-    //       A2
-    //       :
-    //       An
-    // let n: number;
-    // let an: number[];
-    // n = Number(input.shift());
-    // an = input.shift().split(" ").map(x => Number(x));
-
-    // ＜例＞二次元数値配列
-    //       N M
-    //       A11 A12 ... A1m
-    //       A21 A22 ... A2m 
-    //       :   :       :
-    //       An1 An2 ... Anm 
-    // let n: number, m:number;
-    // let anm: number[][];
-    // [n, m] = input.shift().split(" ").map(x => Number(x));
-    // anm = input.map(x => x.split(" ").map(x => Number(x)));
-
-    // ＜例＞一次元数値配列ペア
-    //       N
-    //       X1 Y1
-    //       X2 Y2
-    //       :  :
-    // let n: number;
-    // let xn: number[], yn: number[];
-    // n = Number(input.shift());
-    // [xn, yn] = [new Array(n), new Array(n)];
-    // for (let nx = 0; nx < n; nx++) {
-    //     [xn[nx], yn[nx]] = input.shift().split(" ").map(x => Number(x));
-    // }
-
-    // ＜例＞一次元文字列配列
-    //       N
-    //       S1
-    //       S2
-    //       :
-    //       Sn
-    // let n: number;
-    // let sn: string[];
-    // n = Number(input.shift());
-    // sn = input;
-
-    // ＜例＞一次元オブジェクト配列
-    //       N
-    //       S1 T1
-    //       S2 T2
-    //       :  :
-    //       Sn Tn
-    // let n: number;
-    // let stn: { s: string, t: number }[];
-    // n = Number(input.shift());
-    // stn = input.map(x => { let st = x.split(" "); return { s: st[0], t: Number(st[1]) } });
-
-    // ＜例＞bitint
-    //       N
-    // let n: bigint;
-    // n = BigInt(input.shift());
-
+    let ans: string;
+    let n: number;
+    let s: string;
+    let q: number;
+    let tq: number[], aq: number[], bq: number[];
+    // init
+    n = Number(input.shift());
+    s = input.shift();
+    q = Number(input.shift());
+    [tq, aq, bq] = [new Array(n), new Array(n), new Array(n)];
+    for (let qx = 0; qx < q; qx++) {
+        [tq[qx], aq[qx], bq[qx]] = input.shift().split(" ").map(x => Number(x));
+        aq[qx]--;
+        bq[qx]--;
+    }
     // solve
-
-    // 出力処理サンプル
-
-    // ＜例＞bigintの末尾の"n"を削除する。
-    // ans = ans.toString().replace("n", "");
-
-    // ＜例＞文字列配列を改行で結合して出力する。
-    // ans = ans.join("\n");
-
+    let sn = s.split("");
+    let flip: boolean = false;
+    for (let qx = 0; qx < q; qx++) {
+        if (tq[qx] == 1) {
+            let a = aq[qx], b = bq[qx];
+            if (flip) {
+                a = (a < n) ? a + n : a - n;
+                b = (b < n) ? b + n : b - n;
+            }
+            [sn[a], sn[b]] = [sn[b], sn[a]];
+        } else {
+            flip = !flip;
+        }
+    }
+    if (!flip) {
+        ans = sn.join("");
+    } else {
+        ans = sn.slice(n, n * 2).join("") + sn.slice(0, n).join("");
+    }
     // answer
     return ans;
 }
