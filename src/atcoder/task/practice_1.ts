@@ -1,6 +1,6 @@
-export {};
+export { };
 // main
-function main(input: string[]) {
+function main(input: string[]): string {
     // param
     let a: number = 0;
     let b: number = 0;

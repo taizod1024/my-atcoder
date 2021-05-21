@@ -13,16 +13,14 @@ function main(input: string[]): string {
     q = Number(input.shift());
     [tq, aq, bq] = [new Array(n), new Array(n), new Array(n)];
     for (let qx = 0; qx < q; qx++) {
-        [tq[qx], aq[qx], bq[qx]] = input.shift().split(" ").map(x => Number(x));
-        aq[qx]--;
-        bq[qx]--;
+        [tq[qx], aq[qx], bq[qx]] = input[qx].split(" ").map(x => Number(x));
     }
     // solve
     let sn = s.split("");
     let flip: boolean = false;
     for (let qx = 0; qx < q; qx++) {
         if (tq[qx] == 1) {
-            let a = aq[qx], b = bq[qx];
+            let a = aq[qx] - 1, b = bq[qx] - 1;
             if (flip) {
                 a = (a < n) ? a + n : a - n;
                 b = (b < n) ? b + n : b - n;
@@ -35,7 +33,7 @@ function main(input: string[]): string {
     if (!flip) {
         ans = sn.join("");
     } else {
-        ans = sn.slice(n, n * 2).join("") + sn.slice(0, n).join("");
+        ans = sn.slice(n).concat(sn.slice(0, n)).join("");
     }
     // answer
     return ans;
