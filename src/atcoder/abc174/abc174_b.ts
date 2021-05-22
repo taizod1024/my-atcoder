@@ -2,18 +2,18 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var d: number;
-    var xn: number[] = [];
-    var yn: number[] = [];
-    var ans: number = 0;
+    let n: number;
+    let d: number;
+    let xn: number[] = [];
+    let yn: number[] = [];
+    let ans: number = 0;
     // init
     [n, d] = input.shift().split(" ").map(x => Number(x));
-    for (var nx = 0; nx < n; nx++) {
+    for (let nx = 0; nx < n; nx++) {
         [xn[nx], yn[nx]] = input[nx].split(" ").map(x => Number(x));
     }
     // solve
-    for (var nx = 0; nx < n; nx++) {
+    for (let nx = 0; nx < n; nx++) {
         if (xn[nx] * xn[nx] + yn[nx] * yn[nx] <= d * d) {
             ans++;
         }

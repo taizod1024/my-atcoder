@@ -2,9 +2,9 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var k: number = 0;
-    var s: string = "";
-    var ans: string = "";
+    let k: number = 0;
+    let s: string = "";
+    let ans: string = "";
     // init
     k = Number(input.shift());
     s = input.shift();

@@ -9,7 +9,7 @@ function main(input: string[]) {
     // solve
     let sum = 0;
     let mod = [0, 0, 0];
-    for (var mx = 0; mx < nm.length; mx++) {
+    for (let mx = 0; mx < nm.length; mx++) {
         sum += nm[mx];
         mod[nm[mx] % 3]++;
     }

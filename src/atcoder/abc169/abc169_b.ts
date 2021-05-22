@@ -2,22 +2,22 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var an: bigint[] = [];
-    var ans: string = "";
+    let n: number = 0;
+    let an: bigint[] = [];
+    let ans: string = "";
     // init
     n = Number(input.shift());
     an = input.shift().split(" ").map(x => BigInt(x));
     // solve
     an.sort(function (x, y) {
-        var w: bigint = x - y;
+        let w: bigint = x - y;
         if (w < 0) return -1;
         else if (w > 0) return 1;
         else return 0;
     });
-    var n1018 = BigInt(Math.pow(10, 18));
-    var val = 1n;
-    for (var nx = 0; nx < n; nx++) {
+    let n1018 = BigInt(Math.pow(10, 18));
+    let val = 1n;
+    for (let nx = 0; nx < n; nx++) {
         if (an[nx] == 0n) {
             val = 0n
             break;

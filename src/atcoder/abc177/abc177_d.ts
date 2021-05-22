@@ -2,19 +2,19 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var m: number;
-    var am: number[] = [];
-    var bm: number[] = [];
-    var ans;
+    let n: number;
+    let m: number;
+    let am: number[] = [];
+    let bm: number[] = [];
+    let ans;
     // init
     [n, m] = input.shift().split(" ").map(x => Number(x));
-    for (var mx = 0; mx < m; mx++) {
+    for (let mx = 0; mx < m; mx++) {
         [am[mx], bm[mx]] = input[mx].split(" ").map(x => Number(x) - 1);
     }
     // solve
     UF_initRoot(n);
-    for (var mx = 0; mx < m; mx++) {
+    for (let mx = 0; mx < m; mx++) {
         UF_mergeRoot(am[mx], bm[mx]);
     }
     ans = Math_max(g_uf_count);
@@ -25,63 +25,63 @@ function main(input: string[]) {
 function Math_max(arr: number[]): number { return arr.reduce((x, y) => Math.max(x, y)); }
 function Math_min(arr: number[]): number { return arr.reduce((x, y) => Math.min(x, y)); }
 function Math_gcd(...values: number[]): number {
-    var ans = values[0];
-    var f = (a: number, b: number): number => b ? f(b, a % b) : a
-    for (var i = 1; i < values.length; i++) {
+    let ans = values[0];
+    let f = (a: number, b: number): number => b ? f(b, a % b) : a
+    for (let i = 1; i < values.length; i++) {
         ans = f(ans, values[i]);
     }
     return ans
 };
 function Math_gcdArray(values: number[]): number {
-    var ans = values[0];
-    var f = (a: number, b: number): number => b ? f(b, a % b) : a
-    for (var i = 1; i < values.length; i++) {
+    let ans = values[0];
+    let f = (a: number, b: number): number => b ? f(b, a % b) : a
+    for (let i = 1; i < values.length; i++) {
         ans = f(ans, values[i]);
     }
     return ans
 };
 function Math_lcm(...values: number[]): number {
-    var a = values
-    var g = (n: number, m: number): number => m ? g(m, n % m) : n
-    var l = (n: number, m: number): number => n * m / g(n, m)
-    var ans = a[0]
-    for (var i = 1; i < a.length; i++) {
+    let a = values
+    let g = (n: number, m: number): number => m ? g(m, n % m) : n
+    let l = (n: number, m: number): number => n * m / g(n, m)
+    let ans = a[0]
+    for (let i = 1; i < a.length; i++) {
         ans = l(ans, a[i])
     }
     return ans
 }
 function Math_lcmArray(values: number[]): number {
-    var a = values
-    var g = (n: number, m: number): number => m ? g(m, n % m) : n
-    var l = (n: number, m: number): number => n * m / g(n, m)
-    var ans = a[0]
-    for (var i = 1; i < a.length; i++) {
+    let a = values
+    let g = (n: number, m: number): number => m ? g(m, n % m) : n
+    let l = (n: number, m: number): number => n * m / g(n, m)
+    let ans = a[0]
+    for (let i = 1; i < a.length; i++) {
         ans = l(ans, a[i])
     }
     return ans
 }
 function Math_primeList(value: number): number[] {
-    var ans = [];
-    var arr = new Array(value).fill(0);
-    for (var i = 2; i < value; i++) {
+    let ans = [];
+    let arr = new Array(value).fill(0);
+    for (let i = 2; i < value; i++) {
         if (arr[i] == 0) {
-            for (var j = i; j < value; j += i) {
+            for (let j = i; j < value; j += i) {
                 if (arr[j] == 0) arr[j] = i;
             }
         }
     }
-    for (var i = 2; i < value; i++) {
+    for (let i = 2; i < value; i++) {
         if (arr[i] == i) ans.push(i);
     }
     console.log(ans);
 }
 function Math_primeFactor(p: number[], value: number): number[][] {
-    var ans: number[][] = [];
-    var valmax = value / 2;;
-    for (var i = 0; i < p.length; i++) {
-        var prime = p[i];
+    let ans: number[][] = [];
+    let valmax = value / 2;;
+    for (let i = 0; i < p.length; i++) {
+        let prime = p[i];
         if (valmax < prime) break;
-        var count = 0;
+        let count = 0;
         while (value % prime == 0) {
             value /= prime;
             count++;
@@ -94,8 +94,8 @@ function Math_primeFactor(p: number[], value: number): number[][] {
     console.log(ans);
 }
 // union-find lib
-var g_uf_root: number[];
-var g_uf_count: number[];
+let g_uf_root: number[];
+let g_uf_count: number[];
 function UF_initRoot(num: number) {
     g_uf_root = new Array(num).fill(-1);
     g_uf_count = new Array(num).fill(1);
@@ -104,14 +104,14 @@ function UF_getRoot(index: number) {
     if (g_uf_root[index] < 0) {
         return index;
     } else {
-        var work0: number = UF_getRoot(g_uf_root[index]);
+        let work0: number = UF_getRoot(g_uf_root[index]);
         g_uf_root[index] = work0;
         return work0
     }
 }
 function UF_mergeRoot(a: number, b: number) {
-    var root0: number = UF_getRoot(a);
-    var root1: number = UF_getRoot(b);
+    let root0: number = UF_getRoot(a);
+    let root1: number = UF_getRoot(b);
     if (root0 == root1) return;
     if (root0 > root1) [root0, root1] = [root1, root0];
     g_uf_count[root0] += g_uf_count[root1];

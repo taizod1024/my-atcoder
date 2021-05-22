@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var x: bigint = 0n;
-    var ans: number = 0;
+    let x: bigint = 0n;
+    let ans: number = 0;
     // init
     x = BigInt(input.shift());
     // solve
     ans = 0;
-    var val = 100n;
+    let val = 100n;
     while (val < x) {
         val *= 101n;
         val /= 100n;

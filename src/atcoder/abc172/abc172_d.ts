@@ -2,19 +2,19 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var ans: number;
+    let n: number;
+    let ans: number;
     // init
     n = Number(input[0]);
     ans = 0;
     // solve
-    var narr = new Array(n + 1).fill(0);
-    for (var nx = 1; nx <= n; nx++) {
-        for (var nxx = nx; nxx <= n; nxx += nx) {
+    let narr = new Array(n + 1).fill(0);
+    for (let nx = 1; nx <= n; nx++) {
+        for (let nxx = nx; nxx <= n; nxx += nx) {
             narr[nxx] ++;
         }
     }
-    for (var nx = 1; nx <= n; nx ++) {
+    for (let nx = 1; nx <= n; nx ++) {
         ans += nx * narr[nx];
     }
     // answer

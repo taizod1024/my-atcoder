@@ -2,8 +2,8 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var a: number;
-    var ans: number;
+    let a: number;
+    let ans: number;
     // init
     a = Number(input[0]);
     // solve

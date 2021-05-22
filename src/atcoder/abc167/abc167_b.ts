@@ -2,11 +2,11 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var a: number = 0;
-    var b: number = 0;
-    var c: number = 0;
-    var k: number = 0;
-    var ans: number = 0;
+    let a: number = 0;
+    let b: number = 0;
+    let c: number = 0;
+    let k: number = 0;
+    let ans: number = 0;
     // init
     [a, b, c, k] = input.shift().split(" ").map(x => Number(x));
     // solve

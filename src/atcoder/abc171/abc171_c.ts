@@ -2,17 +2,17 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: bigint;
-    var ans: string;
+    let n: bigint;
+    let ans: string;
     // init
     n = BigInt(input[0]);
     // solve
-    var w: bigint = n;
+    let w: bigint = n;
     ans = "";
     while (w != 0n) {
-        var m = (w - 1n) % 26n + 1n;
+        let m = (w - 1n) % 26n + 1n;
         w = (w - m) / 26n;
-        var x = Number(m);
+        let x = Number(m);
         ans = String.fromCharCode("a".charCodeAt(0) + x - 1) + ans;
     }
     // answer

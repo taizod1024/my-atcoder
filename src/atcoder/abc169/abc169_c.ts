@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var a: number = 0;
-    var b: number = 0;
-    var ans: string = "";
+    let a: number = 0;
+    let b: number = 0;
+    let ans: string = "";
     // init
     [a, b] = input.shift().split(" ").map(x => Number(x));
     // solve
-    var c: bigint = BigInt(a) * BigInt(Math.round(b * 100)) / 100n;
+    let c: bigint = BigInt(a) * BigInt(Math.round(b * 100)) / 100n;
     ans = c.toString();
     // answer
     console.log(ans);

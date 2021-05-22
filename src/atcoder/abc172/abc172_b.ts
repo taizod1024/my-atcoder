@@ -2,15 +2,15 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var s: string;
-    var t: string;
-    var ans: number;
+    let s: string;
+    let t: string;
+    let ans: number;
     // init
     s = input[0];
     t = input[1];
     // solve
     ans = 0;
-    for (var i = 0; i < s.length; i ++) {
+    for (let i = 0; i < s.length; i ++) {
         if (s[i] != t[i]) ans ++;
     }
     // answer

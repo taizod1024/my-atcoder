@@ -2,15 +2,15 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: string;
-    var ans: string;
+    let n: string;
+    let ans: string;
     // init
     n = input[0];
     // solve
-    var sum = 0;
-    var nlen= n.length;
-    var czero = "0".charCodeAt(0);
-    for (var nx = 0; nx < nlen; nx++) {
+    let sum = 0;
+    let nlen= n.length;
+    let czero = "0".charCodeAt(0);
+    for (let nx = 0; nx < nlen; nx++) {
         sum += n.charCodeAt(nx) - czero;
     }
     ans = (sum % 9 ==0) ? "Yes" : "No";

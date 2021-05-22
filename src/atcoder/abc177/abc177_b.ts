@@ -2,17 +2,17 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var s: string;
-    var t: string;
-    var ans: number;
+    let s: string;
+    let t: string;
+    let ans: number;
     // init
     s = input[0];
     t = input[1];
     // solve
-    var l = t.length;
-    for (var i = 0; i <= s.length - t.length; i++) {
-        var l0 = 0;
-        for (var j = 0; j < t.length; j++) {
+    let l = t.length;
+    for (let i = 0; i <= s.length - t.length; i++) {
+        let l0 = 0;
+        for (let j = 0; j < t.length; j++) {
             if (s[i + j] != t[j]) {
                 l0++;
                 if (l < l0) break;

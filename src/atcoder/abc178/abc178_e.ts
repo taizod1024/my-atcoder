@@ -16,7 +16,7 @@ function main(input: string[]) {
     let x2nmin = Number.MAX_SAFE_INTEGER;
     let y2nmax = Number.MIN_SAFE_INTEGER;
     let y2nmin = Number.MAX_SAFE_INTEGER;
-    for (var nx = 0; nx < n; nx ++) {
+    for (let nx = 0; nx < n; nx ++) {
         let x2n = xn[nx] + yn[nx];
         let y2n = xn[nx] - yn[nx];
         x2nmax = Math.max(x2nmax, x2n);

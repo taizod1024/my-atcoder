@@ -2,21 +2,21 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var a: number = 0;
-    var b: number = 0;
-    var h: number = 0;
-    var m: number = 0;
-    var ans: number = 0;
+    let a: number = 0;
+    let b: number = 0;
+    let h: number = 0;
+    let m: number = 0;
+    let ans: number = 0;
     // init
     [a, b, h, m] = input.shift().split(" ").map(x => Number(x));
     // solve
-    var ar = (h * 60 + m) / (12 * 60) * 2 * Math.PI;
-    var br = m / 60 * 2 * Math.PI;
-    var ax = a * Math.cos (ar);
-    var ay = a * Math.sin (ar);
-    var bx = b * Math.cos (br);
-    var by = b * Math.sin (br);
-    var ans = Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by));
+    let ar = (h * 60 + m) / (12 * 60) * 2 * Math.PI;
+    let br = m / 60 * 2 * Math.PI;
+    let ax = a * Math.cos (ar);
+    let ay = a * Math.sin (ar);
+    let bx = b * Math.cos (br);
+    let by = b * Math.sin (br);
+    let ans = Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by));
     // answer
     console.log(ans);
 }

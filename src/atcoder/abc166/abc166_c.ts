@@ -2,23 +2,23 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var m: number = 0;
-    var hn: number[] = [];
-    var am: number[] = [];
-    var bm: number[] = [];
-    var ans: number = 0;
+    let n: number = 0;
+    let m: number = 0;
+    let hn: number[] = [];
+    let am: number[] = [];
+    let bm: number[] = [];
+    let ans: number = 0;
     // init
     [n, m] = input.shift().split(" ").map(x => Number(x));
     hn = input.shift().split(" ").map(x => Number(x));
-    var abm: number[][] = [];
-    for (var mx = 0; mx < m; mx++) {
+    let abm: number[][] = [];
+    for (let mx = 0; mx < m; mx++) {
         [am[mx], bm[mx]] = input[mx].split(" ").map(x => Number(x) - 1);
         abm.push([am[mx], bm[mx]]);
     }
     // solve
-    var wn = new Array(n).fill(1);
-    for (var mx = 0; mx < m; mx++) {
+    let wn = new Array(n).fill(1);
+    for (let mx = 0; mx < m; mx++) {
         if (hn[am[mx]] <= hn[bm[mx]]) {
           wn[am[mx]] = 0;
         }

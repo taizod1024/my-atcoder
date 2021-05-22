@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var x: number[];
-    var ans: number;
+    let x: number[];
+    let ans: number;
     // init
     x = input.shift().split(" ").map(x => Number(x));
     ans = 0;
     // solve
-    for (var i = 0; i < x.length; i++) {
+    for (let i = 0; i < x.length; i++) {
         if (x[i] == 0) {
             ans = i + 1;
             break;

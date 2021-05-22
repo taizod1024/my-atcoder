@@ -2,17 +2,17 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var k: number;
-    var ans: number = -1;
+    let k: number;
+    let ans: number = -1;
     // init
     k = Number(input[0]);
     // solve
-    var kn = new Array(k + 1).fill(0);
+    let kn = new Array(k + 1).fill(0);
     kn[0] = 0;
-    for (var knx = 1; knx <= k; knx++) {
+    for (let knx = 1; knx <= k; knx++) {
         kn[knx] = (kn[knx - 1] * 10 + 7) % k;
     }
-    for (var knx = 1; knx <= k; knx++) {
+    for (let knx = 1; knx <= k; knx++) {
         if (kn[knx] == 0) {
             ans = knx;
             break;

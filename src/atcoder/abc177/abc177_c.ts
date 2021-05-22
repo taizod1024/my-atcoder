@@ -2,17 +2,17 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var an: bigint[];
-    var ans;
+    let n: number;
+    let an: bigint[];
+    let ans;
     // init
     n = +input[0];
     an = input[1].split(" ").map(x => BigInt(x));
-    var m: bigint = BigInt(Math.pow(10, 9) + 7);
+    let m: bigint = BigInt(Math.pow(10, 9) + 7);
     // solve
-    var p: bigint = 0n;
-    var s: bigint = 0n;
-    for (var i = 0; i < an.length; i++) {
+    let p: bigint = 0n;
+    let s: bigint = 0n;
+    for (let i = 0; i < an.length; i++) {
         p = (p + an[i] * s) % m;
         s = (s + an[i]) % m;
     }

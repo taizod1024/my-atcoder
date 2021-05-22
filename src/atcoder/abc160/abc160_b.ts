@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var x: number = 0;
-    var ans: number = 0;
+    let x: number = 0;
+    let ans: number = 0;
     // init
     x = Number(input.shift());
     // solve
-    var c500 = Math.floor(x / 500);
-    var c5 = Math.floor((x - c500 *500) / 5);
+    let c500 = Math.floor(x / 500);
+    let c5 = Math.floor((x - c500 *500) / 5);
     ans = 1000 * c500 + 5 * c5;
     // answer
     console.log(ans);

@@ -2,19 +2,19 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var m: number = 0;
-    var an: number[] = [];
-    var ans: string = "";
+    let n: number = 0;
+    let m: number = 0;
+    let an: number[] = [];
+    let ans: string = "";
     // init
     [n, m] = input.shift().split(" ").map(x => Number(x));
     an = input.shift().split(" ").map(x => Number(x));
     // solve
     an.sort((x, y) => y - x);
-    var sum = an.reduce((x, y) => x + y);
-    var min = sum / (4 * m);
+    let sum = an.reduce((x, y) => x + y);
+    let min = sum / (4 * m);
     ans = "Yes";
-    for (var nx = 0; nx < m; nx++) {
+    for (let nx = 0; nx < m; nx++) {
         if (an[nx] < min) {
             ans = "No"
             break;

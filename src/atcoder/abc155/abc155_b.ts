@@ -10,7 +10,7 @@ function main(input: string[]) {
     an = input.shift().split(" ").map(x => Number(x));
     // solve
     ans = "APPROVED";
-    for (var ane of an) {
+    for (let ane of an) {
         if (ane % 2 == 0) {
             if (ane % 3 == 0 || ane % 5 == 0) {
                 continue;

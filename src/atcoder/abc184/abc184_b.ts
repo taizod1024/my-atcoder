@@ -9,7 +9,7 @@ function main(input: string[]) {
     [n, x] = input.shift().split(" ").map(x => Number(x));
     sn = input.shift().split("");
     // solve
-    for (var nx = 0; nx < n; nx ++) {
+    for (let nx = 0; nx < n; nx ++) {
         if (sn[nx] == "o") {
             x += 1;
         } else if (0 < x) {

@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var a: number;
-    var b: number;
-    var ans;
+    let a: number;
+    let b: number;
+    let ans;
     // init
     [a, b] = input[0].split(" ").map(x => Number(x));
     // solve
-    var wrk = a - b * 2;
+    let wrk = a - b * 2;
     ans = (wrk > 0) ? wrk : 0;
     // answer
     console.log(ans);

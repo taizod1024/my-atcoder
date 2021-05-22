@@ -1,18 +1,18 @@
 export {};
 // main
-var n: number = 0;
-var m: number = 0;
-var q: number = 0;
-var aq: number[] = [];
-var bq: number[] = [];
-var cq: number[] = [];
-var dq: number[] = [];
+let n: number = 0;
+let m: number = 0;
+let q: number = 0;
+let aq: number[] = [];
+let bq: number[] = [];
+let cq: number[] = [];
+let dq: number[] = [];
 function main(input: string[]) {
     // param
-    var ans: number = 0;
+    let ans: number = 0;
     // init
     [n, m, q] = input.shift().split(" ").map(x => Number(x));
-    for (var qx = 0; qx < q; qx++) {
+    for (let qx = 0; qx < q; qx++) {
         [aq[qx], bq[qx], cq[qx], dq[qx]] = input[qx].split(" ").map(x => Number(x));
     }
     // solve
@@ -23,9 +23,9 @@ function main(input: string[]) {
     console.log(ans);
 }
 function enumseq(func: ((_: number[]) => void)) {
-    var a = new Array(n + 1).fill(1);
+    let a = new Array(n + 1).fill(1);
     a[0] = -1;
-    var nx = n;
+    let nx = n;
     func(a);
     while (0 < nx) {
         if (a[nx] == m) {
@@ -41,8 +41,8 @@ function enumseq(func: ((_: number[]) => void)) {
     }
 }
 function getdsum(a: number[]): number {
-    var dsum = 0;
-    for (var qx = 0; qx < q; qx++) {
+    let dsum = 0;
+    for (let qx = 0; qx < q; qx++) {
         if (a[bq[qx]] - a[aq[qx]] == cq[qx]) {
             dsum += dq[qx];
         }

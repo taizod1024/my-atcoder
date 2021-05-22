@@ -2,14 +2,14 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var x: number;
-    var t: number;
-    var ans: number;
+    let n: number;
+    let x: number;
+    let t: number;
+    let ans: number;
     // init
     [n, x, t] = input[0].split(" ").map(x => Number(x));
     // solve
-    var ans = Math.ceil(n / x) * t;
+    let ans = Math.ceil(n / x) * t;
     // answer
     console.log(ans);
 }

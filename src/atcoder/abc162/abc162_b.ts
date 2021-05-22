@@ -2,12 +2,12 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var ans: number = 0;
+    let n: number = 0;
+    let ans: number = 0;
     // init
     n = Number(input.shift());
     // solve
-    for (var nx = 1; nx <= n; nx++) {
+    for (let nx = 1; nx <= n; nx++) {
         if (nx % 3 == 0) continue;
         if (nx % 5 == 0) continue;
         ans += nx;

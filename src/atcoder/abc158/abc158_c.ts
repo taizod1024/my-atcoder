@@ -9,7 +9,7 @@ function main(input: string[]) {
     [a, b] = input.shift().split(" ").map(x => Number(x));
     // solve
     ans = -1;
-    for (var rx = 0; rx <= 1010; rx++) {
+    for (let rx = 0; rx <= 1010; rx++) {
         if (Math.floor(rx * 0.08) == a &&
             Math.floor(rx * 0.10) == b) {
             ans = rx;

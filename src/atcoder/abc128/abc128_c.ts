@@ -2,36 +2,36 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var m: number;
-    var k: number[];
-    var s: number[][];
-    var p: number[];
-    var ans;
+    let n: number;
+    let m: number;
+    let k: number[];
+    let s: number[][];
+    let p: number[];
+    let ans;
     // init
     [n, m] = input.shift().split(" ").map(x => Number(x));
     p = input.pop().split(" ").map(x => Number(x));
     s = input.map(x => x.split(" ").map(x => Number(x)));
     k = [];
-    for (var ix = 0; ix < s.length; ix++) {
+    for (let ix = 0; ix < s.length; ix++) {
         k[ix] = s[ix].shift();
     }
     ans = 0;
     // solve
-    var imax = 1 << n;;
-    for (var ix = 0; ix < imax; ix++) {
-        var n_on = new Array(n);
-        for (var nx = 0; nx < n; nx++) {
+    let imax = 1 << n;;
+    for (let ix = 0; ix < imax; ix++) {
+        let n_on = new Array(n);
+        for (let nx = 0; nx < n; nx++) {
             if (ix & (1 << nx)) {
                 n_on[nx] = 1;
             } else {
                 n_on[nx] = 0;
             }
         }
-        var m_cnt = 0;
-        for (var mx = 0; mx < m; mx++) {
-            var k_cnt = 0;
-            for (var kx = 0; kx < k[mx]; kx++) {
+        let m_cnt = 0;
+        for (let mx = 0; mx < m; mx++) {
+            let k_cnt = 0;
+            for (let kx = 0; kx < k[mx]; kx++) {
                 if (n_on[s[mx][kx] - 1] == 1) k_cnt++;
             }
             // 点灯表示条件確認

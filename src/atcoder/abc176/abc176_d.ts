@@ -2,20 +2,20 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var h: number;
-    var w: number;
-    var ch: number;
-    var cw: number;
-    var dh: number;
-    var dw: number;
-    var shw: string[][];
-    var ans;
+    let h: number;
+    let w: number;
+    let ch: number;
+    let cw: number;
+    let dh: number;
+    let dw: number;
+    let shw: string[][];
+    let ans;
     // init
     [h, w] = input.shift().split(" ").map(x => Number(x));
     [ch, cw] = input.shift().split(" ").map(x => Number(x) - 1);
     [dh, dw] = input.shift().split(" ").map(x => Number(x) - 1);
     shw = [];
-    for (var hx = 0; hx < h; hx++) {
+    for (let hx = 0; hx < h; hx++) {
         shw[hx] = ("##" + input[hx] + "##").split("");
     }
     h += 4;
@@ -29,13 +29,13 @@ function main(input: string[]) {
     shw.push(new Array(w).fill("#"));
     shw.push(new Array(w).fill("#"));
     // solve
-    var patn = [
+    let patn = [
         [-1, +0],
         [+0, -1],
         [+1, +0],
         [+0, +1]
     ];
-    var patw = [
+    let patw = [
         [-2, -2],
         [-2, -1],
         [-2, +0],
@@ -57,27 +57,27 @@ function main(input: string[]) {
         [+2, +1],
         [+2, +2]
     ];
-    var quen = [[ch, cw]];
-    var quep = [];
-    var warp = 0;
+    let quen = [[ch, cw]];
+    let quep = [];
+    let warp = 0;
     loop: {
         while (true) {
             // normal
             while (0 < quen.length) {
-                var cur = quen.pop();
+                let cur = quen.pop();
                 shw[cur[0]][cur[1]] = warp.toString();
                 if (cur == [dh, dw]) break loop;
                 quep.push(cur)
                 GRAPH_enumPattern(cur, patn).forEach(function (pos) {
-                    var chr = shw[pos[0]][pos[1]];
+                    let chr = shw[pos[0]][pos[1]];
                     if (chr == ".") quen.push(pos);
                 });
             }
             // warp
             while (0 < quep.length) {
-                var cur = quep.pop();
+                let cur = quep.pop();
                 GRAPH_enumPattern(cur, patw).forEach(function (pos) {
-                    var chr = shw[pos[0]][pos[1]];
+                    let chr = shw[pos[0]][pos[1]];
                     if (chr == ".") quen.push(pos), shw[pos[0]][pos[1]] = "_";
                 });
             }
@@ -85,17 +85,17 @@ function main(input: string[]) {
             warp++;
         }
     }
-    var pos = [dh, dw];
-    var chr = shw[pos[0]][pos[1]];
+    let pos = [dh, dw];
+    let chr = shw[pos[0]][pos[1]];
     ans = (chr == ".") ? -1 : chr;
     // answer
     console.log(ans);
 }
 // graph lib
 function GRAPH_enumPattern(cur: number[], pat: number[][]): number[][] {
-    var arr = [];
-    for (var patx = 0; patx < pat.length; patx++) {
-        var pos = [cur[0] + pat[patx][0], cur[1] + pat[patx][1]];
+    let arr = [];
+    for (let patx = 0; patx < pat.length; patx++) {
+        let pos = [cur[0] + pat[patx][0], cur[1] + pat[patx][1]];
         arr.push(pos);
     }
     return arr;

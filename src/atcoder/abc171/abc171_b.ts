@@ -2,17 +2,17 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var k: number;
-    var pn: number[];
-    var ans: number;
+    let n: number;
+    let k: number;
+    let pn: number[];
+    let ans: number;
     // init
     [n, k] = input.shift().split(" ").map(x => Number(x));
     pn = input.shift().split(" ").map(x => Number(x));
     // solve
     pn.sort(function (a, b) { return a - b; });
     ans = 0;
-    for (var pnx = 0; pnx < k; pnx++) {
+    for (let pnx = 0; pnx < k; pnx++) {
         ans += pn[pnx];
     }
     // answer

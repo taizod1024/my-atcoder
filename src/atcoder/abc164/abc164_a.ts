@@ -2,9 +2,9 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var s: number = 0;
-    var w: number = 0;
-    var ans: string = "";
+    let s: number = 0;
+    let w: number = 0;
+    let ans: string = "";
     // init
     [s, w] = input.shift().split(" ").map(x => Number(x));
     // solve

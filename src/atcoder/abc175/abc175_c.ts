@@ -2,10 +2,10 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var x: number;
-    var k: number;
-    var d: number;
-    var ans: number;
+    let x: number;
+    let k: number;
+    let d: number;
+    let ans: number;
     // init
     [x, k, d] = input.shift().split(" ").map(x => Number(x));
     // solve
@@ -13,8 +13,8 @@ function main(input: string[]) {
     if (k < x / d) {
         ans = x - d * k;
     } else {
-        var m = x % d;
-        var n = (x - m) / d;
+        let m = x % d;
+        let n = (x - m) / d;
         if (k % 2 == n % 2) {
             ans = m;
         } else {

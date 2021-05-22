@@ -3,9 +3,9 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var m: number = 0;
-    var ans: number = 0;
+    let n: number = 0;
+    let m: number = 0;
+    let ans: number = 0;
     // init
     [n, m] = input.shift().split(" ").map(x => Number(x));
     // solve

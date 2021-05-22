@@ -14,9 +14,9 @@ function main(input: string[]) {
     // solve
     ans = "No";
     loop:
-    for (var nx = 0; nx < n; nx++) {
-        for (var nnx = nx + 1; nnx < n; nnx++) {
-            for (var nnnx = nnx + 1; nnnx < n; nnnx++) {
+    for (let nx = 0; nx < n; nx++) {
+        for (let nnx = nx + 1; nnx < n; nnx++) {
+            for (let nnnx = nnx + 1; nnnx < n; nnnx++) {
                 if ((xn[nx] - xn[nnx]) * (yn[nx] - yn[nnnx]) == (xn[nx] - xn[nnnx]) * (yn[nx] - yn[nnx])) {
                     ans = "Yes";
                     break loop;

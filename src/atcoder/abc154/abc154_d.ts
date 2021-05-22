@@ -10,11 +10,11 @@ function main(input: string[]) {
     pn = input.shift().split(" ").map(x => Number(x));
     // solve
     let sum = 0;
-    for (var nx = 0; nx < k; nx++) {
+    for (let nx = 0; nx < k; nx++) {
         sum += pn[nx];
     }
     ans = sum;
-    for (var nx = 0; nx + k < n; nx++) {
+    for (let nx = 0; nx + k < n; nx++) {
         sum += - pn[nx] + pn[nx + k];
         ans = Math.max(ans, sum);
     }

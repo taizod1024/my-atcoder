@@ -46,9 +46,9 @@ function Math_bigintsqrt(value: bigint) {
     }
    
     if (value < 1n << 52n) {
-      var x1 = BigInt(Math.floor(Math.sqrt(Number(value)))) - 3n
+      let x1 = BigInt(Math.floor(Math.sqrt(Number(value)))) - 3n
     } else {
-      var x1 = (1n << 52n) - 2n
+      let x1 = (1n << 52n) - 2n
     }
    
     let x0 = -1n

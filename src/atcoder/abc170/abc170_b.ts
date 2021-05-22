@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var x: number;
-    var y: number;
-    var ans: string;
+    let x: number;
+    let y: number;
+    let ans: string;
     // init
     [x, y] = input.shift().split(" ").map(x => Number(x));
     // solve
-    var n = (x * 4 - y) / 2;
+    let n = (x * 4 - y) / 2;
     if (n != Math.ceil(n)) {
         ans = "No";
     } else if (n < 0) {

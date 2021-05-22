@@ -2,23 +2,23 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var an: number[] = [];
-    var ans: number = 0;
+    let n: number = 0;
+    let an: number[] = [];
+    let ans: number = 0;
     // init
     n = Number(input.shift());
     an = input.shift().split(" ").map(x => Number(x));
     // solve
     an = an.sort((x, y) => x - y);
-    var m = Math_max(an) + 1;
-    var bm: number[] = new Array(m).fill(0);
+    let m = Math_max(an) + 1;
+    let bm: number[] = new Array(m).fill(0);
     ans = 0;
-    for (var nx = n - 1; 0 <= nx; nx--) {
-        for (var mx = an[nx]; mx < m; mx += an[nx]) {
+    for (let nx = n - 1; 0 <= nx; nx--) {
+        for (let mx = an[nx]; mx < m; mx += an[nx]) {
             bm[mx] += an[nx];
         }
     }
-    for (var nx = 0; nx < n; nx++) {
+    for (let nx = 0; nx < n; nx++) {
         if (bm[an[nx]] == an[nx]) ans++;
     }
     // answer

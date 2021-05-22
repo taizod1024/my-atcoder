@@ -2,21 +2,21 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number = 0;
-    var k: number = 0;
-    var dk: number[] = [];
-    var akd: number[][] = [];
-    var ans: number = 0;
+    let n: number = 0;
+    let k: number = 0;
+    let dk: number[] = [];
+    let akd: number[][] = [];
+    let ans: number = 0;
     // init
     [n, k] = input.shift().split(" ").map(x => Number(x));
-    for (var kx = 0; kx < k; kx++) {
+    for (let kx = 0; kx < k; kx++) {
         dk.push(Number(input.shift()));
         akd.push(input.shift().split(" ").map(x => Number(x) - 1));
     }
     // solve
-    var w = new Array(n).fill(0);
-    for (var kx = 0; kx < akd.length; kx++) {
-        for (var dx = 0; dx < akd[kx].length; dx ++) {
+    let w = new Array(n).fill(0);
+    for (let kx = 0; kx < akd.length; kx++) {
+        for (let dx = 0; dx < akd[kx].length; dx ++) {
             w[akd[kx][dx]]++;
         }
     }

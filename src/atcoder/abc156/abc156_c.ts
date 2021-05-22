@@ -10,9 +10,9 @@ function main(input: string[]) {
     xn = input.shift().split(" ").map(x => Number(x));
     // solve
     ans = Number.MAX_SAFE_INTEGER;
-    for (var px = 1; px <= 100; px++) {
+    for (let px = 1; px <= 100; px++) {
         let w = 0;
-        for (var nx = 0; nx < n; nx++) {
+        for (let nx = 0; nx < n; nx++) {
             w += (xn[nx] - px) * (xn[nx] - px);
         }
         ans = Math.min(ans, w);

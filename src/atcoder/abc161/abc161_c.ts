@@ -2,13 +2,13 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: bigint = 0n;
-    var k: bigint = 0n;
-    var ans: string = "";
+    let n: bigint = 0n;
+    let k: bigint = 0n;
+    let ans: string = "";
     // init
     [n, k] = input.shift().split(" ").map(x => BigInt(x));
     // solve
-    var m = n % k;
+    let m = n % k;
     ans = String((m < k - m) ? m : k - m).replace("n", "");
     // answer
     console.log(ans);

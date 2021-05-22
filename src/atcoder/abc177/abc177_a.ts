@@ -2,10 +2,10 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var d: number = 0;
-    var t: number = 0;
-    var s: number = 0;
-    var ans: string = "";
+    let d: number = 0;
+    let t: number = 0;
+    let s: number = 0;
+    let ans: string = "";
     // init
     [d, t, s] = input.shift().split(" ").map(x => Number(x));
     // solve

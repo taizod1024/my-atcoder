@@ -8,7 +8,7 @@ function main(input: string[]) {
     n = Number(input.shift());
     // solve
     ans = 0;
-    for (var nx = 1; nx < n; nx++) {
+    for (let nx = 1; nx < n; nx++) {
         ans += Math.floor((n - 1) / nx);
     }
     // answer

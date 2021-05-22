@@ -2,21 +2,21 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var n: number;
-    var m: number;
-    var k: number;
-    var an: number[];
-    var bm: number[];
-    var ans: number;
+    let n: number;
+    let m: number;
+    let k: number;
+    let an: number[];
+    let bm: number[];
+    let ans: number;
     // init
     [n, m, k] = input.shift().split(" ").map(x => Number(x));
     an = input.shift().split(" ").map(x => Number(x));
     bm = input.shift().split(" ").map(x => Number(x));
     ans = 0;
     // solve
-    var anx = 0;
-    var bmx = 0;
-    var k0 = 0;
+    let anx = 0;
+    let bmx = 0;
+    let k0 = 0;
     while (anx < an.length) {
         if (k < k0 + an[anx]) break;
         k0 += an[anx];

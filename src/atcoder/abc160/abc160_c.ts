@@ -2,16 +2,16 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var k: number = 0;
-    var n: number = 0;
-    var an: number[] = [];
-    var ans: number = 0;
+    let k: number = 0;
+    let n: number = 0;
+    let an: number[] = [];
+    let ans: number = 0;
     // init
     [k, n] = input.shift().split(" ").map(x => Number(x));
     an = input.shift().split(" ").map(x => Number(x));
     // solve
-    var max = 0;
-    for (var nx = 0; nx < n; nx++) {
+    let max = 0;
+    for (let nx = 0; nx < n; nx++) {
         if (nx < n - 1) {
             max = Math.max(max, an[nx + 1] - an[nx]);
         } else {

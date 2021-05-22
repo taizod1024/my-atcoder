@@ -13,7 +13,7 @@ function main(input: string[]) {
     n = Number(input.shift());
     for (let nx = 0; nx < n; nx++) {
         bn[nx] = Number(input.shift());
-        var bx = a33.indexOf(bn[nx]);
+        let bx = a33.indexOf(bn[nx]);
         if (0 <= bx) a33[bx] = 0;
     }
     ans = "No"

@@ -2,8 +2,8 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var s: string = "";
-    var ans: string = "";
+    let s: string = "";
+    let ans: string = "";
     // init
     s = input.shift();
     // solve

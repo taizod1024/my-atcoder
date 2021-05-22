@@ -9,7 +9,7 @@ function main(input: string[]) {
     ans = new Array();
     // solve
     let nsqrt = Number(Math.sqrt(n));
-    for (var i = 0; i < nsqrt; i++) {
+    for (let i = 0; i < nsqrt; i++) {
         if (n % i == 0) {
             ans.push(i);
             ans.push(n / i);

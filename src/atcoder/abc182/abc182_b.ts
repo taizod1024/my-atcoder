@@ -10,16 +10,16 @@ function main(input: string[]) {
     an = input.shift().split(" ").map(x => Number(x));
     // lib
     function Math_primeList(value: number): number[] {
-        var ans = [];
-        var arr = new Array(value).fill(0);
-        for (var i = 2; i < value; i++) {
+        let ans = [];
+        let arr = new Array(value).fill(0);
+        for (let i = 2; i < value; i++) {
             if (arr[i] == 0) {
-                for (var j = i; j < value; j += i) {
+                for (let j = i; j < value; j += i) {
                     if (arr[j] == 0) arr[j] = i;
                 }
             }
         }
-        for (var i = 2; i < value; i++) {
+        for (let i = 2; i < value; i++) {
             if (arr[i] == i) ans.push(i);
         }
         console.log(ans);
@@ -27,7 +27,7 @@ function main(input: string[]) {
     // solve
     let pm = Math_primeList(1000);
     let gcdmax = 0;
-    for (var mx = 0; mx < pm.length; mx++) {
+    for (let mx = 0; mx < pm.length; mx++) {
         let gcdnow = an.filter(x => x % pm[mx] == 0).length;
         if (gcdmax < gcdnow) {
             gcdmax = gcdnow;

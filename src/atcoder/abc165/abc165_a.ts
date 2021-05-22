@@ -2,16 +2,16 @@ export {};
 // main
 function main(input: string[]) {
     // param
-    var k: number = 0;
-    var a: number = 0;
-    var b: number = 0;
-    var ans: string = "";
+    let k: number = 0;
+    let a: number = 0;
+    let b: number = 0;
+    let ans: string = "";
     // init
     k = Number(input.shift());
     [a, b] = input.shift().split(" ").map(x => Number(x));
     // solve
     ans = "NG";
-    for (var kx = 0; kx <= 1000; kx += k) {
+    for (let kx = 0; kx <= 1000; kx += k) {
         if (a <= kx && kx <= b) {
             ans = "OK";
             break;

@@ -7,13 +7,13 @@ function main(input: string[]) {
     // init
     s = Number(input.shift());
     // solve
-    var m = new Array(s + 1).fill(0);
-    for (var mx = 1; mx <= s; mx++) {
+    let m = new Array(s + 1).fill(0);
+    for (let mx = 1; mx <= s; mx++) {
         if (mx < 3) m[mx] = 0;
         else if (mx < 6) m[mx] = 1;
         else {
-            var w = 1;
-            for (var nx = 3; nx <= mx - 3; nx++) {
+            let w = 1;
+            for (let nx = 3; nx <= mx - 3; nx++) {
                 w += m[mx - nx];
             }
             m[mx] = w % 1000000007;
