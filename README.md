@@ -22,6 +22,6 @@ AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)
 
 ## TypeScript固有の問題
 
-- 変数はletで宣言して、ブロックスコープで処理する。varは使わない。
+- 変数はletで宣言。ブロックスコープで処理。varは使わない。
 - 二次元配列の作り方に注意 new Array(n).fill(new Array(m))はNG
 - TypeScriptで10^6の配列を作るとTLE
