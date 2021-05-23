@@ -1,15 +1,21 @@
-export {};
+export { };
 // main
 function main(input: string[]) {
     // param
-    let ans;
-    let x;
+    let ans: number;
+    let n: number;
+    let an: number[];
+    let bn: number[];
     // init
-    x = Number(input.shift());
+    n = Number(input.shift());
+    an = input.shift().split(" ").map(x => Number(x));
+    bn = input.shift().split(" ").map(x => Number(x));
     // solve
-    ans = 100 - x % 100
+    an.sort((a1, a2) => a1 - a2);
+    bn.sort((b1, b2) => b1 - b2);
     // answer
     console.log(ans);
+    return;
 }
 // entrypoint
 function entrypoint() {
