@@ -2,21 +2,19 @@ export { };
 // main
 function main(input: string[]) {
     // param
-    let n: number, k: number;
-    let an: number[];
-    let bn: number[];
+    let n: number;
+    let sn: string[];
     // init
-    [n, k] = input.shift().split(" ").map(x => Number(x));
-    an = input.shift().split(" ").map(x => Number(x));
-    bn = input.shift().split(" ").map(x => Number(x));
+    n = Number(input.shift());
+    sn = input;
     // solve
-    let df = 0;
+    let map = new Map();
     for (let nx = 0; nx < n; nx++) {
-        df += Math.abs(an[nx] - bn[nx]);
+        if (!map.has(sn[nx])) {
+            console.log(nx + 1);
+            map.set(sn[nx], nx);
+        }
     }
-    // answer
-    let ans = (k < df) ? "No" : ((k - df) % 2 != 0) ? "No" : "Yes";
-    console.log(ans);
     return;
 }
 // entrypoint

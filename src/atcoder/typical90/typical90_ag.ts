@@ -2,20 +2,14 @@ export { };
 // main
 function main(input: string[]) {
     // param
-    let n: number, k: number;
-    let an: number[];
-    let bn: number[];
+    let ans: number;
+    let h: number, w: number;
     // init
-    [n, k] = input.shift().split(" ").map(x => Number(x));
-    an = input.shift().split(" ").map(x => Number(x));
-    bn = input.shift().split(" ").map(x => Number(x));
+    [h, w] = input.shift().split(" ").map(x => Number(x));
     // solve
-    let df = 0;
-    for (let nx = 0; nx < n; nx++) {
-        df += Math.abs(an[nx] - bn[nx]);
-    }
+    if (h == 1 || w == 1) ans = h * w;
+    else ans = Math.ceil(h / 2) * Math.ceil(w / 2);
     // answer
-    let ans = (k < df) ? "No" : ((k - df) % 2 != 0) ? "No" : "Yes";
     console.log(ans);
     return;
 }
