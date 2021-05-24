@@ -4,16 +4,13 @@ function main(input: string[]) {
     // param
     let ans: number;
     let n: number;
-    let an: number[];
-    let bn: number[];
+    let am: number[];
     // init
     n = Number(input.shift());
-    an = input.shift().split(" ").map(x => Number(x));
-    bn = input.shift().split(" ").map(x => Number(x));
+    am = input.shift().split(" ").map(x => Number(x));
     // solve
-    an.sort((a1, a2) => a1 - a2);
-    bn.sort((b1, b2) => b1 - b2);
-    ans = an.map((a, idx) => Math.abs(a - bn[idx])).reduce((prev, cur) => prev + cur);
+    am.sort((a1, a2) => -(a1 - a2));
+    // TODO wip
     // answer
     console.log(ans);
     return;
