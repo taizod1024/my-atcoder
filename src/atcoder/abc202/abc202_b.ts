@@ -2,12 +2,13 @@ export { };
 // main
 function main(input: string[]) {
     // param
-    let ans: number;
-    let a: number, b: number, c: number;
+    let ans: string;
+    let s: string;
     // init
-    [a, b, c] = input.shift().split(" ").map(x => Number(x));
+    s = input.shift();
     // solve
-    ans = 3 * 7 - (a + b + c);
+    let cn = ["0", "1", "-", "-", "-", "5", "9", "-", "8", "6"];
+    ans = s.split("").reverse().map(x => cn[x]).join("");
     // answer
     console.log(ans);
     return;
