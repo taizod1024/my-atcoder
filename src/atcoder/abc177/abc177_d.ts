@@ -73,7 +73,7 @@ function Math_primeList(value: number): number[] {
     for (let i = 2; i < value; i++) {
         if (arr[i] == i) ans.push(i);
     }
-    console.log(ans);
+    return ans;
 }
 function Math_primeFactor(p: number[], value: number): number[][] {
     let ans: number[][] = [];
@@ -91,7 +91,7 @@ function Math_primeFactor(p: number[], value: number): number[][] {
         }
         if (value == 1) break;
     }
-    console.log(ans);
+    return ans;
 }
 // union-find lib
 let g_uf_root: number[];
