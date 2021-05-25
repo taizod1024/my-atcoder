@@ -19,8 +19,8 @@ function Math_gcdArray(values: number[]): number {
 };
 function Math_lcm(...values: number[]): number {
     let a = values
-    let g = (n: number, m: number): number => m ? g(m, n % m) : n
-    let l = (n: number, m: number): number => n * m / g(n, m)
+    let g = (n: number, m: number): number => m ? g(m, n % m) : n;
+    let l = (n: number, m: number): number => n * m / g(n, m);
     let ans = a[0]
     for (let i = 1; i < a.length; i++) {
         ans = l(ans, a[i])
@@ -29,8 +29,8 @@ function Math_lcm(...values: number[]): number {
 }
 function Math_lcmArray(values: number[]): number {
     let a = values
-    let g = (n: number, m: number): number => m ? g(m, n % m) : n
-    let l = (n: number, m: number): number => n * m / g(n, m)
+    let g = (n: number, m: number): number => m ? g(m, n % m) : n;
+    let l = (n: number, m: number): number => n * m / g(n, m);
     let ans = a[0]
     for (let i = 1; i < a.length; i++) {
         ans = l(ans, a[i])
