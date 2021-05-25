@@ -9,8 +9,20 @@ function main(input: string[]) {
     n = Number(input.shift());
     am = input.shift().split(" ").map(x => Number(x));
     // solve
-    am.sort((a1, a2) => -(a1 - a2));
+    let [a, b, c] = am.sort((a1, a2) => -(a1 - a2));
     // TODO wip
+    ans = 10000;
+    for (let ax = 0; ax <= 9999; ax++) {
+        let ac = a * ax
+        if (n < ac) break;
+        for (let bx = 0; bx <= 9999 - ax; bx++) {
+            let bc = b * bx
+            if (n < ac + bc) break;
+            if ((n - ac - bc) % c != 0) continue;
+            let cx = (n - ac - bc) / am[2];
+            ans = Math.min(ans, ax + bx + cx);
+        }
+    }
     // answer
     console.log(ans);
     return;

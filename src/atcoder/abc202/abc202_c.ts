@@ -10,22 +10,34 @@ function main(input: string[]) {
     n = Number(input.shift());
     an = input.shift().split(" ").map(x => Number(x));
     bn = input.shift().split(" ").map(x => Number(x));
-    cn = input.shift().split(" ").map(x => Number(x));
+    cn = input.shift().split(" ").map(x => Number(x) - 1);
     // solve
     an.sort((a1, a2) => a1 - a2);
-    bn.sort((b1, b2) => b1 - b2);
-    cn.sort((c1, c2) => c1 - c2);
-    ans = 0;
+    let bcn: number[] = [];
     for (let nx = 0; nx < n; nx++) {
-        let cx = 1;
-        for (let nxx = 0; nxx < n; nxx++) {
-            let cxx = 1;
-            for (let nxxx = 0; nxxx < n; nxxx++) {
-                let cxxx = 1;
-                // TODO wip
-            }
+        bcn.push(bn[cn[nx]]);
+        continue;
+    }
+    bcn.sort((bc1, bc2) => bc1 - bc2);
+    ans = 0;
+    let nax = 0;
+    let nbcx = 0;
+    while (nax < n && nbcx < n) {
+        let a = an[nax];
+        let b = bcn[nbcx];
+        if (a < b) {
+            nax++;
+            continue;
         }
-        ans
+        if (a > b) {
+            nbcx++;
+            continue
+        }
+        let ac = 1;
+        while (++nax < n && an[nax] == a) ac++;
+        let bcc = 1;
+        while (++nbcx < n && bcn[nbcx] == b) bcc++;
+        ans += ac * bcc;
     }
     // answer
     console.log(ans);
