@@ -2,37 +2,27 @@ export { };
 // main
 function main(input: string[]) {
     // param
-    let ans: string;
     let n: number;
     // init
     n = Number(input.shift());
     // solve
-    let snm: string[][] = [];
-    for (let nx = 0; nx <= n; nx++) {
-        snm.push([]);
-        if (nx == 0) {
-            snm[nx].push("-");
-        } else if (nx % 2 != 0) {
-            snm[nx].push("-");
-        } else if (nx == 2) {
-            snm[nx].push("()");
-        } else {
-            for (let mx = 0; mx < snm[nx - 2].length; mx++) {
-                snm[nx].push("(" + snm[nx - 2][mx] + ")");
+    (function loop(path = [], lparen = 0, rparen = 0) {
+        if (path.length < n) {
+            path.push("(");
+            loop(path, lparen + 1, rparen);
+            path.pop();
+            if (lparen > rparen) {
+                path.push(")");
+                loop(path, lparen, rparen + 1);
+                path.pop();
             }
-            for (let nxx = 2; nxx < nx; nxx += 2) {
-                for (let mxx = 0; mxx < snm[nxx].length; mxx++) {
-                    for (let mxxx = 0; mxxx < snm[nx - nxx].length; mxxx++) {
-                        snm[nx].push(snm[nxx][mxx] + snm[nx - nxx][mxxx]);
-                    }
-                }
+        } else {
+            if (lparen == rparen) {
+                // answwer
+                console.log(path.join(""));
             }
         }
-    }
-    ans = snm[n].sort().join("\n");
-    // TODO wip
-    // answer
-    console.log(ans);
+    })();
 }
 // entrypoint
 function entrypoint() {
