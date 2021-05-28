@@ -29,7 +29,7 @@ function main(input: string[]) {
             let points = [start];
             let point;
             let next;
-            // // TODO wip: テスト通らず
+            // // WIP テスト通らず
             while (point = points.pop()) {
                 if (point[0] == end[0] && point[1] == end[1]) { console.log("Yes"); break; }
                 if (0 < point[0]) {

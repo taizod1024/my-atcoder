@@ -13,7 +13,7 @@ function main(input: string[]) {
         }
     }
     abn.sort((ab1, ab2) => ab1[0] - ab2[0]);
-    // TODO wip: 解答中
+    // WIP 解答中
     // answer
     return;
 }

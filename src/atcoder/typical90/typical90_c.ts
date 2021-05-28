@@ -42,7 +42,7 @@ function main(input: string[]) {
     }
     uf_count.sort((a, b) => -(a - b));
     // answer
-    // TODO wip: 問題を誤読、一番長い経路＋１
+    // WIP 問題を誤読、一番長い経路＋１
     let ans = uf_count[0] + (uf_count[1] ? uf_count[1] + 1 : 0);
     console.log(ans);
     return;
