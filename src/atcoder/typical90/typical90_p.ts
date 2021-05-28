@@ -10,7 +10,6 @@ function main(input: string[]) {
     am = input.shift().split(" ").map(x => Number(x));
     // solve
     let [a, b, c] = am.sort((a1, a2) => -(a1 - a2));
-    // TODO wip
     ans = 10000;
     for (let ax = 0; ax <= 9999; ax++) {
         let ac = a * ax
