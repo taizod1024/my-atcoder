@@ -2,7 +2,6 @@ export { };
 // main
 function main(input: string[]) {
     // param
-    let ans: number;
     let n: number, l: number;
     let k: number;
     let an: number[];
@@ -15,8 +14,8 @@ function main(input: string[]) {
     yn.push(an[0]);
     for (let nx = 1; nx < n; nx++) yn.push(an[nx] - an[nx - 1]);
     yn.push(l - an[n - 1]);
-    ans = 0;
-    (function loop(nx: number, rest: number, score: number) {
+    let ans = 0;
+    (function loop(nx = 0, rest = k, score = l) {
         // WIP RE,TLE 再帰によるネストの深さが原因
         let scr = 0;
         for (let nxx = nx; nxx <= n - rest; nxx++) {
@@ -28,7 +27,7 @@ function main(input: string[]) {
         if (rest == 0) {
             ans = Math.max(ans, Math.min(score, scr));
         }
-    })(0, k, l);
+    })();
     // answer
     console.log(ans);
 }
