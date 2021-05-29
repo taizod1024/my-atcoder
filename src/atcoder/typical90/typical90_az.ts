@@ -1,14 +1,18 @@
-import { join } from "path";
-
 export { };
 // main
-function main(input: string[]) {
+async function main() {
+    // input
+    const reader = require('readline').createInterface({ input: process.stdin })[Symbol.asyncIterator]();
+    async function read() { return (await reader.next()).value; }
     // param
     let n: number;
     let anm: number[][];
     // init
-    n = Number(input[0]);
-    anm = input.slice(1).map(x => x.split(" ").map(x => Number(x)));
+    n = Number((await read()));
+    anm = [];
+    for (let nx = 0; nx < n; nx++) {
+        anm.push((await read()).split(" ").map(x => Number(x)));
+    }
     // solve
     let ans = 1;
     for (let nx = 0; nx < n; nx++) {
@@ -18,11 +22,4 @@ function main(input: string[]) {
     console.log(ans);
     return;
 }
-// entrypoint
-function entrypoint() {
-    const lines: string[] = [];
-    const reader = require('readline').createInterface({ input: process.stdin, output: process.stdout });
-    reader.on('line', function (line: string) { lines.push(line); });
-    reader.on('close', function () { main(lines); });
-}
-entrypoint();
+main();
