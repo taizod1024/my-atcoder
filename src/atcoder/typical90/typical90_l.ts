@@ -16,7 +16,7 @@ async function main() {
     for (let qx = 0; qx < q; qx++) {
         qqn.push((await readlineasync()).split(" ").map(x => Number(x) - 1));
     }
-    // WIP Int16Arrayを試す
+    // WIP 提出でTLEあり、初期化を変更する
     // solve
     let hw = new Array(h).fill(null).map(x => new Array(w).fill(-2));
     for (let qx = 0; qx < q; qx++) {
@@ -34,7 +34,6 @@ async function main() {
                 continue;
             }
             let points = [start];
-            // // WIP ローカルテストパス、提出が通らない
             while (true) {
                 let point = points.pop();
                 if (!point) {
@@ -52,7 +51,7 @@ async function main() {
                         points.push(next);
                     }
                 }
-                if (point[0] < w - 1) {
+                if (point[0] < h - 1) {
                     let next = [point[0] + 1, point[1]];
                     if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
                         hw[next[0]][next[1]] = qx;
@@ -66,7 +65,7 @@ async function main() {
                         points.push(next);
                     }
                 }
-                if (point[1] < h - 1) {
+                if (point[1] < w - 1) {
                     let next = [point[0], point[1] + 1];
                     if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
                         hw[next[0]][next[1]] = qx;
