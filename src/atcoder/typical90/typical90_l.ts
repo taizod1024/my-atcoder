@@ -1,14 +1,21 @@
 export { };
 // main
-function main(input: string[]) {
+async function main() {
+    // input
+    const readline = require('readline').createInterface({ input: process.stdin });
+    const reader = readline[Symbol.asyncIterator]();
+    async function read() { return (await reader.next()).value; }
     // param
     let h: number, w: number;
     let q: number;
     let qqn: number[][];
     // init
-    [h, w] = input.shift().split(" ").map(x => Number(x));
-    q = Number(input.shift());
-    qqn = input.map(x => x.split(" ").map(x => Number(x) - 1));
+    [h, w] = (await read()).split(" ").map(x => Number(x));
+    q = Number(await read());
+    qqn = [];
+    for (let qx = 0; qx < q; qx++) {
+        qqn.push((await read()).split(" ").map(x => Number(x) - 1));
+    }
     // WIP Int16Arrayを試す
     // solve
     let hw = new Array(h).fill(null).map(x => new Array(w).fill(-2));
@@ -72,11 +79,4 @@ function main(input: string[]) {
     // answer
     return;
 }
-// entrypoint
-function entrypoint() {
-    const lines: string[] = [];
-    const reader = require('readline').createInterface({ input: process.stdin, output: process.stdout });
-    reader.on('line', function (line: string) { lines.push(line); });
-    reader.on('close', function () { main(lines); });
-}
-entrypoint();
+main();

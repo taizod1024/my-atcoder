@@ -2,7 +2,8 @@ export { };
 // main
 async function main() {
     // input
-    const reader = require('readline').createInterface({ input: process.stdin })[Symbol.asyncIterator]();
+    const readline = require('readline').createInterface({ input: process.stdin });
+    const reader = readline[Symbol.asyncIterator]();
     async function read() { return (await reader.next()).value; }
     // param
     let n: number;
