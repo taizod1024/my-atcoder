@@ -3,16 +3,16 @@ export { };
 async function main() {
     // input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const reader = readline[Symbol.asyncIterator]();
-    async function read() { return (await reader.next()).value; }
+    const readiter = readline[Symbol.asyncIterator]();
+    async function readlineasync() { return (await readiter.next()).value; }
     // param
     let n: number;
     let anm: number[][];
     // init
-    n = Number((await read()));
+    n = Number((await readlineasync()));
     anm = [];
     for (let nx = 0; nx < n; nx++) {
-        anm.push((await read()).split(" ").map(x => Number(x)));
+        anm.push((await readlineasync()).split(" ").map(x => Number(x)));
     }
     // solve
     let ans = 1;

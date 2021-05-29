@@ -3,23 +3,23 @@ export { };
 async function main() {
     // input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const reader = readline[Symbol.asyncIterator]();
-    async function read() { return (await reader.next()).value; }
+    const readiter = readline[Symbol.asyncIterator]();
+    async function readlineasync() { return (await readiter.next()).value; }
     // param
     let n: number;
     let ann: number[][];
     let m: number;
     let xm: number[], ym: number[];
     // init
-    n = Number((await read()));
+    n = Number((await readlineasync()));
     ann = new Array(n);
     for (let nx = 0; nx < n; nx++) {
-        ann[nx] = (await read()).split(" ").map(x => Number(x));
+        ann[nx] = (await readlineasync()).split(" ").map(x => Number(x));
     }
-    m = Number((await read()));
+    m = Number((await readlineasync()));
     [xm, ym] = [new Array(n), new Array(n)];
     for (let mx = 0; mx < m; mx++) {
-        [xm[mx], ym[mx]] = (await read()).split(" ").map(x => Number(x) - 1);
+        [xm[mx], ym[mx]] = (await readlineasync()).split(" ").map(x => Number(x) - 1);
     }
     // solve
     let xynn = new Array(n).fill(null).map(x => new Array(n).fill(true));
