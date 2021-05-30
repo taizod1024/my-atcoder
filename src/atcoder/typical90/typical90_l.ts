@@ -16,62 +16,34 @@ async function main() {
     for (let qx = 0; qx < q; qx++) {
         qqn.push((await readlineasync()).split(" ").map(x => Number(x) - 1));
     }
-    // WIP 提出でTLEあり、初期化を変更する
+    // WIP 提出でTLEあり、連結してたら判定を削減できる
     // solve
     let hw = new Array(h).fill(null).map(x => new Array(w).fill(-2));
+    let gethw = (p) => hw[p[0]][p[1]];
+    let sethw = (p, v) => { hw[p[0]][p[1]] = v };
+    let cmphw = (p1, p2) => p1[0] == p2[0] && p1[1] == p2[1];
+    let addpnt = (p, v) => [p[0] + v[0], p[1] + v[1]];
+    let chkhw = (p) => 0 <= p[0] && p[0] < h && 0 <= p[1] && p[1] < w;
     for (let qx = 0; qx < q; qx++) {
+        let pstart = qqn[qx].slice(1, 3);
+        let pend = qqn[qx].slice(3);
         if (qqn[qx][0] == 0) {
-            hw[qqn[qx][1]][qqn[qx][2]] = -1;
+            sethw(pstart, -1);
         } else {
-            let start = [qqn[qx][1], qqn[qx][2]];
-            let end = [qqn[qx][3], qqn[qx][4]];
-            if (hw[start[0]][start[1]] == -2) {
-                console.log("No");
-                continue;
-            }
-            if (hw[end[0]][end[1]] == -2) {
-                console.log("No");
-                continue;
-            }
-            let points = [start];
+            if (gethw(pstart) == -2) { console.log("No"); continue; }
+            if (gethw(pend) == -2) { console.log("No"); continue; }
+            let points = [pstart];
             while (true) {
-                let point = points.pop();
-                if (!point) {
-                    console.log("No");
-                    break;
-                }
-                if (point[0] == end[0] && point[1] == end[1]) {
-                    console.log("Yes");
-                    break;
-                }
-                if (0 < point[0]) {
-                    let next = [point[0] - 1, point[1]];
-                    if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
-                        hw[next[0]][next[1]] = qx;
-                        points.push(next);
+                let pcurr = points.pop();
+                if (!pcurr) { console.log("No"); break; }
+                if (cmphw(pcurr, pend)) { console.log("Yes"); break; }
+                [[-1, 0], [+1, 0], [0, -1], [0, +1]].forEach((vnext) => {
+                    let pcurent = addpnt(pcurr, vnext);
+                    if (chkhw(pcurent) && -1 <= gethw(pcurent) && gethw(pcurent) < qx) {
+                        sethw(pcurent, qx);
+                        points.push(pcurent);
                     }
-                }
-                if (point[0] < h - 1) {
-                    let next = [point[0] + 1, point[1]];
-                    if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
-                        hw[next[0]][next[1]] = qx;
-                        points.push(next);
-                    }
-                }
-                if (0 < point[1]) {
-                    let next = [point[0], point[1] - 1];
-                    if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
-                        hw[next[0]][next[1]] = qx;
-                        points.push(next);
-                    }
-                }
-                if (point[1] < w - 1) {
-                    let next = [point[0], point[1] + 1];
-                    if (-1 <= hw[next[0]][next[1]] && hw[next[0]][next[1]] < qx) {
-                        hw[next[0]][next[1]] = qx;
-                        points.push(next);
-                    }
-                }
+                });
             }
         }
     }
