@@ -4,22 +4,22 @@ async function main() {
     // input
     const readline = require('readline').createInterface({ input: process.stdin });
     const readiter = readline[Symbol.asyncIterator]();
-    async function readlineasync() { return (await readiter.next()).value; }
+    async function read() { return (await readiter.next()).value; }
     // param
     let n: number;
     let ann: number[][];
     let m: number;
     let xm: number[], ym: number[];
     // init
-    n = Number((await readlineasync()));
+    n = Number((await read()));
     ann = new Array(n);
     for (let nx = 0; nx < n; nx++) {
-        ann[nx] = (await readlineasync()).split(" ").map(x => Number(x));
+        ann[nx] = (await read()).split(" ").map(x => Number(x));
     }
-    m = Number((await readlineasync()));
+    m = Number((await read()));
     [xm, ym] = [new Array(n), new Array(n)];
     for (let mx = 0; mx < m; mx++) {
-        [xm[mx], ym[mx]] = (await readlineasync()).split(" ").map(x => Number(x) - 1);
+        [xm[mx], ym[mx]] = (await read()).split(" ").map(x => Number(x) - 1);
     }
     // solve
     let xynn = new Array(n).fill(null).map(x => new Array(n).fill(true));

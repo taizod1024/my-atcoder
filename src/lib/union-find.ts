@@ -23,7 +23,8 @@ function UF_mergeRoot(a: number, b: number) {
     uf_count[root1] = 0;
     uf_root[root1] = root0;
 }
-// usage
+
+// // usage
 // UF_initRoot(n);
 // for (let mx = 0; mx < m; mx++) {
 //     UF_mergeRoot(am[mx], bm[mx]);

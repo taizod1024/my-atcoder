@@ -14,11 +14,9 @@ async function main() {
     for (let nx = 0; nx < n; nx++) {
         anm.push((await read()).split(" ").map(x => Number(x)));
     }
+    // TODO edit the code
     // solve
-    let ans = 1;
-    for (let nx = 0; nx < n; nx++) {
-        ans = (ans * anm[nx].reduce((prev, curr) => prev + curr)) % 1000000007;
-    }
+    let ans = 0;
     // answer
     console.log(ans);
     return;
