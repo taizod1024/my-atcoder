@@ -20,6 +20,23 @@ async function main() {
         graph[an[nx]].push(bn[nx]);
         graph[bn[nx]].push(an[nx]);
     }
+    // 以下のコードは正しいが、TLEになったのでコメントアウト
+    // let last = null;
+    // let queue = [0];
+    // let visited = new Array(n).fill(false);
+    // while (0 < queue.length) {
+    //     last = queue[0];
+    //     queue.forEach(x => visited[x] = true)
+    //     queue = queue.map(x => graph[x]).reduce((p, c) => p.concat(c.filter(x => !visited[x])));
+    // }
+    // let ans = 0;
+    // queue = [last];
+    // visited = new Array(n).fill(false);
+    // while (0 < queue.length) {
+    //     queue.forEach(x => visited[x] = true)
+    //     queue = queue.map(x => graph[x]).reduce((p, c) => p.concat(c)).filter(x => !visited[x]);
+    //     ans++;
+    // }
     let queue = [0];
     let visited = new Array(n).fill(false);
     let last = null;

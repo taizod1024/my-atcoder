@@ -16,7 +16,7 @@ function main(input: string[]) {
     yn.push(l - an[n - 1]);
     let ans = 0;
     (function loop(nx = 0, rest = k, score = l) {
-        // WIP RE,TLE 再帰によるネストの深さが原因
+        //  PENDING RE,TLE発生、再帰によるネストの深さが原因
         let scr = 0;
         for (let nxx = nx; nxx <= n - rest; nxx++) {
             scr += yn[nxx];

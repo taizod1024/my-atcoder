@@ -1,27 +1,27 @@
 export { };
 // main
-function main(input: string[]) {
+async function main() {
+    // input
+    const readline = require('readline').createInterface({ input: process.stdin });
+    const readiter = readline[Symbol.asyncIterator]();
+    async function read() { return (await readiter.next()).value; }
     // param
     let n: number;
     let abn: number[][];
-    n = Number(input.shift());
-    abn = input.map(x => x.split(" ").map(x => Number(x) - 1));
-    // solve
+    // init
+    n = Number((await read()));
+    abn = new Array(n - 1).fill(null);
     for (let nx = 0; nx < n - 1; nx++) {
-        if (abn[nx][0] > abn[nx][1]) {
-            [abn[nx][0], abn[nx][1]] = [abn[nx][1], abn[nx][0]];
-        }
+        abn[nx] = (await read()).split(" ").map(x => Number(x) - 1);
     }
-    abn.sort((ab1, ab2) => ab1[0] - ab2[0]);
-    // WIP 解答中
+    // solve
+    let graph = new Array(n - 1).fill(null).map(x => []);
+    for (let nx = 0; nx < n - 1; nx++) {
+        graph[abn[nx][0]].push(abn[nx][1]);
+        graph[abn[nx][1]].push(abn[nx][0]);
+    }
     // answer
+    console.log("");
     return;
 }
-// entrypoint
-function entrypoint() {
-    const lines: string[] = [];
-    const reader = require('readline').createInterface({ input: process.stdin, output: process.stdout });
-    reader.on('line', function (line: string) { lines.push(line); });
-    reader.on('close', function () { main(lines); });
-}
-entrypoint();
+main();
