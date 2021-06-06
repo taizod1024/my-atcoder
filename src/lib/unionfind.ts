@@ -1,4 +1,4 @@
-// union-find lib
+// union find lib
 class UnionFind {
     public root: number[];
     public count: number[];
