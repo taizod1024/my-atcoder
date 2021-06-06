@@ -8,19 +8,13 @@ async function main() {
     const readline = async () => { return (await readlineiter.next()).value; };
     const readword = async () => { return (await readworditer.next()).value; };
     // param
-    let n: number;
-    let anm: number[][];
+    let k: number;
     // init
-    n = Number((await readline()));
-    anm = [];
-    for (let nx = 0; nx < n; nx++) {
-        anm.push((await readline()).split(" ").map(x => Number(x)));
-    }
-    // TODO edit the code
+    k = Number((await readline()));
     // solve
-    let ans = 0;
+    // PENDING 解答作成できず
     // answer
-    console.log(ans);
+    console.log();
     return;
 }
 main();
