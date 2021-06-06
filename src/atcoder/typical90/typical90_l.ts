@@ -16,72 +16,78 @@ async function main() {
     for (let qx = 0; qx < q; qx++) {
         qqn.push((await read()).split(" ").map(x => Number(x) - 1));
     }
-    // union-find lib
-    let uf_root: number[];
-    let uf_count: number[];
-    function UF_initRoot(num: number) {
-        uf_root = new Array(num).fill(-1);
-        uf_count = new Array(num).fill(1);
-    }
-    function UF_getRoot(index: number) {
-        if (uf_root[index] < 0) {
-            return index;
-        } else {
-            let work0: number = UF_getRoot(uf_root[index]);
-            uf_root[index] = work0;
-            return work0
+    // union find lib
+    class UnionFind {
+        public root: number[];
+        public count: number[];
+        public initRoot(num: number) {
+            this.root = new Array(num).fill(-1);
+            this.count = new Array(num).fill(1);
+        };
+        public getRoot(index: number) {
+            if (this.root[index] < 0) {
+                return index;
+            } else {
+                let work0: number = this.getRoot(this.root[index]);
+                this.root[index] = work0;
+                return work0
+            }
         }
-    }
-    function UF_mergeRoot(a: number, b: number) {
-        let root0: number = UF_getRoot(a);
-        let root1: number = UF_getRoot(b);
-        if (root0 == root1) return;
-        if (root0 > root1) [root0, root1] = [root1, root0];
-        uf_count[root0] += uf_count[root1];
-        uf_count[root1] = 0;
-        uf_root[root1] = root0;
-    }
+        public mergeRoot(a: number, b: number) {
+            let root0: number = this.getRoot(a);
+            let root1: number = this.getRoot(b);
+            if (root0 == root1) return;
+            if (root0 > root1) [root0, root1] = [root1, root0];
+            this.count[root0] += this.count[root1];
+            this.count[root1] = 0;
+            this.root[root1] = root0;
+        }
+    };
     // graph matrix lib
-    let GM_h: number;
-    let GM_w: number;
-    let GM_hw: number[][];
-    let GM_initMatrix = (h, w) => { GM_h = h; GM_w = w; GM_hw = new Array(h).fill(null).map(x => new Array(w).fill(-1)); };
-    let GM_getValue = (p) => GM_hw[p[0]][p[1]];
-    let GM_setValue = (p, v) => { GM_hw[p[0]][p[1]] = v };
-    let GM_isEqualTo = (p1, p2) => p1[0] == p2[0] && p1[1] == p2[1];
-    let GM_addTo = (p, v) => [p[0] + v[0], p[1] + v[1]];
-    let GM_checkRange = (p) => 0 <= p[0] && p[0] < GM_h && 0 <= p[1] && p[1] < GM_w;
+    class GraphMatrix {
+        public h: number;
+        public w: number;
+        public hw: number[][];
+        public initMatrix = (h, w) => { this.h = h; this.w = w; this.hw = new Array(h).fill(null).map(x => new Array(w).fill(-1)); };
+        public getValue = (p) => this.hw[p[0]][p[1]];
+        public setValue = (p, v) => { this.hw[p[0]][p[1]] = v };
+        public isEqualTo = (p1, p2) => p1[0] == p2[0] && p1[1] == p2[1];
+        public addTo = (p, v) => [p[0] + v[0], p[1] + v[1]];
+        public checkRange = (p) => 0 <= p[0] && p[0] < this.h && 0 <= p[1] && p[1] < this.w;
+    }
     // solve
-    GM_initMatrix(h, w);
-    UF_initRoot(q);
+    let gm = new GraphMatrix();
+    gm.initMatrix(h, w);
+    let uf = new UnionFind();
+    uf.initRoot(q);
     for (let qx = 0; qx < q; qx++) {
         let pbgn = qqn[qx].slice(1, 3);
         let pend = qqn[qx].slice(3);
         if (qqn[qx][0] == 0) {
-            if (GM_getValue(pbgn) == -1) {
-                GM_setValue(pbgn, qx);
+            if (gm.getValue(pbgn) == -1) {
+                gm.setValue(pbgn, qx);
                 [[-1, 0], [+1, 0], [0, -1], [0, +1]].forEach((vnext) => {
-                    let pnext = GM_addTo(pbgn, vnext);
-                    if (GM_checkRange(pnext)) {
-                        let gnext = GM_getValue(pnext);
+                    let pnext = gm.addTo(pbgn, vnext);
+                    if (gm.checkRange(pnext)) {
+                        let gnext = gm.getValue(pnext);
                         if (gnext != -1) {
-                            UF_mergeRoot(qx, GM_getValue(pnext));
+                            uf.mergeRoot(qx, gm.getValue(pnext));
                         }
                     }
                 });
             }
         } else {
-            let gbgn = GM_getValue(pbgn);
+            let gbgn = gm.getValue(pbgn);
             if (gbgn == -1) {
                 console.log("No");
                 continue;
             }
-            let gend = GM_getValue(pend);
+            let gend = gm.getValue(pend);
             if (gend == -1) {
                 console.log("No");
                 continue;
             }
-            if (UF_getRoot(gbgn) != UF_getRoot(gend)) {
+            if (uf.getRoot(gbgn) != uf.getRoot(gend)) {
                 console.log("No");
                 continue;
             }
