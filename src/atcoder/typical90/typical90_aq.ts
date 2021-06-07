@@ -2,10 +2,9 @@
 (async () => {
     // util for input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const readlineiter = readline[Symbol.asyncIterator]();
-    const readworditer = (async function* () { for await (const line of readlineiter) for (const word of line.split(" ")) yield await word; })();
-    const inputline = async () => (await readlineiter.next()).value;
-    const inputword = async () => (await readworditer.next()).value;
+    const lineiter = readline[Symbol.asyncIterator]();
+    const readiter = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
+    const read = async () => (await readiter.next()).value;
     // util for es6
     const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
     const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
@@ -15,18 +14,19 @@
     let rt: number, ct: number;
     let shw: string[][] = [];
     // init
-    h = Number(await inputword());
-    w = Number(await inputword());
-    rs = Number(await inputword());
-    cs = Number(await inputword());
-    rt = Number(await inputword());
-    ct = Number(await inputword());
+    h = Number(await read());
+    w = Number(await read());
+    rs = Number(await read());
+    cs = Number(await read());
+    rt = Number(await read());
+    ct = Number(await read());
     for (let rx of startlen(0, h)) {
-        shw.push((await inputword()).split(""));
+        shw.push((await read()).split(""));
     }
     // solve
     let ans = Number.MAX_SAFE_INTEGER;
     let dst: number[][] = new Array(h).fill(null).map(x => new Array(w).fill(-1));
+    // WIP 解答作成中
     // answer
     console.log(ans);
     return;
