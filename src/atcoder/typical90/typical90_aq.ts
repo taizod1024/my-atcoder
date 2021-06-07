@@ -14,19 +14,20 @@ async function main() {
     let h: number, w: number;
     let rs: number, cs: number;
     let rt: number, ct: number;
-    let src: string[][] = [];
+    let shw: string[][] = [];
     // init
-    h = Number((await inputword()));
-    w = Number((await inputword()));
-    rs = Number((await inputword()));
-    cs = Number((await inputword()));
-    rt = Number((await inputword()));
-    ct = Number((await inputword()));
+    h = Number(await inputword());
+    w = Number(await inputword());
+    rs = Number(await inputword());
+    cs = Number(await inputword());
+    rt = Number(await inputword());
+    ct = Number(await inputword());
     for (let rx of startlen(0, h)) {
-        src.push((await inputline()).split(""));
+        shw.push((await inputword()).split(""));
     }
     // solve
-    let ans = 0;
+    let ans = Number.MAX_SAFE_INTEGER;
+    let dst: number[][] = new Array(h).fill(null).map(x => new Array(w).fill(-1));
     // answer
     console.log(ans);
     return;
