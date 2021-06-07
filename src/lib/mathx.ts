@@ -1,4 +1,4 @@
-// math lib
+// mathx lib
 class Mathx {
     public max(arr: number[]): number { return arr.reduce((x, y) => Math.max(x, y)); }
     public min(arr: number[]): number { return arr.reduce((x, y) => Math.min(x, y)); }

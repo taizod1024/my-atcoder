@@ -32,4 +32,4 @@ class UnionFind {
 // for (let mx = 0; mx < m; mx++) {
 //     uf.mergeRoot(am[mx], bm[mx]);
 // }
-// ans = Math_max(uf.count);
+// ans = Mathx.max(uf.count);
