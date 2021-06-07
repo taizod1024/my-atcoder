@@ -1,37 +1,38 @@
 export { };
 // main
 async function main() {
-    // input
+    // util for input
     const readline = require('readline').createInterface({ input: process.stdin });
     const readlineiter = readline[Symbol.asyncIterator]();
-    const readworditer = (async function* () { for await (const vals of readlineiter) for (const val of vals.split(" ")) yield await val; })();
-    const inputline = async () => { return (await readlineiter.next()).value; };
-    const inputword = async () => { return (await readworditer.next()).value; };
+    const readworditer = (async function* () { for await (const line of readlineiter) for (const word of line.split(" ")) yield await word; })();
+    const inputline = async () => (await readlineiter.next()).value;
+    const inputword = async () => (await readworditer.next()).value;
+    // util for es6
+    const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
+    const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
     // param
     let n: number, m: number;
-    let am: number[], bm: number[];
+    let am: number[] = [], bm: number[] = [];
     // init
     n = Number((await inputword()));
     m = Number((await inputword()));
-    am = [];
-    bm = [];
-    for (let mx = 0; mx < m; mx++) {
+    for (const mx of startlen(0, m)) {
         am.push(Number(await inputword()) - 1);
         bm.push(Number(await inputword()) - 1);
     }
     // solve
     let ans = 0;
-    let path = new Array(n).fill(null).map(x => []);
-    for (let mx = 0; mx < m; mx++) {
+    const path = new Array(n).fill(null).map(x => []);
+    for (const mx of startlen(0, m)) {
         path[am[mx]].push(bm[mx]);
     }
-    let visited = new Array(n);
-    for (let nx = 0; nx < n; nx++) {
+    const visited = new Array(n);
+    for (const nx of startlen(0, n)) {
         visited.fill(0);
         (function dfs(from = nx) {
             if (visited[from]) return;
             visited[from] = 1;
-            for (let to of path[from]) {
+            for (const to of path[from]) {
                 dfs(to);
             }
         })();
