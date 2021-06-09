@@ -25,3 +25,4 @@ AtCoder提出用ソースコード個人リポジトリ(TypeScriptのみ)
 - 変数はletで宣言。ブロックスコープで処理。varは使わない。
 - 二次元配列の作り方に注意 new Array(n).fill(new Array(m))はNG
 - TypeScriptで10^6の配列を作るとTLE
+- 再帰をジェネレータに書き換える 

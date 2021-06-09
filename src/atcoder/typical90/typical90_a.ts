@@ -1,41 +1,65 @@
-export { };
 // main
-function main(input: string[]) {
+(async () => {
+    // util for input
+    const readline = require('readline').createInterface({ input: process.stdin });
+    const lineiter = readline[Symbol.asyncIterator]();
+    const readiter = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
+    const read = async () => (await readiter.next()).value;
+    // util for es6
+    const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
+    const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
     // param
-    let n: number, l: number;
+    let n: number, l: number
     let k: number;
-    let an: number[];
+    let an: number[] = [];
     // init
-    [n, l] = input.shift().split(" ").map(x => Number(x));
-    k = Number(input.shift());
-    an = input.shift().split(" ").map(x => Number(x));
+    n = Number(await read());
+    l = Number(await read());
+    k = Number(await read());
+    for (let nx of startlen(0, n)) {
+        an.push(Number(await read()))
+    }
     // solve
-    let yn: number[] = [];
-    yn.push(an[0]);
-    for (let nx = 1; nx < n; nx++) yn.push(an[nx] - an[nx - 1]);
-    yn.push(l - an[n - 1]);
-    let ans = 0;
-    (function loop(nx = 0, rest = k, score = l) {
-        //  PENDING RE,TLE発生、再帰によるネストの深さが原因
-        let scr = 0;
-        for (let nxx = nx; nxx <= n - rest; nxx++) {
-            scr += yn[nxx];
-            if (0 < rest) {
-                loop(nxx + 1, rest - 1, Math.min(score, scr));
+    let m = n + 1;
+    let bm = [];
+    for (let mx of startlen(0, m)) {
+        let b = 0;
+        if (mx == 0) b = an[mx];
+        else if (mx < n) b = an[mx] - an[mx - 1];
+        else b = l - an[mx - 1];
+        bm.push(b);
+    }
+    // greedy
+    function greedy(v: number) {
+        let vv = 0;
+        let kk = 0;
+        let ss = Number.MAX_SAFE_INTEGER;
+        for (let mx = 0; mx < m; mx++) {
+            vv += bm[mx];
+            if (kk < k && v <= vv) {
+                ss = Math.min(ss, vv);
+                kk++;
+                vv = 0;
             }
         }
-        if (rest == 0) {
-            ans = Math.max(ans, Math.min(score, scr));
+        return (kk < k || vv < v) ? 0 : Math.min(ss, vv);
+    }
+    // bsearch
+    let ans = 0;
+    function bsearch(left: number, right: number) {
+        if (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+            let score = greedy(mid);
+            ans = Math.max(ans, score);
+            if (0 < score) {
+                bsearch(mid + 1, right);
+            } else {
+                bsearch(left, mid - 1);
+            }
         }
-    })();
+    }
+    bsearch(0, l);
     // answer
     console.log(ans);
-}
-// entrypoint
-function entrypoint() {
-    const lines: string[] = [];
-    const reader = require('readline').createInterface({ input: process.stdin, output: process.stdout });
-    reader.on('line', function (line: string) { lines.push(line); });
-    reader.on('close', function () { main(lines); });
-}
-entrypoint();
+    return;
+})();
