@@ -47,15 +47,14 @@
     // bsearch
     let ans = 0;
     function bsearch(left: number, right: number) {
-        if (left <= right) {
-            let mid = Math.floor((left + right) / 2);
-            let score = greedy(mid);
-            ans = Math.max(ans, score);
-            if (0 < score) {
-                bsearch(mid + 1, right);
-            } else {
-                bsearch(left, mid - 1);
-            }
+        if (left > right) return;
+        let mid = Math.floor((left + right) / 2);
+        let score = greedy(mid);
+        ans = Math.max(ans, score);
+        if (0 < score) {
+            bsearch(mid + 1, right);
+        } else {
+            bsearch(left, mid - 1);
         }
     }
     bsearch(0, l);
