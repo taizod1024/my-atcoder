@@ -19,28 +19,32 @@
     let sn = s.split("");
     // step 1
     let m = 26;
-    let nnm = new Int32Array(n * m).fill(-1);
-    let getnnm = (nx, mx) => nnm[nx * m + mx];
-    let setnnm = (nx, mx, val) => nnm[nx * m + mx] = val;
+    let nnm = new Array(n).fill(null).map(x => new Array(m).fill(-1));
     let codea = "a".charCodeAt(0);
     for (let nx = n - 1; 0 <= nx; nx--) {
         if (nx != n - 1) {
             for (let mx = 0; mx < m; mx++) {
-                setnnm(nx, mx, getnnm(nx + 1, mx));
+                nnm[nx][mx] = nnm[nx + 1][mx];
             }
         }
-        let code = sn[nx].charCodeAt(0) - codea;
-        setnnm(nx, code, nx);
+        let mxx = sn[nx].charCodeAt(0) - codea;
+        nnm[nx][mxx] = nx;
     }
     // step 2
+    let ans = [];
     let nx = 0;
     for (let kx = 0; kx < k; kx++) {
-        let nxx = n - k + kx;
         for (let mx = 0; mx < m; mx++) {
-            // WIP
+            let nxx = nnm[nx][mx];
+            if (nxx == -1) continue;
+            if (nxx <= n - k + kx) {
+                nx = nxx + 1;
+                ans.push(String.fromCharCode(codea + mx));
+                break;
+            }
         }
     }
     // answer
-    console.log();
+    console.log(ans.join(""));
     return;
 })();
