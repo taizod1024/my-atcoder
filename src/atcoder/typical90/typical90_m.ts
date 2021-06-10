@@ -14,29 +14,49 @@
     // init
     n = Number(await read());
     m = Number(await read());
-    for (let mx of startlen(0, m)) {
+    for (let mi of startlen(0, m)) {
         am.push(Number(await read()) - 1);
         bm.push(Number(await read()) - 1);
-        cm.push(Number(await read()) - 1);
+        cm.push(Number(await read()));
     }
     // solve
     // step 1
-    let dn = new Array(n).fill(null).map(x => []);
-    // WIP
-    let ans;
-
-    // 出力処理
-
-    // ＜例＞bigintの末尾の"n"を削除して出力
-    // ans = ans.toString().replace("n", "");
-
-    // ＜例＞文字列配列を改行で結合して出力
-    // ans = ans.join("\n");
-
-    // ＜例＞二次元数値配列を結合して出力
-    // ans = anm.map(an => an.join(" ")).join("\n");
-
-    // answer
-    console.log(ans);
+    let ln = new Array(n).fill(null).map(x => []);
+    for (let mx of startlen(0, m)) {
+        ln[am[mx]].push([bm[mx], cm[mx]]);
+        ln[bm[mx]].push([am[mx], cm[mx]]);
+    }
+    // step 2
+    function dijkstra(start) {
+        let cost = new Array(n).fill(Number.MAX_SAFE_INTEGER);
+        let queue = [];
+        let visited = new Array(n).fill(false);
+        let queued = new Array(n).fill(false);
+        // first node
+        cost[start] = 0;
+        queued[start] = true;
+        queue.push(start);
+        while (queue.length) {
+            queue.sort((a, b) => cost[b] - cost[a]); // WIP TLE
+            let current = queue.pop();
+            visited[current] = true;
+            for (let [next, nextcost] of ln[current]) {
+                if (visited[next]) continue;
+                visited[current] = true;
+                cost[next] = Math.min(cost[next], cost[current] + nextcost);
+                if (queued[next]) continue;
+                queued[next] = true;
+                queue.push(next);
+            }
+        }
+        return cost;
+    }
+    // step 3
+    let cn1 = dijkstra(0);
+    let cn2 = dijkstra(n - 1);
+    for (let nx of startlen(0, n)) {
+        // answer
+        console.log(cn1[nx] + cn2[nx]);
+    }
     return;
 })();
