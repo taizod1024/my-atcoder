@@ -1,3 +1,5 @@
+import { type } from "os";
+
 // main
 (async () => {
     // util for input
@@ -21,39 +23,40 @@
     }
     // solve
     // step 1
-    let ln = new Array(n).fill(null).map(x => []);
+    type edge = { node: node, cost: number };
+    type node = { index: number, cost: number, edges: edge[] };
+    let nodes: node[] = new Array(n).fill(null).map((val, idx) => { return { index: idx, cost: 0, edges: [] }; });
     for (let mx of startlen(0, m)) {
-        ln[am[mx]].push([bm[mx], cm[mx]]);
-        ln[bm[mx]].push([am[mx], cm[mx]]);
+        nodes[am[mx]].edges.push({ node: nodes[bm[mx]], cost: cm[mx] });
+        nodes[bm[mx]].edges.push({ node: nodes[am[mx]], cost: cm[mx] });
     }
     // step 2
     function dijkstra(start) {
-        let cost = new Array(n).fill(Number.MAX_SAFE_INTEGER);
-        let queue = [];
-        let visited = new Array(n).fill(false);
-        let queued = new Array(n).fill(false);
+        nodes.forEach(node => node.cost = Number.MAX_SAFE_INTEGER);
+        let queue: node[] = [];
+        let visited = new Set();
         // first node
-        cost[start] = 0;
-        queued[start] = true;
-        queue.push(start);
+        nodes[start].cost = 0;
+        queue.push(nodes[start]);
         while (queue.length) {
-            queue.sort((a, b) => cost[b] - cost[a]); // WIP TLE
+            // current node
             let current = queue.pop();
-            visited[current] = true;
-            for (let [next, nextcost] of ln[current]) {
-                if (visited[next]) continue;
-                visited[current] = true;
-                cost[next] = Math.min(cost[next], cost[current] + nextcost);
-                if (queued[next]) continue;
-                queued[next] = true;
-                queue.push(next);
+            if (visited.has(current.index)) continue;
+            visited.add(current.index);
+            // next node
+            for (let e of current.edges) {
+                if (e.node.cost <= current.cost + e.cost) continue;
+                e.node.cost = current.cost + e.cost;
+                queue.push(e.node);
             }
+            // sort
+            queue.sort((a, b) => b.cost - a.cost); // WIP TLE
         }
-        return cost;
+        return nodes;
     }
     // step 3
-    let cn1 = dijkstra(0);
-    let cn2 = dijkstra(n - 1);
+    let cn1 = dijkstra(0).map(node => node.cost);
+    let cn2 = dijkstra(n - 1).map(node => node.cost);
     for (let nx of startlen(0, n)) {
         // answer
         console.log(cn1[nx] + cn2[nx]);
