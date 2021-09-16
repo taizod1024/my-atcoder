@@ -2,17 +2,21 @@ import { type } from "os";
 
 // main
 (async () => {
+
     // util for input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const lineiter = readline[Symbol.asyncIterator]();
-    const worditer = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
-    const read = async () => String((await worditer.next()).value);
+    const lineit = readline[Symbol.asyncIterator]();
+    const wordit = (async function* () { for await (const line of lineit) for (const word of line.split(" ")) yield await word; })();
+    const read = async () => String((await wordit.next()).value);
+
     // util for es6
     const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
     const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
+
     // param
     let n: number, m: number;
     let am: number[] = [], bm: number[] = [], cm: number[] = [];
+
     // init
     n = Number(await read());
     m = Number(await read());
@@ -21,7 +25,9 @@ import { type } from "os";
         bm.push(Number(await read()) - 1);
         cm.push(Number(await read()));
     }
+
     // solve
+
     // step 1
     type edge = { node: node, cost: number };
     type node = { index: number, cost: number, edges: edge[] };
@@ -30,6 +36,7 @@ import { type } from "os";
         nodes[am[mx]].edges.push({ node: nodes[bm[mx]], cost: cm[mx] });
         nodes[bm[mx]].edges.push({ node: nodes[am[mx]], cost: cm[mx] });
     }
+
     // step 2
     function dijkstra(start) {
         nodes.forEach(node => node.cost = Number.MAX_SAFE_INTEGER);
@@ -54,6 +61,7 @@ import { type } from "os";
         }
         return nodes;
     }
+
     // step 3
     let cn1 = dijkstra(0).map(node => node.cost);
     let cn2 = dijkstra(n - 1).map(node => node.cost);
@@ -61,5 +69,7 @@ import { type } from "os";
         // answer
         console.log(cn1[nx] + cn2[nx]);
     }
+
     return;
+
 })();

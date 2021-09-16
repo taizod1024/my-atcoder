@@ -1,15 +1,11 @@
-import { stringify } from "querystring";
-
 // main
 (async () => {
+
     // util for input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const lineiter = readline[Symbol.asyncIterator]();
-    const worditer = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
-    const read = async () => String((await worditer.next()).value);
-    // util for es6
-    const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
-    const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
+    const lineit = readline[Symbol.asyncIterator]();
+    const wordit = (async function* () { for await (const line of lineit) for (const word of line.split(" ")) yield await word; })();
+    const read = async () => String((await wordit.next()).value);
 
     // param
     let pn: number[] = [];
@@ -27,5 +23,7 @@ import { stringify } from "querystring";
 
     // answer
     console.log(ans);
+
     return;
+
 })();

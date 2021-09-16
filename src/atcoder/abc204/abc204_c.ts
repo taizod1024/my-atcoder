@@ -1,18 +1,22 @@
 export { };
 // main
 async function main() {
+
     // util for input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const readlineiter = readline[Symbol.asyncIterator]();
-    const readworditer = (async function* () { for await (const line of readlineiter) for (const word of line.split(" ")) yield await word; })();
-    const inputline = async () => (await readlineiter.next()).value;
-    const inputword = async () => (await readworditer.next()).value;
+    const readlineit = readline[Symbol.asyncIterator]();
+    const readwordit = (async function* () { for await (const line of readlineit) for (const word of line.split(" ")) yield await word; })();
+    const inputline = async () => (await readlineit.next()).value;
+    const inputword = async () => (await readwordit.next()).value;
+
     // util for es6
     const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
     const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
+
     // param
     let n: number, m: number;
     let am: number[] = [], bm: number[] = [];
+
     // init
     n = Number((await inputword()));
     m = Number((await inputword()));
@@ -20,6 +24,7 @@ async function main() {
         am.push(Number(await inputword()) - 1);
         bm.push(Number(await inputword()) - 1);
     }
+
     // solve
     let ans = 0;
     const path = new Array(n).fill(null).map(x => []);
@@ -38,8 +43,10 @@ async function main() {
         })();
         ans += visited.reduce((p, c) => p + c);
     }
+
     // answer
     console.log(ans);
+
     return;
 }
 main();

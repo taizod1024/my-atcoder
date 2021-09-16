@@ -42,8 +42,8 @@ class GraphMatrix {
 async function main() {
     // input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const worditer = readline[Symbol.asyncIterator]();
-    async function read() { return (await worditer.next()).value; }
+    const wordit = readline[Symbol.asyncIterator]();
+    async function read() { return (await wordit.next()).value; }
     // param
     let h: number, w: number;
     let q: number;
