@@ -22,7 +22,7 @@
         let lm: number[][] = [];
         for (let nx = 0; nx < n; nx++)
             for (let nxx = 0; nxx < n; nxx++)
-                if ((await readchar()) == "#")
+                if (await readchar() == "#")
                     lm.push([nx, nxx]);
         return lm;
     };
@@ -37,8 +37,8 @@
 
     // init
     n = Number(await read());
-    sm = (await readblock());
-    tm = (await readblock());
+    sm = await readblock();
+    tm = await readblock();
 
     // solve
     let ans = "No";
