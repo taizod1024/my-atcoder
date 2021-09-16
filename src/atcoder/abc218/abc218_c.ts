@@ -9,11 +9,6 @@
     const read = async () => String((await wordit.next()).value);
     const readchar = async () => String((await charit.next()).value);
 
-    // param
-    let n: number;
-    let tm: number[][];
-    let sm: number[][];
-
     // func
     const readblock = async function () {
         let lm: number[][] = [];
@@ -31,6 +26,11 @@
     const transblock = function(lm: number[][]) {
         return lm.map(val => [val[1], -val[0]]);
     }
+
+    // param
+    let n: number;
+    let tm: number[][];
+    let sm: number[][];
 
     // init
     n = Number(await read());
