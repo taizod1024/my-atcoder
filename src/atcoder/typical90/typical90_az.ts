@@ -3,8 +3,8 @@ export { };
 async function main() {
     // input
     const readline = require('readline').createInterface({ input: process.stdin });
-    const readiter = readline[Symbol.asyncIterator]();
-    async function read() { return (await readiter.next()).value; }
+    const worditer = readline[Symbol.asyncIterator]();
+    async function read() { return (await worditer.next()).value; }
     // param
     let n: number;
     let anm: number[][];

@@ -3,9 +3,9 @@
     // util for input
     const rl = require('readline').createInterface({ input: process.stdin });
     const lineiter = rl[Symbol.asyncIterator]();
-    const readiter = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
+    const worditer = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) yield await word; })();
     const chariter = (async function* () { for await (const line of lineiter) for (const word of line.split(" ")) for (const char of word.split("")) yield await char; })();
-    const read = async () => String((await readiter.next()).value);
+    const read = async () => String((await worditer.next()).value);
     const readchar = async () => String((await chariter.next()).value);
 
     // util for es6
@@ -31,6 +31,9 @@
         let miny = lm.map(val => val[1]).reduce((a, b) => a < b ? a : b);
         return lm.map(val => [val[0] - minx, val[1] - miny]).sort((a, b) => a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]);
     };
+    const transblock = function(lm: number[][]) {
+        return lm.map(val => [val[1], -val[0]]);
+    }
 
     // init
     n = Number(await read());
@@ -46,7 +49,7 @@
             ans = "Yes";
             break;
         }
-        tm = tm.map(val => [val[1], -val[0]]);
+        tm = transblock(tm);
     }
 
     // answer
