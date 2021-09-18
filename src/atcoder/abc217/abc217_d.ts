@@ -1,3 +1,5 @@
+import * as tstl from "tstl";
+
 // main
 (async () => {
 
