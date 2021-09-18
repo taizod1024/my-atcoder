@@ -16,17 +16,13 @@
         while (left <= right) {
             let center = (right + left) >> 1;
             let cmp = compare_fn(val, arr[center]);
-            if (cmp > 0) {
-                left = center + 1;
-            } else if (cmp < 0) {
-                right = center - 1;
-            } else {
-                return center;
-            }
+            if (cmp > 0) { left = center + 1; continue; }
+            if (cmp < 0) { right = center - 1; continue; }
+            return center;
         }
         return -1;
     }
-    const compare = function (a: number[], b: number[]) {
+    const compare_fn = function (a: number[], b: number[]) {
         return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1];
     }
 
@@ -39,18 +35,16 @@
     for (let nx = 0; nx < n; nx++) {
         xyn.push([Number(await read()), Number(await read())]);
     }
- 
+
     // solve
     let ans = 0;
-    xyn.sort(compare);
+    xyn.sort(compare_fn);
     for (let nx = 0; nx < n; nx++) {
         for (let nxx = nx + 1; nxx < n; nxx++) {
             if (xyn[nx][0] == xyn[nxx][0]) continue;
             if (xyn[nx][1] == xyn[nxx][1]) continue;
-            let nxxx = bsearch(xyn, [xyn[nx][0], xyn[nxx][1]], compare);
-            if (nxxx < 0) continue;
-            let nxxxx = bsearch(xyn, [xyn[nxx][0], xyn[nx][1]], compare);
-            if (nxxxx < 0) continue;
+            if (0 > bsearch(xyn, [xyn[nx][0], xyn[nxx][1]], compare_fn)) continue;
+            if (0 > bsearch(xyn, [xyn[nxx][0], xyn[nx][1]], compare_fn)) continue;
             ans++;
         }
     }
