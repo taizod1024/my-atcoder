@@ -11,6 +11,8 @@ const bsearch = function (arr: any[], val: any, compare_fn: (a: any, b: any, arr
     }
     return -1;
 }
+
+// compare func
 const compare_num_of_pair = function (a: number[], b: number[]) {
     return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1];
 }

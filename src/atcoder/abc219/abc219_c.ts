@@ -1,5 +1,3 @@
-import * as tstl from "tstl";
-
 // main
 (async () => {
 
@@ -12,29 +10,33 @@ import * as tstl from "tstl";
     const readchar = async () => String((await charit.next()).value);
 
     // param
-    let l: number, q: number;
-    let cq: number[] = [], xq: number[] = [];
+    let x: string;
+    let n: number;
+    let sn: string[] = [];
 
     // init
-    l = Number(await read());
-    q = Number(await read());
-    for (let qx = 0; qx < q; qx++) {
-        cq.push(Number(await read()));
-        xq.push(Number(await read()));
+    x = await read();
+    n = Number(await read());
+    for (let nx = 0; nx < n; nx++) {
+        sn.push(await read())
     }
 
-    // // solve
-    let ansn = [];
-    let tree = new tstl.TreeSet<number>([0, l]);
-    for (let qx = 0; qx < q; qx++) {
-        if (cq[qx] == 1) {
-            tree.insert(xq[qx]);
-        } else {
-            const it = tree.lower_bound(xq[qx]);
-            ansn.push(it.value - it.prev().value);
-        }
+    // solve
+    let ans;
+    let cx = {};
+    for (let xx = 0; xx < x.length; xx++) {
+        cx[x.charAt(xx)] = xx;
     }
-    let ans = ansn.join("\n");
+    let tn = sn.sort((a, b) => {
+        const len = Math.min(a.length, b.length);
+        for (let i = 0; i < len; i++) {
+            if (a[i] !== b[i]) {
+                return cx[a[i]] - cx[b[i]];
+            }
+        }
+        return a.length - b.length;
+    });
+    ans = tn.join("\n");
 
     // answer
     console.log(ans);

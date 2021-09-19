@@ -1,5 +1,3 @@
-import * as tstl from "tstl";
-
 // main
 (async () => {
 
@@ -12,29 +10,17 @@ import * as tstl from "tstl";
     const readchar = async () => String((await charit.next()).value);
 
     // param
-    let l: number, q: number;
-    let cq: number[] = [], xq: number[] = [];
-
+    let sn: string[] = new Array(3);
+    let t: string;
+    
     // init
-    l = Number(await read());
-    q = Number(await read());
-    for (let qx = 0; qx < q; qx++) {
-        cq.push(Number(await read()));
-        xq.push(Number(await read()));
-    }
-
-    // // solve
-    let ansn = [];
-    let tree = new tstl.TreeSet<number>([0, l]);
-    for (let qx = 0; qx < q; qx++) {
-        if (cq[qx] == 1) {
-            tree.insert(xq[qx]);
-        } else {
-            const it = tree.lower_bound(xq[qx]);
-            ansn.push(it.value - it.prev().value);
-        }
-    }
-    let ans = ansn.join("\n");
+    sn[0] = await read(); 
+    sn[1] = await read(); 
+    sn[2] = await read(); 
+    t = await read();
+    
+    // solve
+    let ans = t.split("").map(val => val.charCodeAt(0) - "1".charCodeAt(0)).map(val => sn[val]).join("");
 
     // answer
     console.log(ans);

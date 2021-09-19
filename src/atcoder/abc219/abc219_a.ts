@@ -1,5 +1,3 @@
-import * as tstl from "tstl";
-
 // main
 (async () => {
 
@@ -12,29 +10,18 @@ import * as tstl from "tstl";
     const readchar = async () => String((await charit.next()).value);
 
     // param
-    let l: number, q: number;
-    let cq: number[] = [], xq: number[] = [];
+    let x: number;
 
     // init
-    l = Number(await read());
-    q = Number(await read());
-    for (let qx = 0; qx < q; qx++) {
-        cq.push(Number(await read()));
-        xq.push(Number(await read()));
-    }
+    x = Number(await read());
 
-    // // solve
-    let ansn = [];
-    let tree = new tstl.TreeSet<number>([0, l]);
-    for (let qx = 0; qx < q; qx++) {
-        if (cq[qx] == 1) {
-            tree.insert(xq[qx]);
-        } else {
-            const it = tree.lower_bound(xq[qx]);
-            ansn.push(it.value - it.prev().value);
-        }
-    }
-    let ans = ansn.join("\n");
+    // solve
+    let ans;
+
+    if (90 <= x) ans = "expert";
+    else if (70 <= x) ans = 90 - x;
+    else if (40 <= x) ans = 70 - x;
+    else ans = 40- x;
 
     // answer
     console.log(ans);
