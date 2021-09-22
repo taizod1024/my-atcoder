@@ -19,23 +19,24 @@ const main = async function () {
     k = Number(await read());
 
     // solve
-    function* gen(an: string[]): IterableIterator<string[]> {
-        if (an.length === 0) yield [];
+
+    // 順列生成
+    function perm<T>(an: T[]): T[][] {
+        if (an.length == 1) return [an];
+        let zm = [];
         for (let nx = 0; nx < an.length; nx++) {
             const head = an[nx];
             const rest = [...an];
             rest.splice(nx, 1);
-            for (const bn of gen(rest)) {
-                yield [head, ...bn];
+            for (const bn of perm(rest)) {
+                zm.push([head, ...bn]);
             }
         }
+        return zm;
     }
-
-    const map = new Map();
-    for (const g of gen(s.split(""))) {
-        map.set(g.join(""), true);
-    }
-    let ans = Array.from(map.keys()).sort()[k - 1];
+    let sn = Array.from(new Set(perm<string>(s.split("")).map(val => val.join("")))).sort();
+    
+    let ans = sn[k - 1];
 
     // answer
     console.log(ans);
