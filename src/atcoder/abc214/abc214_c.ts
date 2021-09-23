@@ -12,16 +12,23 @@ const main = async function () {
 
     // param
     let n: number;
-    
+    let sn: number[];
+    let tn: number[];
+
     // init
     n = Number(await read());
+    sn = [];
+    tn = [];
+    for (let nx = 0; nx < n; nx++) sn[nx] = Number(await read());
+    for (let nx = 0; nx < n; nx++) tn[nx] = Number(await read());
 
     // solve
-    let ans;
-    if (1 <= n && n <= 125) ans = 4;
-    else if (126 <= n && n <= 211) ans = 6;
-    else if (212 <= n && n <= 214) ans = 8;
-    
+    let un = Array.from(tn);
+    for (let nx = 0; nx < n * 2; nx++) {
+        un[(nx + 1) % n] = Math.min(un[(nx + 1) % n], un[nx % n] + sn[nx % n]);
+    }
+    let ans = un.join("\n");
+
     // answer
     console.log(ans);
 

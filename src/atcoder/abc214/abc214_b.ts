@@ -11,17 +11,24 @@ const readchar = async () => String((await charit.next()).value);
 const main = async function () {
 
     // param
-    let n: number;
-    
+    let s: number, t: number;
+
     // init
-    n = Number(await read());
+    s = Number(await read());
+    t = Number(await read());
 
     // solve
-    let ans;
-    if (1 <= n && n <= 125) ans = 4;
-    else if (126 <= n && n <= 211) ans = 6;
-    else if (212 <= n && n <= 214) ans = 8;
-    
+    let ans = 0;
+    for (let a = 0; a <= 100; a++) {
+        for (let b = 0; b <= 100; b++) {
+            for (let c = 0; c <= 100; c++) {
+                if (a + b + c <= s && a * b * c <= t) {
+                    ans++;
+                }
+            }
+        }
+    }
+
     // answer
     console.log(ans);
 
