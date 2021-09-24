@@ -22,28 +22,16 @@ const main = async function () {
 
     // solve
 
-    // 座標圧縮
-    let dn = cn.map((val, idx) => [val, 0, idx]);
-    dn.sort((a, b) => a[0] - b[0]);
-    dn.forEach((val, idx, arr) => {
-        let pval = arr[idx - 1];
-        if (idx == 0) val[1] = 0;
-        else if (val[0] == pval[0]) val[1] = pval[1];
-        else val[1] = pval[1] + 1;
-    });
-    dn.sort((a, b) => a[2] - b[2]);
-    let en = dn.map(val => val[1]);
-
-    // カウント
-    let fn = new Array(n).fill(0);
+    let eh = {};
     let gnow = 0;
     let gmax = 0;
     for (let nx = 0; nx < n; nx++) {
-        if (fn[en[nx]] == 0) gnow++;
-        fn[en[nx]]++;
+        if (eh[cn[nx]] == undefined) eh[cn[nx]] = 0;
+        if (eh[cn[nx]] == 0) gnow++;
+        eh[cn[nx]]++;
         if (k <= nx) {
-            fn[en[nx - k]]--;
-            if (fn[en[nx - k]] == 0) gnow--;
+            eh[cn[nx - k]]--;
+            if (eh[cn[nx - k]] == 0) gnow--;
         }
         gmax = Math.max(gmax, gnow);
     }
