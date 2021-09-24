@@ -1,41 +1,40 @@
-import * as rl from "readline";
+import * as fs from "fs";
 
 // util for input
-const lineit = rl.createInterface({ input: process.stdin });
-const wordit = (async function* () { for await (const line of lineit) for (const word of line.split(" ")) yield await word; })();
-const charit = (async function* () { for await (const line of lineit) for (const word of line.split(" ")) for (const char of word.split("")) yield await char; })();
-const read = async () => String((await wordit.next()).value);
-const readchar = async () => String((await charit.next()).value);
+const lineit = (function* () { for (const line of fs.readFileSync(0, "utf8").split("\n")) yield line; })();
+const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(" ")) yield word; } })();
+const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split("")) yield char; } })();
+const readline = () => String((lineit.next()).value);
+const read = () => String((wordit.next()).value);
+const readchar = () => String((charit.next()).value);
 
 // main
-const main = async function () {
+const main = function () {
 
     // param
     let n: number, k: number;
     let cn: number[];
 
     // init
-    n = Number(await read());
-    k = Number(await read());
-    cn = [];
-    for (let nx = 0; nx < n; nx++) cn.push(Number(await read()));
+    n = Number(read());
+    k = Number(read());
+    cn = readline().split(" ").map(val => Number(val));
 
     // solve
-
-    let eh = {};
-    let gnow = 0;
-    let gmax = 0;
+    let arr = [];
+    let now = 0;
+    let max = 0;
     for (let nx = 0; nx < n; nx++) {
-        if (eh[cn[nx]] == undefined) eh[cn[nx]] = 0;
-        if (eh[cn[nx]] == 0) gnow++;
-        eh[cn[nx]]++;
+        if (arr[cn[nx]] == undefined) arr[cn[nx]] = 0;
+        if (arr[cn[nx]] == 0) now++;
+        arr[cn[nx]]++;
         if (k <= nx) {
-            eh[cn[nx - k]]--;
-            if (eh[cn[nx - k]] == 0) gnow--;
+            arr[cn[nx - k]]--;
+            if (arr[cn[nx - k]] == 0) now--;
         }
-        gmax = Math.max(gmax, gnow);
+        max = Math.max(max, now);
     }
-    let ans = gmax;
+    let ans = max;
 
     // answer
     console.log(ans);
