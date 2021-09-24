@@ -11,14 +11,14 @@ const readchar = async () => String((await charit.next()).value);
 const main = async function () {
 
     // param
-    let a: number, b: number;
-    
+    let sn: string[];
+
     // init
-    a = Number(await read());
-    b = Number(await read());
+    sn = new Array(4);
+    for (let nx = 0; nx < 4; nx++) sn[nx] = await read();
 
     // solve
-    let ans = a ^ b;
+    let ans = ["H", "2B", "3B", "HR"].every(value => 0 <= sn.indexOf(value)) ? "Yes" : "No";
 
     // answer
     console.log(ans);

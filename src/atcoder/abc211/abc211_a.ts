@@ -12,13 +12,13 @@ const main = async function () {
 
     // param
     let a: number, b: number;
-    
+
     // init
     a = Number(await read());
     b = Number(await read());
 
     // solve
-    let ans = a ^ b;
+    let ans = (a - b) / 3 + b;
 
     // answer
     console.log(ans);

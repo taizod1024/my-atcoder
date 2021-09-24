@@ -11,14 +11,28 @@ const readchar = async () => String((await charit.next()).value);
 const main = async function () {
 
     // param
-    let a: number, b: number;
-    
+    let n: number, m: number;
+    let an: number[];
+    let bm: number[];
+
     // init
-    a = Number(await read());
-    b = Number(await read());
+    n = Number(await read());
+    m = Number(await read());
+    an = [];
+    bm = [];
+    for (let nx = 0; nx < n; nx++) an[nx] = Number(await read());
+    for (let mx = 0; mx < m; mx++) bm[mx] = Number(await read());
 
     // solve
-    let ans = a ^ b;
+    an.sort((a, b) => a - b);
+    bm.sort((a, b) => a - b);
+    let nx = 0;
+    let mx = 0;
+    let ans = Number.MAX_SAFE_INTEGER;
+    while (nx < n && mx < m) {
+        ans = Math.min(ans, Math.abs(an[nx] - bm[mx]));
+        if (an[nx] < bm[mx]) nx++; else mx++;
+    }
 
     // answer
     console.log(ans);

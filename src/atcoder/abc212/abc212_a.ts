@@ -12,13 +12,16 @@ const main = async function () {
 
     // param
     let a: number, b: number;
-    
+
     // init
     a = Number(await read());
     b = Number(await read());
 
     // solve
-    let ans = a ^ b;
+    let ans;
+    if (0 < a && b==0) ans = "Gold";
+    if (0 == a && 0 < b) ans = "Silver";
+    if (0 < a && 0 < b) ans = "Alloy";
 
     // answer
     console.log(ans);

@@ -11,14 +11,20 @@ const readchar = async () => String((await charit.next()).value);
 const main = async function () {
 
     // param
-    let a: number, b: number;
-    
+    let xn: number[];
+
     // init
-    a = Number(await read());
-    b = Number(await read());
+    xn = new Array(4);
+    xn[0] = Number(await readchar());
+    xn[1] = Number(await readchar());
+    xn[2] = Number(await readchar());
+    xn[3] = Number(await readchar());
 
     // solve
-    let ans = a ^ b;
+    let ans;
+    if (xn[0] == xn[1] && xn[1] == xn[2] && xn[2] == xn[3]) ans = "Weak";
+    else if ((xn[0] + 1) % 10 == xn[1] && (xn[1] + 1) % 10 == xn[2] && (xn[2] + 1) % 10 == xn[3]) ans = "Weak"
+    else ans = "Strong";
 
     // answer
     console.log(ans);
