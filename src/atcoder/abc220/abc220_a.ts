@@ -22,11 +22,13 @@ const main = function () {
     c = Number(read());
 
     // solve
-    if (c % 2 == 0) {
-        a = Math.abs(a);
-        b = Math.abs(b);
+    let ans = -1;
+    for (let cx = c; cx <= 1000; cx += c) {
+        if (a <= cx && cx <= b) {
+            ans = cx;
+            break;
+        }
     }
-    let ans = (a > b) ? ">" : (a < b) ? "<" : "=";
 
     // answer
     console.log(ans);

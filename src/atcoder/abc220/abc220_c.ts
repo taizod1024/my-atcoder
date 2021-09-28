@@ -12,21 +12,26 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let a: number;
-    let b: number;
-    let c: number;
+    let n: number;
+    let an: bigint[];
+    let x: bigint;
 
     // init
-    a = Number(read());
-    b = Number(read());
-    c = Number(read());
+    n = Number(read());
+    an = [...Array(n)].map(val => BigInt(read()));
+    x = BigInt(read());
 
     // solve
-    if (c % 2 == 0) {
-        a = Math.abs(a);
-        b = Math.abs(b);
+    let asum = an.reduce((pval, cval) => pval + cval);
+    let rep = (x - x % asum) / asum;
+    let cnt = BigInt(an.length) * rep;
+    let sum = asum * rep;
+    for (let nx = 0; nx < n; nx++) {
+        if (x < sum) break;
+        sum += an[nx];
+        cnt++;
     }
-    let ans = (a > b) ? ">" : (a < b) ? "<" : "=";
+    let ans = cnt.toString().replace("n", "");
 
     // answer
     console.log(ans);

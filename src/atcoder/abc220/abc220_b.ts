@@ -12,21 +12,20 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let a: number;
-    let b: number;
-    let c: number;
+    let k: number;
+    let ak: string;
+    let bk: string;
 
     // init
-    a = Number(read());
-    b = Number(read());
-    c = Number(read());
+    k = Number(read());
+    ak = read();
+    bk = read();
 
     // solve
-    if (c % 2 == 0) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-    }
-    let ans = (a > b) ? ">" : (a < b) ? "<" : "=";
+    let a0 = 0, b0 = 0;
+    for (const d of ak.split("")) a0 = a0 * k + Number(d);
+    for (const d of bk.split("")) b0 = b0 * k + Number(d);
+    let ans = a0 * b0;
 
     // answer
     console.log(ans);

@@ -12,21 +12,23 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let a: number;
-    let b: number;
-    let c: number;
+    let n: number;
+    let an: number[];
 
     // init
-    a = Number(read());
-    b = Number(read());
-    c = Number(read());
+    n = Number(read());
+    an = [...Array(n)].map(val => Number(read()));
 
     // solve
-    if (c % 2 == 0) {
-        a = Math.abs(a);
-        b = Math.abs(b);
+    const MOD = 998244353;
+    let dp: number[] = new Array(10).fill(0);
+    for (let nx = 0; nx < n; nx++) {
+        let x = an.shift();
+        let y = an.shift();
+        let dp0 = Array.from(dp);
+        // WIP
     }
-    let ans = (a > b) ? ">" : (a < b) ? "<" : "=";
+    let ans;
 
     // answer
     console.log(ans);
