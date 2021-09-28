@@ -12,18 +12,25 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let n: number, x: number;
+    let n: number;
     let an: number[];
 
     // init
     n = Number(read());
-    x = Number(read());
-    an = [];
-    for (let nx = 0; nx < n; nx++) an[nx] = Number(read());
+    an = [...Array(n)].map(val => Number(read()));
 
     // solve
-    let sum = an.reduce((pval, cval, cidx, arr) => pval + cval - ((((cidx + 1) % 2) == 0) ? 1 : 0));
-    let ans = (sum <= x) ? "Yes" : "No";
+    let ans = n * (n - 1) / 2;
+    an.sort((a, b) => a - b);
+    let cnt = 0;
+    for (let nx = 0; nx <= n; nx++) {
+        if (nx == n || (nx != 0 && an[nx - 1] != an[nx])) {
+            ans -= cnt * (cnt - 1) / 2;
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
 
     // answer
     console.log(ans);

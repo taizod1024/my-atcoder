@@ -12,18 +12,25 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let n: number, x: number;
-    let an: number[];
+    let n: bigint;
+    let k: bigint;
+    let an: bigint[];
 
     // init
-    n = Number(read());
-    x = Number(read());
-    an = [];
-    for (let nx = 0; nx < n; nx++) an[nx] = Number(read());
+    n = BigInt(read());
+    k = BigInt(read());
+    an = [...Array(Number(n))].map(val => BigInt(read()));
 
     // solve
-    let sum = an.reduce((pval, cval, cidx, arr) => pval + cval - ((((cidx + 1) % 2) == 0) ? 1 : 0));
-    let ans = (sum <= x) ? "Yes" : "No";
+    let d = (k >= n) ? BigInt(k / n) : 0;
+    k = k % n;
+    let bn = an.map((val, idx) => [val, d, idx]);
+    bn.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
+    for (let nx = 0; nx < k; nx++) {
+        bn[nx][1]++;
+    }
+    bn.sort((a, b) => a[2] < b[2] ? -1 : a[2] > b[2] ? 1 : 0);
+    let ans = bn.map(val => val[1].toString()).join("\n").replace("n", "");
 
     // answer
     console.log(ans);

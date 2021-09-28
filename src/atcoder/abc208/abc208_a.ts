@@ -12,19 +12,15 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let n: number, x: number;
-    let an: number[];
+    let a: number, b: number;
 
     // init
-    n = Number(read());
-    x = Number(read());
-    an = [];
-    for (let nx = 0; nx < n; nx++) an[nx] = Number(read());
+    a = Number(read());
+    b = Number(read());
 
     // solve
-    let sum = an.reduce((pval, cval, cidx, arr) => pval + cval - ((((cidx + 1) % 2) == 0) ? 1 : 0));
-    let ans = (sum <= x) ? "Yes" : "No";
-
+    let ans = (1 * a <= b && b <= 6 * a) ? "Yes" : "No";
+    
     // answer
     console.log(ans);
 

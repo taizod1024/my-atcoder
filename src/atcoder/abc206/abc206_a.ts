@@ -12,18 +12,14 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let n: number, x: number;
-    let an: number[];
+    let n: number;
 
     // init
     n = Number(read());
-    x = Number(read());
-    an = [];
-    for (let nx = 0; nx < n; nx++) an[nx] = Number(read());
 
     // solve
-    let sum = an.reduce((pval, cval, cidx, arr) => pval + cval - ((((cidx + 1) % 2) == 0) ? 1 : 0));
-    let ans = (sum <= x) ? "Yes" : "No";
+    let p = Math.floor(n * 1.08);
+    let ans = (p < 206) ? "Yay!" : (p == 206) ? "so-so" : ":(";
 
     // answer
     console.log(ans);

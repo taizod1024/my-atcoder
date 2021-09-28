@@ -1,0 +1,196 @@
+# (2021/09)AtCoderへWindowsからTypeScriptで参加
+
+Visual Studio CodeからTypeSciptでAtCoderへ参加する拡張機能を作成しました。
+テストデータのダウンロードや解答の提出をVisual Studio Codeから行うことができます。
+
+### デメリット
+
+* 標準機能が貧弱
+* テンプレートライブラリがない
+
+## 環境構築
+
+## 標準入力
+
+Linuxの場合は `fs.readFileSync()` で `/dev/stdin` を読み取ります。
+
+```TypeScript
+// for linux
+import * as fs from "fs";
+let text = fs.readFileSync("/dev/stdin", "utf8"); .
+let line = text.split("\n");
+:
+```
+
+Windowsの場合には `/dev/std/` が存在しないので、代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
+
+```TypeScript
+// for windows
+import * as fs from "fs";
+let text = fs.readFileSync(process.stdin.fd, "utf8"); .
+let line = text.split("\n");
+:
+```
+
+readlineで標準出力を使用することもできます。ストリームを全部読み取ってから処理します。
+
+```TypeScript
+// for linux / for windows
+import * as rl from "readline";
+const line: string[] = [];
+const reader = rl.createInterface({ input: process.stdin, output: process.stdout });
+reader.on("line", function (text: string) { line.push(text); });
+reader.on("close", function () {
+  :
+});
+```
+
+#### 変数への代入
+
+必要に応じて分割してから文字列を変数に代入します。
+
+```TypeScript
+:
+// param
+let s = line[0];
+let n = Number(line[1]);
+let b = BigInt(line[2]);
+let sn = line[3].split("");
+let [h, w] = line[4].split(" ").map(val => Number(val));
+:
+```
+
+ジェネレータを定義しておくと変数への代入を簡素にすることができます。文字列を自分で分割するのに比べて多少処理コストが掛かります。
+
+```TypeScript
+// util for input
+import * as fs from "fs";
+const lineit = (function* () { for (const line of fs.readFileSync(process.stdin.fd, "utf8").split("\n")) yield line; })();
+const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(" ")) yield word; } })();
+const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split("")) yield char; } })();
+const readline = () => String((lineit.next()).value);
+const read = () => String((wordit.next()).value);
+const readchar = () => String((charit.next()).value);
+
+// param
+let s = read();
+let n = Number(read());
+let b = BigInt(read());
+let sn = [];
+for (let nx = 0; nx < n; nx++) sn[nx] = Number(read());
+let h = Number(read());
+let w = Number(read());
+:
+```
+
+#### 標準出力
+
+`console.log()` は出力件数に応じて処理時間が掛かります。
+```TypeScript
+:
+// answer
+for (let nx = 0; nx < 10**5; nx++) console.log(nx);
+=> 420ms // 起動時のオーバーヘッド60msがあるため、実質360ms
+```
+出力件数が多い場合は文字列として連結してから出力します。
+```TypeScript
+:
+// answer
+let ans = "";
+for (let nx = 0; nx < 10**5; nx++) ans += nx + "\n";
+console.log(ans);
+=> 80ms // 起動時のオーバーヘッド60msのため、実質20ms
+```
+
+### 型
+
+数値には Number型を使用します。
+
+Number型を超える数値(`Number.MAX_SAFE_INTEGER`=2^53-1=9,007,199,254,740,991＝9.0*10^15)には、BigInt型を使用します(Node.js v10で追加)。BigInt型のリテラルは `0n`, `1n`, `2n` と記述します。(ES2020以降で対応)
+
+```TypeScript
+let b1 = BitInt(100);     // コンストラクタでBigInt値を生成
+let b2 = 100n;            // リテラルのBigInt値
+let b3 = b1 + b2;         // BigIntはBigInt同士でのみ演算可能
+```
+
+* 10^9同士の乗算結果はBigIntでないとだめ
+* sortでは引き算ではnumber化が必要
+* bn.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
+
+
+`console.log()` でのBigInt型の出力は文字列化して`n`を削除します。
+```TypeScript
+let ans = b3.toString().replace("n", ""); // 文字列化してnを削除
+console.log(ans);                         // 結果を文字列で出力
+```
+文字列はString型を使用します。
+連想配列はMap<S,T>()を使用します。
+- 集合はSet<T>()を使用します。
+- テンプレートライブラリを使用する
+  - C++のSTL((Standard Template Library)のようなデファクトのテンプレートライブラリはない。
+  - npmに[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)があるので代用する。
+  ```
+  // tsconfig.jsonにmoduleResolution:Nodeを指定する
+  import * as tstl from "tstl";
+  let tree = new tstl.TreeSet<number>([0, l]);
+  ```
+
+### スコープ
+
+- ファイルスコープ
+
+### 配列
+
+* 数値配列の最大値・最小値、`Math.max()`, `Math.min()`で
+* reduceで値を一つに、max, minも
+* sort、数字、文字列、その他
+* fill()しておかないとforEach()で一件も引っかからない
+- 
+- 初期化
+  - 大きな配列の初期化には時間が掛かります。10^6件程度で`TLE`になります。
+    - Array.prototype.push()を使用するなどして回避する。
+  - 配列の操作には時間が掛かるものと掛からないものがある。
+    - 時間が掛かるもの：Array.prototype.shift()、Array.prototype.splice()
+    - 時間が掛からないもの：Array.prototype.push()、Array.prototype.pop()
+- 二次元配列
+  - 二次元配列の作り方には注意する。
+    ```
+    let amn = new Array(m).fill(new Array(n)); // fill()は一回しか実行されない、全て同一オブジェクトになる
+    let amn = new Array(m).fill(null).map(val => new Array(n)); // map()で個々にオブジェクトを生成する
+    ```
+- 配列の比較
+  - 配列同士の比較をする場合はJSON.stringify()で代用する
+    - 列挙順が保証されている単純な配列に限られるがAtCoderの範囲ではこれで十分。
+    ```
+    if (JSON.stringify(an) == JSON.stringify(bn)) ...
+    ```
+- Array.forEach()はemptyな要素は回らない。fill()するかfor()で処理
+
+### レンジ
+
+TypeScriptにはレンジがありません。
+
+```TypeScript
+// util for es6
+const fromto = function* (from: number, to: number, step = 1) { for (let x = from; x <= to; x += step) yield x; };
+const startlen = function* (start: number, len: number, step = 1) { for (let x = start; x < start + len; x += step) yield x; }
+```
+
+### その他
+
+- 他の言語に比べて初期起動に時間が掛かる。
+  - C言語の場合、10ms程度
+  - TypeScriptの場合、60ms程度
+- 呼出
+  - スプレッド構文が長すぎるとスタックオーバーフローになる。
+  - 再帰呼出でスタックオーバーフローになる。TypeScriptは末尾再帰が最適化されない。
+- スコープ
+  - varは関数スコープになるので注意。
+  - 変数はvarで定数はconstで宣言することでブロックスコープになる。
+- 精度
+  - 除算が含まれる場合（百分率等）は、誤差が出ないようにすべて乗算して算出、比較する
+  - 精度が与えられている場合（高々小数第4位等）は、整数化して計算する
+- Math.min(), Math.max()で値を更新
+- レンジ関数
+- 三項演算子
