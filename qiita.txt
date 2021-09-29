@@ -1,13 +1,16 @@
 # (2021/09)AtCoderへWindowsからTypeScriptで参加
 
-Visual Studio CodeからTypeSciptでAtCoderへ参加する拡張機能を作成しました。
-テストデータのダウンロードや解答の提出をVisual Studio Codeから行うことができます。
-
 ### デメリット
 
-* 標準機能が貧弱
-* テンプレートライブラリがない
-
+* スクリプト言語のため遅い
+  * 対処：なし、頑張って書く
+* ~~TypeScriptにはテンプレートライブラリがない~~
+  * 対処：npmの[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)を使用する。
+* ~~TypeScriptではbigintが扱えない~~  
+  * 対処：Node.js v10でbigintに対応済み。
+* ~~TypeScriptではWindowsで標準入力が読み取りにくい~~
+  *  対処：Node.js v12で`process.stdin.fd`が追加されたことで解消済み。
+  
 ## 環境構築
 
 ## 標準入力
@@ -32,7 +35,7 @@ let line = text.split("\n");
 :
 ```
 
-readlineで標準出力を使用することもできます。ストリームを全部読み取ってから処理します。
+readlineで標準出力を使用することもできますが、ストリームを全部読み取ってから処理する必要があります。
 
 ```TypeScript
 // for linux / for windows
@@ -47,7 +50,8 @@ reader.on("close", function () {
 
 #### 変数への代入
 
-必要に応じて分割してから文字列を変数に代入します。
+必要に応じて分割・変換してから文字列を変数に代入します。
+分割代入することも可能です。
 
 ```TypeScript
 :
@@ -60,7 +64,8 @@ let [h, w] = line[4].split(" ").map(val => Number(val));
 :
 ```
 
-ジェネレータを定義しておくと変数への代入を簡素にすることができます。文字列を自分で分割するのに比べて多少処理コストが掛かります。
+ジェネレータを定義しておくと変数への代入を簡素にすることができます。
+文字列を自分で分割するのに比べて多少処理コストが掛かります。
 
 ```TypeScript
 // util for input
@@ -76,10 +81,8 @@ const readchar = () => String((charit.next()).value);
 let s = read();
 let n = Number(read());
 let b = BigInt(read());
-let sn = [];
-for (let nx = 0; nx < n; nx++) sn[nx] = Number(read());
-let h = Number(read());
-let w = Number(read());
+let sn = [...Array(n)].map(() => Number(read());
+let [h, w] = [Number(read()), Number(read())];
 :
 ```
 
@@ -92,7 +95,7 @@ let w = Number(read());
 for (let nx = 0; nx < 10**5; nx++) console.log(nx);
 => 420ms // 起動時のオーバーヘッド60msがあるため、実質360ms
 ```
-出力件数が多い場合は文字列として連結してから出力します。
+出力件数が多い場合は文字列化として結合してから出力します。
 ```TypeScript
 :
 // answer
@@ -104,27 +107,86 @@ console.log(ans);
 
 ### 型
 
-数値には Number型を使用します。
+#### number
 
-Number型を超える数値(`Number.MAX_SAFE_INTEGER`=2^53-1=9,007,199,254,740,991＝9.0*10^15)には、BigInt型を使用します(Node.js v10で追加)。BigInt型のリテラルは `0n`, `1n`, `2n` と記述します。(ES2020以降で対応)
+数値には numberを使用します。
+
+- numberの最大値は`Number.MAX_SAFE_INTEGER` =2^53-1 (≒9.0*10^15)です。
+
+### bigint
+
+numberを超える数値にはbigintを使用します。(Node.js v10で追加)
 
 ```TypeScript
-let b1 = BitInt(100);     // コンストラクタでBigInt値を生成
-let b2 = 100n;            // リテラルのBigInt値
-let b3 = b1 + b2;         // BigIntはBigInt同士でのみ演算可能
+let b1 = BitInt(100);     // コンストラクタでbigintを生成
+let b2 = 100n;            // リテラルのbigint
+let b3 = b1 + b2;         // bigint同士でのみ演算可能
 ```
 
-* 10^9同士の乗算結果はBigIntでないとだめ
-* sortでは引き算ではnumber化が必要
-* bn.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
+- 10^9同士の乗算がある場合はbigintを使用します。
+- bigintのリテラル表現は `0n`, `1n`, `2n` です。(ES2020以降で対応)  
+  出力時は文字列化して`n`を削除します。
 
-
-`console.log()` でのBigInt型の出力は文字列化して`n`を削除します。
 ```TypeScript
 let ans = b3.toString().replace("n", ""); // 文字列化してnを削除
 console.log(ans);                         // 結果を文字列で出力
 ```
-文字列はString型を使用します。
+
+* `Array.prototype.sort()` ではnumberを返す必要があります。
+
+```TypeScript
+let an = [ 3n, 2n, 1n ];
+an.sort((a, b) => a - b); // エラー
+an.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0);
+```
+
+### 配列
+
+添え字でデータを参照したい場合に使用します。
+
+```TypeScript
+let an: number[] = []; // 空の配列
+let bn: number[] = new Array(n); // 長さnの配列、ただしデータが入ってない
+let cn: number[] = new Array(n).fill(0); // 0で初期化された長さnの配列
+let dmn: number[][] = new Array(m).fill(null).map(() => new Array(n).fill(0)); // 二次元配列はfill()を入れないとおかしな配列になる
+
+```
+
+- `new Array(n)`だけで`Array.prototype.forEach()`を実行すると繰り返し処理されません。`for()`で処理するか、事前に`fill()`してください。
+- 数値配列の最大値・最小値は、`Math.max()`, `Math.min()`が使用できます。
+配列が長い場合はスタックオーバーフローになるので`Array.prototype.reduce()`を使用します。
+
+```TypeScript
+let an = [ 3, 2, 1 ];
+let max = Math.max(...an); // スプレッド構文で配列を引数に展開
+let min = an.reduce((pval, cval) => Math.min(pval, cval));
+```
+
+- 配列の並べ替えには`Array.prototype.sort()`を使用します。文字列以外は比較対象に応じた比較関数を指定する必要があります。
+
+```TypeScript
+let an = [ "c", "b", "a" ];
+let bn = [ 3, 2, 1];
+let cn = [ 3n, 2n, 1n ];
+an.sort(); // 文字列として昇順に並べ替え
+=> [ "a", "b", "c" ]
+bn.sort((a, b) => a - b); // 数値として昇順に並べ替え
+=> [ 1, 2, 3 ]
+cn.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0); // bigintとして昇順に並べ替え
+=> [ 1n, 2n, 3n ]
+```
+
+- データ量に応じて処理時間がかかかる操作があります。
+  WIP
+- 配列同士の比較をする場合は`JSON.stringify()`で代用します。列挙順が保証されている単純な配列に限られるがAtCoderの範囲ではこれで十分です。
+
+``` TypeScript
+if (JSON.stringify(an) == JSON.stringify(bn)) ...
+```
+
+### string
+
+文字列はstringを使用します。
 連想配列はMap<S,T>()を使用します。
 - 集合はSet<T>()を使用します。
 - テンプレートライブラリを使用する
@@ -139,33 +201,6 @@ console.log(ans);                         // 結果を文字列で出力
 ### スコープ
 
 - ファイルスコープ
-
-### 配列
-
-* 数値配列の最大値・最小値、`Math.max()`, `Math.min()`で
-* reduceで値を一つに、max, minも
-* sort、数字、文字列、その他
-* fill()しておかないとforEach()で一件も引っかからない
-- 
-- 初期化
-  - 大きな配列の初期化には時間が掛かります。10^6件程度で`TLE`になります。
-    - Array.prototype.push()を使用するなどして回避する。
-  - 配列の操作には時間が掛かるものと掛からないものがある。
-    - 時間が掛かるもの：Array.prototype.shift()、Array.prototype.splice()
-    - 時間が掛からないもの：Array.prototype.push()、Array.prototype.pop()
-- 二次元配列
-  - 二次元配列の作り方には注意する。
-    ```
-    let amn = new Array(m).fill(new Array(n)); // fill()は一回しか実行されない、全て同一オブジェクトになる
-    let amn = new Array(m).fill(null).map(val => new Array(n)); // map()で個々にオブジェクトを生成する
-    ```
-- 配列の比較
-  - 配列同士の比較をする場合はJSON.stringify()で代用する
-    - 列挙順が保証されている単純な配列に限られるがAtCoderの範囲ではこれで十分。
-    ```
-    if (JSON.stringify(an) == JSON.stringify(bn)) ...
-    ```
-- Array.forEach()はemptyな要素は回らない。fill()するかfor()で処理
 
 ### レンジ
 
