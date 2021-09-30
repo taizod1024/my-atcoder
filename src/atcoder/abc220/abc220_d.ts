@@ -22,13 +22,20 @@ const main = function () {
     // solve
     const MOD = 998244353;
     let dp: number[] = new Array(10).fill(0);
-    for (let nx = 0; nx < n; nx++) {
-        let x = an.shift();
-        let y = an.shift();
-        let dp0 = Array.from(dp);
-        // WIP
+    dp[an[0]] = 1;
+    for (let nx = 1; nx < n; nx++) {
+        let dp0 = dp;
+        dp = new Array(10).fill(0);
+        for (let nxx = 0; nxx < 10; nxx++) {
+            let f = (nxx + an[nx]) % 10;
+            let g = (nxx * an[nx]) % 10;
+            dp[f] += dp0[nxx];
+            dp[g] += dp0[nxx];
+            dp[f] %= MOD;
+            dp[g] %= MOD;
+        }
     }
-    let ans;
+    let ans = dp.join("\n");
 
     // answer
     console.log(ans);

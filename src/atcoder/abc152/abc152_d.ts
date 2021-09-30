@@ -12,29 +12,14 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let n: bigint;
-    let k: bigint;
-    let abn: bigint[][];
-
+    let n: number;
+    
     // init
-    n = BigInt(read());
-    k = BigInt(read());
-    abn = [];
-    for (let nx = 0; nx < n; nx++) {
-        abn[nx] = [BigInt(read()), BigInt(read())];
-    }
+    n = Number(read());
 
     // solve
-    abn.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
-    let vx = 0n;
-    for (let nx = 0; nx < n; nx++) {
-        if (vx + k < abn[nx][0]) break;
-        k = k - (abn[nx][0] - vx) + abn[nx][1];
-        vx = abn[nx][0];
-    }
-    vx += k;
-    let ans = vx.toString().replace("n", "");
-
+    let ans;
+    
     // answer
     console.log(ans);
 
