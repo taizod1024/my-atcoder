@@ -28,14 +28,6 @@
 
 ## TypeScriptでの注意点
 
-### スコープ
-
-- ファイルモジュール
-  - 他の提出用のソースコードと名前空間が重複しvscodeが警告を出力する場合があります。ライブラリを読み込むときに`import`を使用すると、ソースコードがTypeScriptにファイルモジュールと認識され、自動的にローカルスコープが作成され回避することができます。ライブラリの読み込みに`require()`を使用しているとそうならないので注意してください。
-- 関数スコープ
-  - 基本的に`var`は使用しません。
-- ブロックスコープ
-  - 変数は`let`、定数は`const`で宣言して使用します。
 
 ### 起動時間
 
@@ -44,9 +36,22 @@
 - C言語の場合、10ms程度
 - TypeScriptの場合、60ms程度
 
+
+### ファイルモジュール
+
+外部ライブラリの読み込みには`import`を使用します。`import`を使用すると、ソースコードがTypeScriptにファイルモジュールと認識され、自動的にローカルスコープが作成され回避することができます。
+
+* **【注意】ライブラリの読み込みに`require()`を使用していると、他の提出用のソースコードと名前空間が重複しvscodeが警告を出力する場合があります。**
+
+### スコープ
+
+`let`で宣言された変数や`const`で宣言された定数はブロックスコープになります。
+
+* **【注意】`var`で宣言された変数は関数スコープになるので使用しません。**
+
 ### 標準入力
 
-標準入力から入力は `fs.readFileSync()` を使用します。Windowsの場合には `/dev/std/` の代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
+標準入力からの入力は `fs.readFileSync()` を使用します。Windowsの場合には `/dev/std/` の代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
 
 ```TypeScript
 // input
@@ -130,7 +135,7 @@ console.log(ans);
 
 numberの安全な整数の最大値は`Number.MAX_SAFE_INTEGER` =2^53-1 (≒9.0*10^15)です。
 
-- **【注意】あくまで整数として正しく扱えるのが`Number.MAX_SAFE_INTEGER`までであり、`Number.MAX_SAFE_INTEGER`を超えてもエラーにはならず、丸められた数字で処理が継続されます。制約を確認してnumberの範囲で処理するよう工夫するか、10^15 を超えているか、10^9 同士の乗算があればbigintを使用します。**
+- **【注意】あくまで整数として正しく扱えるのが`Number.MAX_SAFE_INTEGER`までであり、`Number.MAX_SAFE_INTEGER`を超えてもエラーにはならず、丸められた数字で処理が継続されます。制約を確認してnumberの範囲で処理するよう工夫するか、10^15 を超えていたり10^9 同士の乗算があればbigintを使用します。**
 
 
 ### bigint
@@ -167,12 +172,12 @@ let dmn: number[][] = new Array(m).fill(null).map(() => new Array(n).fill(0)); /
 
 ```
 
-- **【注意】一次元配列の場合、`new Array(n)`後に`.fill()`しないと`.map()`してもループが回らない**
-- **【注意】二次元配列の場合、`new Array(m)`後に`.fill(new Array(n).fill(0))` だと、すべての行が同一オブジェクトを指す。`.fill(null).map(() => new Array(n).fill(0))`で行ごとにオブジェクトを生成する**
+- **【注意】一次元配列の場合、`new Array(n)`後に`.fill()`しないと`.map()`してもループが回りません。*
+- **【注意】二次元配列の場合、`new Array(m)`後に`.fill(new Array(n).fill(0))` だと、すべての行が同一オブジェクトを指します。`.fill(null).map(() => new Array(n).fill(0))`で行ごとにオブジェクトを生成します。**
 
 #### 配列の操作
 
-配列の操作にはデータ量に応じて時間が掛かる操作があります。データ量が多い場合は処理時間を削減するために`.shift()`や`.splice()`は避けます。
+配列の操作にはデータ量に応じて時間が掛かる操作があります。データ量が多い場合は処理時間が考慮して`.shift()`や`.splice()`は避けます。
 
 ```TypeScript
 // atcoderのコードテストで計測
@@ -215,22 +220,26 @@ let max = an.reduce((pval, cval) => Math.max(pval, cval)); // .reduce()で順番
 配列の並べ替えには`.sort()`を使用します。文字列以外は比較対象に応じた比較関数を指定します。
 
 ```TypeScript
-let an = [ "c", "b", "a" ];
-let bn = [ 3, 2, 1];
-let cn = [ 3n, 2n, 1n ];
+let an = [ "c", "b", "a" ]; // string
+let bn = [ 3, 2, 1];        // number
+let cn = [ 3n, 2n, 1n ];    // bigint
+
 an.sort(); // 文字列として昇順に並べ替え
 => [ "a", "b", "c" ]
+
 bn.sort((a, b) => a - b); // 数値として昇順に並べ替え
 => [ 1, 2, 3 ]
+
 cn.sort((a, b) => a - b); // エラー、a - bがbigintのまま、numberを返す必要あり
 => NG
+
 cn.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0); // bigintとして昇順に並べ替え
 => [ 1n, 2n, 3n ]
 ```
 
 #### 配列の重複削除
 
-配列の重複する要素を削除するためには`Array.from(new Set())`を使用します。
+配列の重複する要素を削除のに`Array.from(new Set())`を使用します。
 
 ```TypeScript
 let an = [ 3, 1, 3, 2, 1 ];
@@ -249,11 +258,11 @@ if (JSON.stringify(an) == JSON.stringify(bn)) ...
 ### 関数呼出
 
 
-TypeScriptは末尾再帰が最適化されません。末尾再帰を期待した書き方ではスタックオーバーフローになります。
+TypeScriptは末尾再帰が最適化されません。末尾再帰の最適化を期待した書き方ではスタックオーバーフローになります。
 
 ### Range関数
 
-TypeScriptにはRange関数はありません。あると楽だなと思う場面はときどきあります。
+TypeScriptにはRange関数はありません。自作してくと便利な場合があります。
 
 ```TypeScript
 // range with generator
