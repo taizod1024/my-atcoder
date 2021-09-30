@@ -1,6 +1,6 @@
 # はじめに
 
-2021年9月時点でTypeScriptでAtCoderへ参加する場合の注意点をまとめてみました。
+2021年9月時点でTypeScriptで[AtCoder](https://atcoder.jp/?lang=ja)へ参加する場合の注意点をまとめてみました。
 
 - アルゴリズムの説明はありません。
 - TypeScriptの言語的な要素で自分がはまったところを中心に整理しています。
@@ -24,11 +24,11 @@
 * スクリプト言語なので高速とはいえない
   * **【対処】なし、計算量を意識して書く**
 * ~~TypeScriptではWindowsで標準入力が扱いにくい~~
-  *  **【対処】Node.js v12で`process.stdin.fd`が追加されたことで解消（Node.js v11以前でも0を指定していれば回避できていた）**
+  *  **【対処】Node.js v12で`process.stdin.fd`が追加されたことで解消（Node.js v11以前でも0を指定していれば回避可能）**
 * ~~TypeScriptではbigintが扱えない~~  
-  * **【対処】Node.js v10でbigintに対応された**
+  * **【対処】Node.js v10でbigintに対応済**
 * ~~TypeScriptにはC++のSTLのようなテンプレートライブラリがない~~
-  * **【対処】AtCoderなら[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)をimportできる**
+  * **【対処】AtCoderなら[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)をimport可能**
 
 # TypeScriptでの注意点
 
@@ -130,7 +130,7 @@ const readchar = () => String((charit.next()).value);
 let s = read(); // string
 let n = Number(read()); // number
 let b = BigInt(read()); // bigint
-let sn = [...Array(n)].map(() => Number(read()); // string[]
+let sn = [...Array(n)].map(() => Number(read())); // string[]
 let [h, w] = [Number(read()), Number(read())]; // 分割代入
 ```
 
@@ -160,6 +160,27 @@ let b3 = b1 + b2;         // bigint同士でのみ演算可能
 ```TypeScript
 let ans = b3.toString().replace("n", ""); // 文字列化してnを削除
 console.log(ans);                         // 結果を文字列で出力
+```
+
+## string
+
+文字列を扱うには`string`を使用します。
+文字と文字コードの相互変換には`String.charCodeAt()`と`String.fromCharCode()`を使用します。
+
+
+```TypeScript
+let s = "abc"
+
+let sn = s.split(""); // 一文字ずつ分解して文字列配列へ
+=> [ "a", "b", "c" ]
+
+let t = sn.join(""); // 文字列配列を連結して一つの文字列へ
+
+let un = sn.map(val => val.charCodeAt(0) - "a".charCodeAt(0)); // 文字から文字コードへ
+=> [ 0, 1, 2 ]
+
+let vn = un.map(val => String.fromCharCode("b".charCodeAt(0) + val)); 文字コードから文字へ
+=> [ "b", "c", "d" ]
 ```
 
 ## 配列
@@ -246,7 +267,7 @@ cn.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0); // bigintとして昇順に�
 
 ### 配列の重複削除
 
-配列の重複する要素を削除のに`Array.from(new Set())`を使用します。
+配列の重複する要素を削除する場合は`Array.from(new Set())`を使用します。
 
 ```TypeScript
 let an = [ 3, 1, 3, 2, 1 ];
