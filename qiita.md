@@ -150,16 +150,16 @@ bigintのリテラル表現は `0n`, `1n`, `2n` です。(ES2020以降で対応)
 
 
 ```TypeScript
-let b1 = BitInt(100);     // コンストラクタでbigintを生成
-let b2 = 100n;            // bigintのリテラル表現
-let b3 = b1 + b2;         // bigint同士でのみ演算可能
+let b1 = BitInt(100); // コンストラクタでbigintを生成
+let b2 = 100n; // bigintのリテラル表現
+let b3 = b1 + b2; // bigint同士でのみ演算可能
 ```
 
 出力時は文字列化して`n`を削除します。
 
 ```TypeScript
 let ans = b3.toString().replace('n', ''); // 文字列化してnを削除
-console.log(ans);                         // 結果を文字列で出力
+console.log(ans); // 結果を文字列で出力
 ```
 
 ## string
@@ -180,7 +180,7 @@ let t = sn.join(''); // 文字列配列を連結して一つの文字列へ
 let un = sn.map(val => val.charCodeAt(0) - 'a'.charCodeAt(0)); // 文字から文字コードへ
 => [ 0, 1, 2 ]
 
-let vn = un.map(val => String.fromCharCode('b'.charCodeAt(0) + val)); 文字コードから文字へ
+let vn = un.map(val => String.fromCharCode('b'.charCodeAt(0) + val)); // 文字コードから文字へ
 => [ 'b', 'c', 'd' ]
 ```
 
@@ -230,11 +230,11 @@ for (let nx = 0; nx < 10**5; nx++) an.unshift(nx);
 
 ```TypeScript
 let an = [...Array(10**5)].map((val, idx) => idx);
-let max = Math.max(...an);
+let max = Math.max(...an); // Math.max()をスプレッド構文で呼出
 => OK
 
 let an = [...Array(10**6)].map((val, idx) => idx);
-let max = Math.max(...an);
+let max = Math.max(...an); // Math.max()をスプレッド構文で呼出、エラー
 => RangeError: Maximum call stack size exceeded
 
 let an = [...Array(10**6)].map((val, idx) => idx);
@@ -250,8 +250,8 @@ let max = an.reduce((pval, cval) => Math.max(pval, cval)); // .reduce()で順番
 
 ```TypeScript
 let an = [ 'c', 'b', 'a' ]; // string
-let bn = [ 3, 2, 1];        // number
-let cn = [ 3n, 2n, 1n ];    // bigint
+let bn = [ 3, 2, 1]; // number
+let cn = [ 3n, 2n, 1n ]; // bigint
 
 an.sort(); // 文字列として昇順に並べ替え
 => [ 'a', 'b', 'c' ]
