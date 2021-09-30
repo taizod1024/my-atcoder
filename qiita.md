@@ -53,20 +53,20 @@
 
 ```TypeScript
 // input
-import * as fs from "fs";
-let text = fs.readFileSync(process.stdin.fd, "utf8"); .
-let line = text.split("\n");
+import * as fs from 'fs';
+let text = fs.readFileSync(process.stdin.fd, 'utf8'); .
+let line = text.split('\n');
 ```
 
 `readline.createInterface()`を使用することもできます。標準入力を最後まで読み終えてから処理します。
 
 ```TypeScript
 // input
-import * as rl from "readline";
+import * as rl from 'readline';
 const line: string[] = [];
 const reader = rl.createInterface({ input: process.stdin, output: process.stdout });
-reader.on("line", function (text: string) { line.push(text); });
-reader.on("close", function () {
+reader.on('line', function (text: string) { line.push(text); });
+reader.on('close', function () {
   :
 });
 ```
@@ -86,8 +86,8 @@ for (let nx = 0; nx < 10**5; nx++) console.log(nx);
 
 ```TypeScript
 // answer
-let ans = "";
-for (let nx = 0; nx < 10**5; nx++) ans += nx + "\n";
+let ans = '';
+for (let nx = 0; nx < 10**5; nx++) ans += nx + '\n';
 console.log(ans);
 => 80ms // 起動時のオーバーヘッド60msのため、実質20ms
 ```
@@ -109,8 +109,8 @@ console.log(ans);
 let s = line[0]; // string
 let n = Number(line[1]); // number
 let b = BigInt(line[2]); // bigint
-let sn = line[3].split(""); // string[]
-let [h, w] = line[4].split(" ").map(val => Number(val)); // 分割代入
+let sn = line[3].split(''); // string[]
+let [h, w] = line[4].split(' ').map(val => Number(val)); // 分割代入
 ```
 
 ジェネレータを定義しておくと標準入力から変数への代入を簡素にできます。
@@ -118,10 +118,10 @@ let [h, w] = line[4].split(" ").map(val => Number(val)); // 分割代入
 
 ```TypeScript
 // input
-import * as fs from "fs";
-const lineit = (function* () { for (const line of fs.readFileSync(process.stdin.fd, "utf8").split("\n")) yield line; })();
-const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(" ")) yield word; } })();
-const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split("")) yield char; } })();
+import * as fs from 'fs';
+const lineit = (function* () { for (const line of fs.readFileSync(process.stdin.fd, 'utf8').split('\n')) yield line; })();
+const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(' ')) yield word; } })();
+const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split('')) yield char; } })();
 const readline = () => String((lineit.next()).value);
 const read = () => String((wordit.next()).value);
 const readchar = () => String((charit.next()).value);
@@ -158,7 +158,7 @@ let b3 = b1 + b2;         // bigint同士でのみ演算可能
 出力時は文字列化して`n`を削除します。
 
 ```TypeScript
-let ans = b3.toString().replace("n", ""); // 文字列化してnを削除
+let ans = b3.toString().replace('n', ''); // 文字列化してnを削除
 console.log(ans);                         // 結果を文字列で出力
 ```
 
@@ -169,18 +169,19 @@ console.log(ans);                         // 結果を文字列で出力
 
 
 ```TypeScript
-let s = "abc"
+let s = 'abc'
 
-let sn = s.split(""); // 一文字ずつ分解して文字列配列へ
-=> [ "a", "b", "c" ]
+let sn = s.split(''); // 一文字ずつ分解して文字列配列へ
+=> [ 'a', 'b', 'c' ]
 
-let t = sn.join(""); // 文字列配列を連結して一つの文字列へ
+let t = sn.join(''); // 文字列配列を連結して一つの文字列へ
+=> 'abc';
 
-let un = sn.map(val => val.charCodeAt(0) - "a".charCodeAt(0)); // 文字から文字コードへ
+let un = sn.map(val => val.charCodeAt(0) - 'a'.charCodeAt(0)); // 文字から文字コードへ
 => [ 0, 1, 2 ]
 
-let vn = un.map(val => String.fromCharCode("b".charCodeAt(0) + val)); 文字コードから文字へ
-=> [ "b", "c", "d" ]
+let vn = un.map(val => String.fromCharCode('b'.charCodeAt(0) + val)); 文字コードから文字へ
+=> [ 'b', 'c', 'd' ]
 ```
 
 ## 配列
@@ -248,12 +249,12 @@ let max = an.reduce((pval, cval) => Math.max(pval, cval)); // .reduce()で順番
 配列の並べ替えには`.sort()`を使用します。文字列以外は比較対象に応じた比較関数を指定します。
 
 ```TypeScript
-let an = [ "c", "b", "a" ]; // string
+let an = [ 'c', 'b', 'a' ]; // string
 let bn = [ 3, 2, 1];        // number
 let cn = [ 3n, 2n, 1n ];    // bigint
 
 an.sort(); // 文字列として昇順に並べ替え
-=> [ "a", "b", "c" ]
+=> [ 'a', 'b', 'c' ]
 
 bn.sort((a, b) => a - b); // 数値として昇順に並べ替え
 => [ 1, 2, 3 ]
@@ -323,16 +324,16 @@ TypeScriptには C++のSTL((Standard Template Library)のようなデファク�
 // abc217_d.ts
 
 // input
-import * as fs from "fs";
-const lineit = (function* () { for (const line of fs.readFileSync(process.stdin.fd, "utf8").split("\n")) yield line; })();
-const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(" ")) yield word; } })();
-const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split("")) yield char; } })();
+import * as fs from 'fs';
+const lineit = (function* () { for (const line of fs.readFileSync(process.stdin.fd, 'utf8').split('\n')) yield line; })();
+const wordit = (function* () { while (true) { let line = lineit.next(); if (line.done) break; for (const word of String(line.value).split(' ')) yield word; } })();
+const charit = (function* () { while (true) { let word = wordit.next(); if (word.done) break; for (const char of String(word.value).split('')) yield char; } })();
 const readline = () => String((lineit.next()).value);
 const read = () => String((wordit.next()).value);
 const readchar = () => String((charit.next()).value);
 
 // standard template library
-import * as tstl from "tstl";
+import * as tstl from 'tstl';
 
 // main
 const main = function () {
@@ -360,7 +361,7 @@ const main = function () {
             ansn.push(it.value - it.prev().value);
         }
     }
-    let ans = ansn.join("\n");
+    let ans = ansn.join('\n');
 
     // answer
     console.log(ans);
