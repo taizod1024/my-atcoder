@@ -1,4 +1,4 @@
-# TypeScriptでAtCoderへ参加する場合の注意点
+# はじめに
 
 2021年9月時点でTypeScriptでAtCoderへ参加する場合の注意点をまとめてみました。
 
@@ -9,21 +9,20 @@
   - オブジェクト
   - Set
   - Map
-  - クラス
 
-## TypeScriptでの参加について
+# TypeScriptでの参加について
 
-### メリット
+## メリット
 
 * 使いなれた言語で参加できる
 * 型チェックができる
 * vscodeでAtCoderからのテストデータのダウンロード、ソースコードのテスト、ソースコードの提出を完結できる（宣伝）
   * https://qiita.com/taizod1024/items/cdb4b0b358959fc4596b
   
-### デメリット
+## デメリット
 
 * スクリプト言語なので高速とはいえない
-  * **【対処】なし、オーダーを意識して書く**
+  * **【対処】なし、計算量を意識して書く**
 * ~~TypeScriptではWindowsで標準入力が扱いにくい~~
   *  **【対処】Node.js v12で`process.stdin.fd`が追加されたことで解消（Node.js v11以前でも0を指定していれば回避できていた）**
 * ~~TypeScriptではbigintが扱えない~~  
@@ -31,10 +30,10 @@
 * ~~TypeScriptにはC++のSTLのようなテンプレートライブラリがない~~
   * **【対処】AtCoderなら[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)をimportできる**
 
-## TypeScriptでの注意点
+# TypeScriptでの注意点
 
 
-### 起動時間
+## 起動時間
 
 他の言語に比べて初期起動に時間が掛かります。以下は、AtCoderでの起動時間の比較です。
 
@@ -42,13 +41,13 @@
 - TypeScriptの場合、60ms程度
 
 
-### 外部ライブラリ
+## 外部ライブラリ
 
 外部ライブラリの読み込みには`import`を使用します。`import`を使用するとTypeScriptがソースコードをファイルモジュールと認識し自動的にローカルスコープが作成されます。
 
 * **【注意】ライブラリの読み込みに`import`ではなく`require()`を使用していると、他の提出用のソースコードと名前空間が重複しvscodeが警告を出力します。**
 
-### 標準入力
+## 標準入力
 
 標準入力からの入力には `fs.readFileSync()` を使用します。Windowsの場合は `/dev/std/` の代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
 
@@ -72,7 +71,7 @@ reader.on("close", function () {
 });
 ```
 
-### 標準出力
+## 標準出力
 
 標準出力への出力は`console.log()`を使用します。
 
@@ -93,14 +92,14 @@ console.log(ans);
 => 80ms // 起動時のオーバーヘッド60msのため、実質20ms
 ```
 
-### 変数のスコープ
+## 変数のスコープ
 
 ブロックスコープにするため変数は`let`で、定数は`const`で宣言します。
 
 * **【注意】`var`で宣言された変数は関数スコープになるので使用しません。**
 
 
-### 変数への代入
+## 変数への代入
 
 標準入力から読み取った内容は、必要に応じて分割・変換してから変数に代入します。
 分割代入することも可能です。
@@ -135,7 +134,7 @@ let sn = [...Array(n)].map(() => Number(read()); // string[]
 let [h, w] = [Number(read()), Number(read())]; // 分割代入
 ```
 
-### number
+## number
 
 数値には numberを使用します。
 
@@ -144,7 +143,7 @@ numberの安全な整数の最大値は`Number.MAX_SAFE_INTEGER` =2^53-1 (≒9.0
 - **【注意】あくまで整数として正しく扱えるのが`Number.MAX_SAFE_INTEGER`までであり、`Number.MAX_SAFE_INTEGER`を超えてもエラーにはならず、丸められた数字で処理が継続されます。制約を確認してnumberの範囲で処理するよう工夫するか、10^15 を超えていたり10^9 同士の乗算があればbigintを使用します。**
 
 
-### bigint
+## bigint
 
 numberを超える数値にはbigintを使用します。(Node.js v10で追加)  
 bigintのリテラル表現は `0n`, `1n`, `2n` です。(ES2020以降で対応)  
@@ -163,7 +162,7 @@ let ans = b3.toString().replace("n", ""); // 文字列化してnを削除
 console.log(ans);                         // 結果を文字列で出力
 ```
 
-### 配列
+## 配列
 
 数列や文字列配列を格納する場合に使用します。
 
@@ -181,9 +180,9 @@ let dmn: number[][] = new Array(m).fill(null).map(() => new Array(n).fill(0)); /
 - **【注意】一次元配列の場合、`new Array(n)`後に`.fill()`しないと`.map()`してもループが回りません。**
 - **【注意】二次元配列の場合、`new Array(m)`後に`.fill(new Array(n).fill(0))` だと、すべての行が同一オブジェクトを指します。`.fill(null).map(() => new Array(n).fill(0))`で行ごとに別のオブジェクトを生成します。**
 
-#### 配列の操作
+### 配列の操作
 
-配列の操作にはデータ量に応じて時間が掛かる操作があります。データ量が多い場合は処理時間が考慮して`.shift()`や`.splice()`は避けます。
+配列の操作にはデータ量に応じて時間が掛かる操作があります。データ量が多い場合は処理時間を考慮して`.shift()`や`.splice()`は避けます。
 
 ```TypeScript
 // atcoderのコードテストで計測
@@ -203,9 +202,9 @@ for (let nx = 0; nx < 10**5; nx++) an.unshift(nx);
 
 ```
 
-#### 配列の最大値・最小値
+### 配列の最大値・最小値
 
-数値配列の最大値・最小値は`Math.max()`, `Math.min()`でスプレッド構文を使用できますが、スプレッド構文では配列の要素数分スタックに積むためスタックオーバーフローになる可能性があります。データ量が多い場合はスタックオーバーフローを避けるために`.reduce()`を使用して2個ずつ値を比較します。
+数値配列の最大値・最小値は`Math.max()`, `Math.min()`でスプレッド構文を使用できます。また、データ量が多い場合は`.reduce()`を使用します。
 
 ```TypeScript
 let an = [...Array(10**5)].map((val, idx) => idx);
@@ -221,7 +220,9 @@ let max = an.reduce((pval, cval) => Math.max(pval, cval)); // .reduce()で順番
 => OK
 ```
 
-#### 配列の並べ替え
+* **【注意】スプレッド構文では配列の要素数分スタックに積むためスタックがオーバーフローする可能性があります。**
+  
+### 配列の並べ替え
 
 配列の並べ替えには`.sort()`を使用します。文字列以外は比較対象に応じた比較関数を指定します。
 
@@ -243,7 +244,7 @@ cn.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0); // bigintとして昇順に�
 => [ 1n, 2n, 3n ]
 ```
 
-#### 配列の重複削除
+### 配列の重複削除
 
 配列の重複する要素を削除のに`Array.from(new Set())`を使用します。
 
@@ -252,7 +253,8 @@ let an = [ 3, 1, 3, 2, 1 ];
 let bn = Array.from(new Set(an));
 => [ 3, 1, 2 ]
 ```
-#### 配列の比較
+
+### 配列の比較
 
 配列同士の比較をする場合は`JSON.stringify()`を使用します。列挙順が保証されている単純な配列に限られますがAtCoderの範囲ではこれで十分です。
 
@@ -260,13 +262,13 @@ let bn = Array.from(new Set(an));
 if (JSON.stringify(an) == JSON.stringify(bn)) ...
 ```
 
-### 関数
+## 関数
 
-#### 末尾再帰
+### 末尾再帰
 
-TypeScriptは末尾再帰が最適化されません。末尾再帰の最適化を期待した書き方ではスタックオーバーフローになります。
+TypeScriptは末尾再帰の最適化はありません。末尾再帰の最適化を期待した書き方ではスタックオーバーフローになります。
 
-#### Range関数
+### Range関数
 
 TypeScriptにはRange関数はありません。自作しておくと便利な場合があります。
 
@@ -290,11 +292,11 @@ for (const val of range(13, 15)) {
    15
 ```
 
-### テンプレートライブラリ
+## テンプレートライブラリ
 
 TypeScriptには C++のSTL((Standard Template Library)のようなデファクトのテンプレートライブラリはありません。npmに[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)があるので代用します。
 
-以下は、[abc217_d](https://atcoder.jp/contests/abc217/tasks/abc217_d)をtstlを使用して実装した例です。tstlを使用しないとb-treeを自前で実装する必要がありますが、tstlを使用すると順序付き集合TreeSetを使用してシンプルに実装できます。
+以下は、[abc217_d](https://atcoder.jp/contests/abc217/tasks/abc217_d)をtstlを使用した実装例です。tstlを使用しないとb-treeを自前で実装する必要がありますが、tstlを使用すると順序付き集合TreeSetを使用してシンプルに実装できます。
 
 ```TypeScript
 // abc217_d.ts
@@ -348,6 +350,7 @@ const main = function () {
 main();
 ```
 
-## おわりに
+# おわりに
 
-AtCoderへTypeScriptで参加するときにはまったことをまとめてみました。
+TypeScriptでAtCoderへ参加するときに自分がはまったことをまとめてみました。
+読まれた方が本来の目的であるロジックに集中できれば幸いです。
