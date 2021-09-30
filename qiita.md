@@ -2,10 +2,15 @@
 
 2021年9月時点でTypeScriptでAtCoderへ参加する場合の注意点をまとめてみました。
 
-- アルゴリズムの説明はほぼありません。
+- アルゴリズムの説明はありません。
 - TypeScriptの言語的な要素で自分がはまったところを中心に整理しています。
 - AtCoderの他のTypeScriptでの提出された方のソースコードも参考にしています。
- 
+- 以下未稿分です。
+  - オブジェクト
+  - Set
+  - Map
+  - クラス
+
 ## TypeScriptでの参加について
 
 ### メリット
@@ -18,11 +23,11 @@
 ### デメリット
 
 * スクリプト言語なので高速とはいえない
-  * **【対処】なし、頑張って書く**
+  * **【対処】なし、オーダーを意識して書く**
 * ~~TypeScriptではWindowsで標準入力が扱いにくい~~
-  *  **【対処】Node.js v12で`process.stdin.fd`が追加されたことで解消**
+  *  **【対処】Node.js v12で`process.stdin.fd`が追加されたことで解消（Node.js v11以前でも0を指定していれば回避できていた）**
 * ~~TypeScriptではbigintが扱えない~~  
-  * **【対処】Node.js v10でbigintに対応**
+  * **【対処】Node.js v10でbigintに対応された**
 * ~~TypeScriptにはC++のSTLのようなテンプレートライブラリがない~~
   * **【対処】AtCoderなら[tstl](https://www.npmjs.com/package/tstl)(TypeScript-STL)をimportできる**
 
@@ -37,21 +42,15 @@
 - TypeScriptの場合、60ms程度
 
 
-### ファイルモジュール
+### 外部ライブラリ
 
-外部ライブラリの読み込みには`import`を使用します。`import`を使用すると、ソースコードがTypeScriptにファイルモジュールと認識され、自動的にローカルスコープが作成され回避することができます。
+外部ライブラリの読み込みには`import`を使用します。`import`を使用するとTypeScriptがソースコードをファイルモジュールと認識し自動的にローカルスコープが作成されます。
 
-* **【注意】ライブラリの読み込みに`require()`を使用していると、他の提出用のソースコードと名前空間が重複しvscodeが警告を出力する場合があります。**
-
-### スコープ
-
-`let`で宣言された変数や`const`で宣言された定数はブロックスコープになります。
-
-* **【注意】`var`で宣言された変数は関数スコープになるので使用しません。**
+* **【注意】ライブラリの読み込みに`import`ではなく`require()`を使用していると、他の提出用のソースコードと名前空間が重複しvscodeが警告を出力します。**
 
 ### 標準入力
 
-標準入力からの入力は `fs.readFileSync()` を使用します。Windowsの場合には `/dev/std/` の代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
+標準入力からの入力には `fs.readFileSync()` を使用します。Windowsの場合は `/dev/std/` の代わりに `process.stdin.fd` を指定します。(Node.js v12で追加)
 
 ```TypeScript
 // input
@@ -72,6 +71,34 @@ reader.on("close", function () {
   :
 });
 ```
+
+### 標準出力
+
+標準出力への出力は`console.log()`を使用します。
+
+```TypeScript
+// answer
+for (let nx = 0; nx < 10**5; nx++) console.log(nx);
+=> 420ms // 起動時のオーバーヘッド60msがあるため、実質360ms
+```
+
+出力件数が多い場合は文字列として結合してから一回で出力します。
+
+
+```TypeScript
+// answer
+let ans = "";
+for (let nx = 0; nx < 10**5; nx++) ans += nx + "\n";
+console.log(ans);
+=> 80ms // 起動時のオーバーヘッド60msのため、実質20ms
+```
+
+### 変数のスコープ
+
+ブロックスコープにするため変数は`let`で、定数は`const`で宣言します。
+
+* **【注意】`var`で宣言された変数は関数スコープになるので使用しません。**
+
 
 ### 変数への代入
 
@@ -106,27 +133,6 @@ let n = Number(read()); // number
 let b = BigInt(read()); // bigint
 let sn = [...Array(n)].map(() => Number(read()); // string[]
 let [h, w] = [Number(read()), Number(read())]; // 分割代入
-```
-
-### 標準出力
-
-標準出力への出力は`console.log()`を使用します。
-
-```TypeScript
-// answer
-for (let nx = 0; nx < 10**5; nx++) console.log(nx);
-=> 420ms // 起動時のオーバーヘッド60msがあるため、実質360ms
-```
-
-出力件数が多い場合は文字列として結合してから一回で出力します。
-
-
-```TypeScript
-// answer
-let ans = "";
-for (let nx = 0; nx < 10**5; nx++) ans += nx + "\n";
-console.log(ans);
-=> 80ms // 起動時のオーバーヘッド60msのため、実質20ms
 ```
 
 ### number
@@ -172,8 +178,8 @@ let dmn: number[][] = new Array(m).fill(null).map(() => new Array(n).fill(0)); /
 
 ```
 
-- **【注意】一次元配列の場合、`new Array(n)`後に`.fill()`しないと`.map()`してもループが回りません。*
-- **【注意】二次元配列の場合、`new Array(m)`後に`.fill(new Array(n).fill(0))` だと、すべての行が同一オブジェクトを指します。`.fill(null).map(() => new Array(n).fill(0))`で行ごとにオブジェクトを生成します。**
+- **【注意】一次元配列の場合、`new Array(n)`後に`.fill()`しないと`.map()`してもループが回りません。**
+- **【注意】二次元配列の場合、`new Array(m)`後に`.fill(new Array(n).fill(0))` だと、すべての行が同一オブジェクトを指します。`.fill(null).map(() => new Array(n).fill(0))`で行ごとに別のオブジェクトを生成します。**
 
 #### 配列の操作
 
@@ -246,8 +252,7 @@ let an = [ 3, 1, 3, 2, 1 ];
 let bn = Array.from(new Set(an));
 => [ 3, 1, 2 ]
 ```
-
-### 配列の比較
+#### 配列の比較
 
 配列同士の比較をする場合は`JSON.stringify()`を使用します。列挙順が保証されている単純な配列に限られますがAtCoderの範囲ではこれで十分です。
 
@@ -255,14 +260,15 @@ let bn = Array.from(new Set(an));
 if (JSON.stringify(an) == JSON.stringify(bn)) ...
 ```
 
-### 関数呼出
+### 関数
 
+#### 末尾再帰
 
 TypeScriptは末尾再帰が最適化されません。末尾再帰の最適化を期待した書き方ではスタックオーバーフローになります。
 
-### Range関数
+#### Range関数
 
-TypeScriptにはRange関数はありません。自作してくと便利な場合があります。
+TypeScriptにはRange関数はありません。自作しておくと便利な場合があります。
 
 ```TypeScript
 // range with generator
@@ -341,3 +347,7 @@ const main = function () {
 };
 main();
 ```
+
+## おわりに
+
+AtCoderへTypeScriptで参加するときにはまったことをまとめてみました。
