@@ -18,7 +18,7 @@ const main = function () {
 
     // init
     n = Number(read());
-    an = [...Array(n)].map(val => BigInt(read()));
+    an = [...Array(n)].map(() => BigInt(read()));
     x = BigInt(read());
 
     // solve

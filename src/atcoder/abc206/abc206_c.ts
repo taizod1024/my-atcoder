@@ -17,7 +17,7 @@ const main = function () {
 
     // init
     n = Number(read());
-    an = [...Array(n)].map(val => Number(read()));
+    an = [...Array(n)].map(() => Number(read()));
 
     // solve
     let ans = n * (n - 1) / 2;

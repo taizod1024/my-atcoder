@@ -17,7 +17,7 @@ const main = function () {
 
     // init
     n = Number(read());
-    tlrn = [...Array(n)].map(val => [Number(read()), Number(read()), Number(read())]);
+    tlrn = [...Array(n)].map(() => [Number(read()), Number(read()), Number(read())]);
 
     // solve
     for (let nx = 0; nx < n; nx++) {

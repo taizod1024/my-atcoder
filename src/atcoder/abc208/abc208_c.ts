@@ -19,7 +19,7 @@ const main = function () {
     // init
     n = BigInt(read());
     k = BigInt(read());
-    an = [...Array(Number(n))].map(val => BigInt(read()));
+    an = [...Array(Number(n))].map(() => BigInt(read()));
 
     // solve
     let d = (k >= n) ? BigInt(k / n) : 0;
