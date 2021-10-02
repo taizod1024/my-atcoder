@@ -44,10 +44,13 @@ const main = function () {
     let pl = Mathx.getPrimeList(m);
     let ps = [];
     for (const a of an) {
-        for (let lx = pl.length - 1; 0 <= lx; lx--) {
-            if (a % pl[lx] == 0) {
-                ps.push(pl[lx]);
-                pl.splice(lx, 1);
+        for (let lx = 0; lx < pl.length; lx++) {
+            // TODO TLE pがanの半分を超えたら終了させる
+            if (pl[lx]) {
+                if (a % pl[lx] == 0) {
+                    ps.push(pl[lx]);
+                    pl[lx] = 0;
+                }
             }
         }
     }
@@ -63,8 +66,6 @@ const main = function () {
     for (let mx = 0; mx <= m; mx++) {
         if (dm[mx]) ans += dm[mx] + "\n";
     }
-
-    // TODO WIP TLE
 
     // answer
     console.log(ans);
