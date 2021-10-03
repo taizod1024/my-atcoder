@@ -20,8 +20,10 @@ const main = function () {
     abn = [...Array(n)].map(() => [Number(read()), Number(read())]);
 
     // solve
-    let cn = abn.map(ab => [ab[0], 1]).concat(abn.map(ab => [ab[0] + ab[1], -1]));
-    cn.sort((a, b) => a[0] - b[0]);
+    let cn = abn
+        .map(ab => [ab[0], 1])
+        .concat(abn.map(ab => [ab[0] + ab[1], -1]))
+        .sort((a, b) => a[0] - b[0]);
     let dc = [...Array(n + 1)].fill(0);
     let c = 0;
     for (let nx = 0; nx < cn.length - 1; nx++) {
