@@ -24,13 +24,12 @@ const main = function () {
         .map(ab => [ab[0], 1])
         .concat(abn.map(ab => [ab[0] + ab[1], -1]))
         .sort((a, b) => a[0] - b[0]);
-    let dc = [...Array(n + 1)].fill(0);
-    let c = 0;
-    for (let nx = 0; nx < cn.length - 1; nx++) {
-        c += cn[nx][1];
-        dc[c] += cn[nx + 1][0] - cn[nx][0];
+    let dm = [...Array(n + 1)].fill(0);
+    for (let nx = 0, mx = 0; nx < cn.length - 1; nx++) {
+        mx += cn[nx][1];
+        dm[mx] += cn[nx + 1][0] - cn[nx][0];
     }
-    let ans = dc.slice(1).join(" ");
+    let ans = dm.slice(1).join(" ");
 
     // answer
     console.log(ans);

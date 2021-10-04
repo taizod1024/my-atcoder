@@ -30,16 +30,16 @@ const main = function () {
         // 文字配列分割
         let sl = [[], []];
         for (let mx = 0; mx < sm.length; mx++) {
-            let d = (bitsearch & 1 << mx) ? 1 : 0;
-            sl[d].push(sm[mx]);
+            let lx = (bitsearch & 1 << mx) ? 1 : 0;
+            sl[lx].push(sm[mx]);
         }
 
         // 積計算
         let nl = [0, 0];
         for (let lx = 0; lx < 2; lx++) {
-            sl[lx].sort().reverse(); // 文字列配列化
-            if (sl[lx].length == 0) continue loop; // 空文字列列チェック
-            if (sl[lx][0] == "0") continue loop; // 先頭0チェック
+            if (sl[lx].length == 0) continue loop; // 文字配列空チェック
+            sl[lx].sort().reverse(); // 文字配列逆順整列
+            if (sl[lx][0] == "0") continue loop; // 文字配列先頭0チェック
             nl[lx] = Number(sl[lx].join("")); // 積計算
         }
 
