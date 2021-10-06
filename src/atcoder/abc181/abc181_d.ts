@@ -18,6 +18,7 @@ const main = function () {
     s = read();
 
     // solve
+    let ans;
 
     // string to number array
     const strtonumarr = (s: string): number[] => {
@@ -26,13 +27,14 @@ const main = function () {
         return sd;
     }
 
-    let ans = "No";
+    ans = "No";
     if (s.length <= 2) {
         if (Number(s) % 8 == 0) ans = "Yes";
         else if (Number(s.split("").reverse().join("")) % 8 == 0) ans = "Yes";
     } else {
+        // 以下の判定方法は3桁以上のときのみ（s=132のときmx=32でYesになってしまう）
         let sd = strtonumarr(s);
-        mx: for (let mx = 0; mx < 1000; mx += 8) {
+        mx: for (let mx = 112; mx < 1000; mx += 8) {
             let td = strtonumarr(String(mx));
             if (0 < td[0]) continue mx;
             for (let dx = 1; dx < td.length; dx++) {
