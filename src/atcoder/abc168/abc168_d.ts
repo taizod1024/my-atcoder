@@ -34,9 +34,9 @@ const main = function () {
         sn[am[mx]].push(bm[mx]);
         sn[bm[mx]].push(am[mx]);
     } 
-       
+
     tn[0] = 0;
-    let un = [0];
+    let un = [0]; // bfsのキュー
     for (let nx of un) {
         for (let nxx of sn[nx]) {
             if (tn[nxx] == -1) {
