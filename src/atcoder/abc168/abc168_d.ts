@@ -33,25 +33,24 @@ const main = function () {
     for (let mx = 0; mx < m; mx++) {
         sn[am[mx]].push(bm[mx]);
         sn[bm[mx]].push(am[mx]);
-    }
+    } 
+       
+    tn[0] = 0;
     let un = [0];
-    tn[0] = 0
-    let nx = 0;
-    while (nx < tn.length) {
-        let nxx = un[nx];
-        for (let nxxx of sn[nxx]) {
-            if (tn[nxxx] == -1) {
-                tn[nxxx] = nxx;
-                un.push(nxxx);
+    for (let nx of un) {
+        for (let nxx of sn[nx]) {
+            if (tn[nxx] == -1) {
+                tn[nxx] = nx;
+                un.push(nxx);
             }
         }
-        nx++;
     }
+
     let ans = "No";
-    if (n == nx) {
+    if (n == tn.length) {
         ans = "Yes";
-        for (let nxx = 1; nxx < n; nxx++) {
-            ans += "\n" + (tn[nxx] + 1); // adjust index
+        for (let nx = 1; nx < n; nx++) {
+            ans += "\n" + (tn[nx] + 1); // adjust index
         }
     }
 
