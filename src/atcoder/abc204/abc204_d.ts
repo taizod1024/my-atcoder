@@ -20,19 +20,32 @@ const main = function () {
     tn = [...Array(n)].map(() => Number(read()));
 
     // solve
-    tn.sort((a, b) => b - a);
-    let am = [0, 0];
-    for (let nx = 0; nx < n; nx++) {
-        if (am[0] < am[1]) {
-            am[0] += tn[nx];
-        } else {
-            am[1] += tn[nx];
+
+    /**
+     * N品の料理を2つの集合に分け、それぞれ作るのにかかる時間の合計の最大値を最小化する
+     * T1,…,TNからいくつか選んだ和であって、S/2 以上の最小値は？
+     * T1,…,TNからいくつか選んだ和をxにすることができるか？
+     * dp[i][j]=T1,…,Tiからいくつか選んで和をjにできるか？という真偽値を持つDP
+     */
+
+    // dp[i][j]、ti以下を使ってjにできるか
+    let m = tn.reduce((pval, cval) => pval + cval) + 1;
+    let dp = [...Array(n)].fill(null).map(() => [...Array(m)].fill(false));
+    dp[0][tn[0]] = true;
+    for (let nx = 1; nx < n; nx++) {
+        for (let mx = 0; mx < m; mx++) {
+            if (dp[nx - 1][mx]) {
+                dp[nx][mx] = true;
+                dp[nx][mx + tn[nx]] = true;
+            }
         }
     }
-    let ans = (am[0] > am[1]) ? am[0] : am[1];
+    let ans;
+    for (let mx = Math.floor(m / 2); mx < m; mx++) {
+        ans = mx;
+        if (dp[n - 1][mx]) break;
+    }
 
-    // TODO WA
-    
     // answer
     console.log(ans);
 

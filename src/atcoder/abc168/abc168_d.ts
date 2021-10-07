@@ -28,7 +28,7 @@ const main = function () {
     }
 
     // solve
-    let sn = [...Array(n)].fill(null).map(val => []);
+    let sn = [...Array(n)].fill(null).map(() => []);
     let tn = [...Array(n)].fill(-1);
     for (let mx = 0; mx < m; mx++) {
         sn[am[mx]].push(bm[mx]);
