@@ -28,37 +28,9 @@ const main = function () {
     }
 
     // solve
-    let gn = [...Array(n)].map(() => []); // graph
-    for (const am of amk) {
-        let a_from = -1;
-        for (const a_to of am) {
-            if (0 <= a_from && gn[a_from].indexOf(a_to) < 0) gn[a_from].push(a_to);
-            a_from = a_to;
-        }
-    }
-    let ans = "Yes";
-    let dn = [...Array(n)].fill(0); // distance
-    loop:
-    for (let nx = 0; nx < n; nx++) {
-        if (dn[nx] == 0) {
-            let qn = [nx];
-            dn[nx] = 1;
-            for (const nxx of qn) {
-                for (const nxxx of gn[nxx]) {
-                    if (dn[nxxx] == 1) {
-                        ans = "No";
-                        break loop;
-                    }
-                    if (dn[nxxx] == 0) {
-                        dn[nxxx] = 1;
-                        qn.push(nxxx);
-                    }
-                }
-            }
-        }
-    }
+    let ans;
 
-    // TODO WA
+    // TODO WA グラフ解放では解けず
 
     // answer
     console.log(ans);
