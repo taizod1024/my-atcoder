@@ -24,7 +24,7 @@
     cs = Number(await read());
     rt = Number(await read());
     ct = Number(await read());
-    for (let rx of startlen(0, h)) {
+    for (const rx of startlen(0, h)) {
         shw.push((await read()).split(""));
     }
 

@@ -23,13 +23,13 @@ const main = function () {
     am = [];
     bm = [];
     for (let mx = 0; mx < m; mx++) {
-        am.push(Number(read()) - 1); // adjust index
-        bm.push(Number(read()) - 1); // adjust index
+        am.push(Number(read()) - 1); // number to index
+        bm.push(Number(read()) - 1); // number to index
     }
 
     // solve
-    const M1097 = 10 ** 9 + 7;              // mod
-    let gn = [...Array(n)].fill(null).map(() => []);   // graph
+    const M1097 = 10 ** 9 + 7; // mod
+    let gn = [...Array(n)].map(() => []);   // graph
     for (let mx = 0; mx < m; mx++) {
         gn[am[mx]].push(bm[mx]);
         gn[bm[mx]].push(am[mx]);
@@ -38,9 +38,9 @@ const main = function () {
     let pn = [...Array(n)].fill(0); // path
     dn[0] = 0;
     pn[0] = 1;
-    let qn = [0];
-    for (let nx of qn) {
-        for (let nxx of gn[nx]) {
+    let qn = [0]; // queue
+    for (const nx of qn) {
+        for (const nxx of gn[nx]) {
             // first pass
             if (dn[nxx] == 0) {
                 dn[nxx] = dn[nx] + 1;

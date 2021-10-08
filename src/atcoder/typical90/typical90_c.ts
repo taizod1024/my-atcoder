@@ -42,8 +42,8 @@ async function main() {
     let last = null;
     while (0 < queue.length) {
         let queue2 = [];
-        for (let g1 of queue) {
-            for (let g2 of graph[g1]) {
+        for (const g1 of queue) {
+            for (const g2 of graph[g1]) {
                 if (!visited[g2]) {
                     queue2.push(g2);
                 }
@@ -58,8 +58,8 @@ async function main() {
     visited = new Array(n).fill(false);
     while (0 < queue.length) {
         let queue2 = [];
-        for (let a of queue) {
-            for (let b of graph[a]) {
+        for (const a of queue) {
+            for (const b of graph[a]) {
                 if (!visited[b]) {
                     queue2.push(b);
                 }

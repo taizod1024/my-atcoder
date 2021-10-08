@@ -25,7 +25,7 @@ const main = function () {
 
     // グリッドからグラフへの変換
     const node_from_grid = function (shw: string[][]): number[][] {
-        let pn = [...Array(h * w)].fill(null).map(() => []);
+        let pn = [...Array(h * w)].map(() => []);
         for (let hx = 0; hx < h; hx++) {
             for (let wx = 0; wx < w; wx++) {
                 if (shw[hx][wx] == ".") {
@@ -52,8 +52,8 @@ const main = function () {
         let dn = [...Array(h * w)].fill(-1);
         dn[n0] = 0;
         let qn = [n0];
-        for (let nx of qn) {
-            for (let nxx of pn0[nx]) {
+        for (const nx of qn) {
+            for (const nxx of pn0[nx]) {
                 if (dn[nxx] == -1) {
                     dn[nxx] = dn[nx] + 1;
                     qn.push(nxx);

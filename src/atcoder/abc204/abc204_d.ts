@@ -30,7 +30,7 @@ const main = function () {
 
     // dp[i][j]、ti以下を使ってjにできるか
     let m = tn.reduce((pval, cval) => pval + cval) + 1;
-    let dp = [...Array(n)].fill(null).map(() => [...Array(m)].fill(false));
+    let dp = [...Array(n)].map(() => [...Array(m)].fill(false));
     dp[0][tn[0]] = true;
     for (let nx = 1; nx < n; nx++) {
         for (let mx = 0; mx < m; mx++) {

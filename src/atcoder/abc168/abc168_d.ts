@@ -23,12 +23,12 @@ const main = function () {
     am = [];
     bm = [];
     for (let mx = 0; mx < m; mx++) {
-        am[mx] = Number(read()) - 1; // adjust index
-        bm[mx] = Number(read()) - 1; // adjust index
+        am[mx] = Number(read()) - 1; // number to index
+        bm[mx] = Number(read()) - 1; // number to index
     }
 
     // solve
-    let sn = [...Array(n)].fill(null).map(() => []);
+    let sn = [...Array(n)].map(() => []);
     let tn = [...Array(n)].fill(-1);
     for (let mx = 0; mx < m; mx++) {
         sn[am[mx]].push(bm[mx]);
@@ -37,8 +37,8 @@ const main = function () {
 
     tn[0] = 0;
     let un = [0]; // bfsのキュー
-    for (let nx of un) {
-        for (let nxx of sn[nx]) {
+    for (const nx of un) {
+        for (const nxx of sn[nx]) {
             if (tn[nxx] == -1) {
                 tn[nxx] = nx;
                 un.push(nxx);
@@ -50,7 +50,7 @@ const main = function () {
     if (n == tn.length) {
         ans = "Yes";
         for (let nx = 1; nx < n; nx++) {
-            ans += "\n" + (tn[nx] + 1); // adjust index
+            ans += "\n" + (tn[nx] + 1); // number to index
         }
     }
 

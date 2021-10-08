@@ -22,8 +22,8 @@ function main(input: string[]) {
     // count bomb
     let ha: number[] = new Array(h).fill(0);
     let wa: number[] = new Array(w).fill(0);
-    for (let hme of hm) { ha[hme]++; }
-    for (let wme of wm) { wa[wme]++; }
+    for (const hme of hm) { ha[hme]++; }
+    for (const wme of wm) { wa[wme]++; }
     // get max
     let hamax: number = Math_max(ha);
     let wamax: number = Math_max(wa);
@@ -37,8 +37,8 @@ function main(input: string[]) {
         isfull = false;
     } else {
         let cnt = 0;
-        for (let hamaxarre of hamaxarr) {
-            for (let wamaxarre of wamaxarr) {
+        for (const hamaxarre of hamaxarr) {
+            for (const wamaxarre of wamaxarr) {
                 if (hw.get(hamaxarre * w + wamaxarre) == 1) cnt++;
             }
         }

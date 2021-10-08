@@ -20,14 +20,14 @@
     n = Number(await read());
     l = Number(await read());
     k = Number(await read());
-    for (let nx of startlen(0, n)) {
+    for (const nx of startlen(0, n)) {
         an.push(Number(await read()))
     }
 
     // solve
     let m = n + 1;
     let bm = [];
-    for (let mx of startlen(0, m)) {
+    for (const mx of startlen(0, m)) {
         let b = 0;
         if (mx == 0) b = an[mx];
         else if (mx < n) b = an[mx] - an[mx - 1];

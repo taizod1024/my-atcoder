@@ -20,7 +20,7 @@ import { type } from "os";
     // init
     n = Number(await read());
     m = Number(await read());
-    for (let mi of startlen(0, m)) {
+    for (const mi of startlen(0, m)) {
         am.push(Number(await read()) - 1);
         bm.push(Number(await read()) - 1);
         cm.push(Number(await read()));
@@ -32,7 +32,7 @@ import { type } from "os";
     type edge = { node: node, cost: number };
     type node = { index: number, cost: number, edges: edge[] };
     let nodes: node[] = new Array(n).fill(null).map((val, idx) => { return { index: idx, cost: 0, edges: [] }; });
-    for (let mx of startlen(0, m)) {
+    for (const mx of startlen(0, m)) {
         nodes[am[mx]].edges.push({ node: nodes[bm[mx]], cost: cm[mx] });
         nodes[bm[mx]].edges.push({ node: nodes[am[mx]], cost: cm[mx] });
     }
@@ -51,7 +51,7 @@ import { type } from "os";
             if (visited.has(current.index)) continue;
             visited.add(current.index);
             // next node
-            for (let e of current.edges) {
+            for (const e of current.edges) {
                 if (e.node.cost <= current.cost + e.cost) continue;
                 e.node.cost = current.cost + e.cost;
                 queue.push(e.node);
@@ -65,7 +65,7 @@ import { type } from "os";
     // step 3
     let cn1 = dijkstra(0).map(node => node.cost);
     let cn2 = dijkstra(n - 1).map(node => node.cost);
-    for (let nx of startlen(0, n)) {
+    for (const nx of startlen(0, n)) {
         // answer
         console.log(cn1[nx] + cn2[nx]);
     }
