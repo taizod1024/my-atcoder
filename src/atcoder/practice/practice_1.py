@@ -5,3 +5,4 @@ s = input()
 
 # solve
 print("{} {}".format(a + b + c, s))
+

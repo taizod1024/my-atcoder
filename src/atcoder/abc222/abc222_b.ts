@@ -10,14 +10,17 @@ const readchar = () => String((charit.next()).value);
 
 // main
 const main = function () {
+
+    // TODO edit the code
+
     // param
-    let s: string;
+    let n: number;
     
     // init
-    s = read();
+    n = Number(read());
 
     // solve
-    let ans = "Hello World!";
+    let ans;
     
     // answer
     console.log(ans);
