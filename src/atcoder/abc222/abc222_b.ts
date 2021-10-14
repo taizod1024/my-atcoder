@@ -11,17 +11,19 @@ const readchar = () => String((charit.next()).value);
 // main
 const main = function () {
 
-    // TODO edit the code
-
     // param
     let n: number;
-    
+    let p: number;
+    let an: number[];
+
     // init
     n = Number(read());
+    p = Number(read());
+    an = [...Array(n)].map(() => Number(read()));
 
     // solve
-    let ans;
-    
+    let ans = an.filter(val => val < p).length;
+
     // answer
     console.log(ans);
 
