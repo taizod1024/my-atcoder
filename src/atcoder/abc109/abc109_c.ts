@@ -9,7 +9,7 @@ const read = () => String((wordit.next()).value);
 const readchar = () => String((charit.next()).value);
 
 /** math gcd array */
-const MathGCDArray = (values: number[]): number => {
+const gcdarray = (values: number[]): number => {
     let f = (a: number, b: number): number => b ? f(b, a % b) : a
     let ans = values.reduce((pval, cval) => f(pval, cval));
     return ans
@@ -30,7 +30,7 @@ const main = function () {
 
     // solve
     xn = xn.map(xi => Math.abs(xi - x));
-    let ans = MathGCDArray(xn);
+    let ans = gcdarray(xn);
 
     // answer
     console.log(ans);
