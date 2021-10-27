@@ -1,0 +1,15 @@
+aaba
+--------
+aaab
+baaa
+--------
+z
+--------
+z
+z
+--------
+abracadabra
+--------
+aabracadabr
+racadabraab
+--------

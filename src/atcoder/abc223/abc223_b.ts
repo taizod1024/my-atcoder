@@ -12,13 +12,18 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let x: number;
+    let s: string;
 
     // init
-    x = Number(read());
+    s = read();
 
     // solve
-    let ans = (0 < x && x % 100 === 0) ? "Yes" : "No";
+    let sn = [];
+    for (let nx = 0; nx < s.length; nx++) {
+        sn[nx] = s.substring(nx, s.length) + s.substring(0, nx);
+    }
+    sn.sort();
+    let ans = sn[0] + "\n" + sn[sn.length - 1];
 
     // answer
     console.log(ans);
