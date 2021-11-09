@@ -12,18 +12,28 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let s: string;
+    let h: number;
+    let w: number;
+    let ahw: number[][];
 
     // init
-    s = read();
+    h = Number(read());
+    w = Number(read());
+    ahw = [...Array(h)].map(() => [...Array(w)].map(() => Number(read())));
 
     // solve
-    let sn = [];
-    for (let nx = 0; nx < s.length; nx++) {
-        sn[nx] = s.substring(nx) + s.substring(0, nx);
+    let ans = "Yes";
+    for (let hx = 0; hx < h; hx++) {
+        for (let wx = 0; wx < w; wx++) {
+            for (let hxx = hx; hxx < h; hxx++) {
+                for (let wxx = wx; wxx < w; wxx++) {
+                    if (ahw[hx][wx] + ahw[hxx][wxx] <= ahw[hx][wxx] + ahw[hxx][wx]) continue;
+                    ans = "No";
+                    break;
+                }
+            }
+        }
     }
-    sn.sort();
-    let ans = sn[0] + "\n" + sn[sn.length - 1];
 
     // answer
     console.log(ans);

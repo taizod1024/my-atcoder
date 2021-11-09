@@ -12,18 +12,32 @@ const readchar = () => String((charit.next()).value);
 const main = function () {
 
     // param
-    let s: string;
+    let n: number;
+    let an: number[];
+    let bn: number[];
 
     // init
-    s = read();
+    n = Number(read());
+    an = [];
+    bn = [];
+    for (let nx = 0; nx < n; nx++) {
+        an[nx] = Number(read()) - 1;
+        bn[nx] = Number(read()) - 1;
+    }
 
     // solve
-    let sn = [];
-    for (let nx = 0; nx < s.length; nx++) {
-        sn[nx] = s.substring(nx) + s.substring(0, nx);
+    let nn = [...Array(n)].fill(0);
+    for (let nx = 0; nx < n; nx++) {
+        nn[an[nx]]++;
+        nn[bn[nx]]++;
     }
-    sn.sort();
-    let ans = sn[0] + "\n" + sn[sn.length - 1];
+    let ans = "Yes";
+    for (let nx = 0; nx < n; nx++) {
+        if (nn[nx] == 1) continue;
+        if (nn[nx] == n - 1) continue;
+        ans = "No";
+        break;
+    }
 
     // answer
     console.log(ans);

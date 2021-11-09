@@ -13,18 +13,13 @@ const main = function () {
 
     // param
     let s: string;
-
+    
     // init
     s = read();
 
     // solve
-    let sn = [];
-    for (let nx = 0; nx < s.length; nx++) {
-        sn[nx] = s.substring(nx) + s.substring(0, nx);
-    }
-    sn.sort();
-    let ans = sn[0] + "\n" + sn[sn.length - 1];
-
+    let ans = s.endsWith("er") ? "er" : "ist";
+    
     // answer
     console.log(ans);
 

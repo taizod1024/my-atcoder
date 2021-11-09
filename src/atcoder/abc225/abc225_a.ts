@@ -13,18 +13,17 @@ const main = function () {
 
     // param
     let s: string;
-
+    
     // init
     s = read();
 
     // solve
-    let sn = [];
-    for (let nx = 0; nx < s.length; nx++) {
-        sn[nx] = s.substring(nx) + s.substring(0, nx);
-    }
-    sn.sort();
-    let ans = sn[0] + "\n" + sn[sn.length - 1];
-
+    let ans;
+    let sn = s.split("");
+    if (s[0] == s[1] && s[1] == s[2]) ans = 1;
+    else if (s[0] != s[1] && s[1] != s[2] && s[2] != s[0]) ans = 6;
+    else ans = 3;
+    
     // answer
     console.log(ans);
 
