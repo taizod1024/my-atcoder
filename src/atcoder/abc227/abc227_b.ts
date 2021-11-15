@@ -11,34 +11,32 @@ const readchar = () => String((charit.next()).value);
 // main
 const main = function () {
 
+    // TODO edit the code
+
     // param
     let n: number;
-    let an: number[];
-    let bn: number[];
+    let sn: number[];
 
     // init
     n = Number(read());
-    an = [...Array(n)].map(() => Number(read()) - 1); // to zero base
-    bn = [...Array(n)].map(() => Number(read()) - 1); // to zero base
+    sn = [...Array(n)].map(() => Number(read()));
 
     // solve
-    const mod = 998244353;
-    const p = 3001;
-    let dp = [...Array(p)]; // dp[n] ... nで終わる広義単調増加
-    for (let px = 0; px < p; px++) {
-        dp[px] = (an[0] <= px && px <= bn[0]) ? 1 : 0;
-    }
-    for (let nx = 1; nx < n; nx++) {
-        let sum = 0;
-        for (let px = 0; px < p; px++) {
-            sum = (sum + dp[px]) % mod;
-            dp[px] = (an[nx] <= px && px <= bn[nx]) ? sum : 0;
+    let smax = sn.reduce((a, b) => Math.max(a, b));
+    let sok = [];
+    loop:
+    for (let a = 1; ; a++) {
+        for (let b = 1; ; b++) {
+            let s = 4 * a * b + 3 * a + 3 * b;
+            if (smax < s) {
+                if (b == 1) break loop;
+                break;
+            }
+            sok.push(s);
         }
     }
-    let ans = dp.reduce((a, b) => (a + b) % mod);
+    let ans = sn.filter(val => 0 > sok.indexOf(val)).length;
 
-    // TODO WA
-    
     // answer
     console.log(ans);
 

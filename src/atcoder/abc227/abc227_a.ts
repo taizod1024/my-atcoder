@@ -13,32 +13,17 @@ const main = function () {
 
     // param
     let n: number;
-    let an: number[];
-    let bn: number[];
+    let k: number;
+    let a: number;
 
     // init
     n = Number(read());
-    an = [...Array(n)].map(() => Number(read()) - 1); // to zero base
-    bn = [...Array(n)].map(() => Number(read()) - 1); // to zero base
+    k = Number(read());
+    a = Number(read());
 
     // solve
-    const mod = 998244353;
-    const p = 3001;
-    let dp = [...Array(p)]; // dp[n] ... nで終わる広義単調増加
-    for (let px = 0; px < p; px++) {
-        dp[px] = (an[0] <= px && px <= bn[0]) ? 1 : 0;
-    }
-    for (let nx = 1; nx < n; nx++) {
-        let sum = 0;
-        for (let px = 0; px < p; px++) {
-            sum = (sum + dp[px]) % mod;
-            dp[px] = (an[nx] <= px && px <= bn[nx]) ? sum : 0;
-        }
-    }
-    let ans = dp.reduce((a, b) => (a + b) % mod);
+    let ans = (a - 1 + k - 1) % n + 1;
 
-    // TODO WA
-    
     // answer
     console.log(ans);
 
