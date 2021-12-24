@@ -1,0 +1,16 @@
+5
+--------
+Hello World!
+--------
+Welcome to yukicoder!
+--------
+Hello World!
+--------
+1+2+10
+--------
+Hello World!
+--------
+Let's enjoy
+--------
+Hello World!
+--------
